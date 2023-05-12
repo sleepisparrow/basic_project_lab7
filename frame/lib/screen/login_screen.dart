@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:frame/screen/signup_screen.dart';
+import '../tools/horizontal_line.dart';
 
 const Color lightGrey = Color(0xffE3E5EE);
 const Color darkBlue = Color(0xff11307C);
@@ -14,50 +16,28 @@ class LoginScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const _HorizontalLine(),
+            const HorizontalLine(),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 children: const [
                   _ImgChaCha(),
                   SizedBox(
-                    // 50짜리 Interval 생성
+                    // 위 아래 위젯 사이 간격 설정
                     height: 50,
                   ),
                   _Input(),
-                  _Interval20(),
+                  SizedBox(
+                    height: 20,
+                  ),
                   _LoginAndSingup()
                 ],
               ),
             ),
-            const _HorizontalLine(),
+            const HorizontalLine(),
           ],
         ),
       ),
-    );
-  }
-}
-
-class _Interval20 extends StatelessWidget {
-  const _Interval20({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const SizedBox(
-      height: 20,
-    );
-  }
-}
-
-class _HorizontalLine extends StatelessWidget {
-  const _HorizontalLine({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 3,
-      width: 500,
-      color: darkBlue,
     );
   }
 }
@@ -137,7 +117,15 @@ class _LoginAndSingup extends StatelessWidget {
         SizedBox(
           width: 150,
           child: ElevatedButton(
-            onPressed: () {},
+            /**
+             * 회원가입 버튼 눌렸을 시, singup_screen으로 이동
+             */
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SingupScreen()),
+              );
+            },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(lightGrey),
               shape: MaterialStateProperty.all(
