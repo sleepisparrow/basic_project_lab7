@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frame/screen/code_screen.dart';
 import 'package:frame/screen/signup_screen.dart';
 import '../tools/horizontal_line.dart';
 
@@ -100,7 +101,12 @@ class _LoginAndSingup extends StatelessWidget {
         SizedBox(
           width: 150,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CodeScreen()),
+              );
+            },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(lightGrey),
               shape: MaterialStateProperty.all(
@@ -126,7 +132,7 @@ class _LoginAndSingup extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SingupScreen()),
+                MaterialPageRoute(builder: (context) => const SingupScreen()),
               );
             },
             style: ButtonStyle(
