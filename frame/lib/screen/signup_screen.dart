@@ -144,9 +144,21 @@ class _Input extends StatelessWidget {
   }
 }
 
-/// 학생 또는 교수 선택 버튼 그리고 회원가입 완료 버튼
-class _BtnChoice extends StatelessWidget {
+/**
+ * 학생 또는 교수 선택 버튼 그리고 회원가입 완료 버튼
+ * 학생 선택 시, stuIsPressed가 true
+ * 교수 선택 시, proIsPressed가 true
+ */
+class _BtnChoice extends StatefulWidget {
   const _BtnChoice({Key? key}) : super(key: key);
+
+  @override
+  State<_BtnChoice> createState() => _BtnChoiceState();
+}
+
+class _BtnChoiceState extends State<_BtnChoice> {
+  bool stuIsPressed = false;
+  bool proIsPressed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -158,9 +170,15 @@ class _BtnChoice extends StatelessWidget {
             SizedBox(
               width: 80,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    stuIsPressed = !stuIsPressed;
+                    proIsPressed = false;
+                  });
+                },
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(darkGrey),
+                  backgroundColor:
+                  stuIsPressed ? MaterialStateProperty.all(darkBlue) : MaterialStateProperty.all(darkGrey),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -181,9 +199,14 @@ class _BtnChoice extends StatelessWidget {
             SizedBox(
               width: 80,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    proIsPressed = !proIsPressed;
+                    stuIsPressed = false;
+                  });
+                },
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(darkGrey),
+                  backgroundColor: proIsPressed ? MaterialStateProperty.all(darkBlue) : MaterialStateProperty.all(darkGrey),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -227,3 +250,4 @@ class _BtnChoice extends StatelessWidget {
     );
   }
 }
+

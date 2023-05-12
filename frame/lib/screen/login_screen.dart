@@ -42,6 +42,7 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
+/// 차차!!!
 class _ImgChaCha extends StatelessWidget {
   const _ImgChaCha({Key? key}) : super(key: key);
 
@@ -54,6 +55,7 @@ class _ImgChaCha extends StatelessWidget {
   }
 }
 
+/// 아이디, 비밀번호 InputText
 class _Input extends StatelessWidget {
   const _Input({Key? key}) : super(key: key);
 
@@ -87,6 +89,7 @@ class _Input extends StatelessWidget {
   }
 }
 
+/// 로그인, 회원가입 버튼
 class _LoginAndSingup extends StatelessWidget {
   const _LoginAndSingup({Key? key}) : super(key: key);
 
