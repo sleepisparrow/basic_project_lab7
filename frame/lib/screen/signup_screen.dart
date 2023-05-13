@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frame/screen/login_screen.dart';
 import '../tools/horizontal_line.dart';
 
 const Color lightGrey = Color(0xffE3E5EE);
@@ -229,7 +230,12 @@ class _BtnChoiceState extends State<_BtnChoice> {
         SizedBox(
           width: 220,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
+              );
+            },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(darkGrey),
               shape: MaterialStateProperty.all(

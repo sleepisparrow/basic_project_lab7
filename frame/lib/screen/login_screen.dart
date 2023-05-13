@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frame/screen/code_screen.dart';
+import 'package:frame/screen/pro_classroom_list_screen.dart';
 import 'package:frame/screen/signup_screen.dart';
 import '../tools/horizontal_line.dart';
 
@@ -116,7 +117,32 @@ class _LoginAndSingup extends StatelessWidget {
               ),
             ),
             child: const Text(
-              '로그인',
+              '로그인(학생)',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 150,
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProClassRoomListScreen()),
+              );
+            },
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(lightGrey),
+              shape: MaterialStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+              ),
+            ),
+            child: const Text(
+              '로그인(교수)',
               style: TextStyle(
                 color: Colors.black,
               ),
