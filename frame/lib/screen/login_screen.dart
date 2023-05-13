@@ -6,6 +6,7 @@ import '../tools/horizontal_line.dart';
 
 const Color lightGrey = Color(0xffE3E5EE);
 const Color darkBlue = Color(0xff11307C);
+const Color darkGrey = Color(0xffA2ABCE);
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
