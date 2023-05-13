@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frame/screen/stu_question_screen.dart';
 import 'package:frame/tools/horizontal_line.dart';
 
 //코드 입력화면
@@ -40,19 +41,29 @@ class CodeScreen extends StatelessWidget {
                         const SizedBox(
                           height: 20,
                         ),
-                        Container(
-                          margin: const EdgeInsets.only(left: 220),
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 25),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.purple,
-                          ),
-                          child: const Text(
-                            '접속',
-                            style: TextStyle(
-                              color: Colors.white,
+                        GestureDetector(
+                          onTap: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const StuQuestionScreen()),
+                              );
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.only(left: 200),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 20),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.purple,
                             ),
+                            child: const Text(
+                              '접속',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+
+
                           ),
                         )
                       ],
