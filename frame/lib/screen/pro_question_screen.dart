@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frame/Page/document_page.dart';
 import 'package:frame/Page/pro_question_page.dart';
-import 'package:frame/Page/question_page.dart';
 import 'package:frame/Page/quiz_page.dart';
-import 'package:frame/screen/stu_question_write_screen.dart';
+
 
 class ProQuestionScreen extends StatefulWidget {
   const ProQuestionScreen({Key? key}) : super(key: key);
