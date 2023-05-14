@@ -10,4 +10,8 @@ class ProfFeedbackProvider with ChangeNotifier {
   void addFeedback(String value) {
     _feedback.add(value);
   }
+
+  set choices(List<int> value) {
+    _choices = value;
+  }
 }
