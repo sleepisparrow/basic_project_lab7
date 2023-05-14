@@ -7,10 +7,19 @@ class ProfQuizMainPage extends StatefulWidget {
   const ProfQuizMainPage({Key? key}) : super(key: key);
 
   @override
-  State<ProfQuizMainPage> createState() => _ProfQuizMainPageState();
+  State<ProfQuizMainPage> createState() => ProfQuizMainPageState();
 }
 
-class _ProfQuizMainPageState extends State<ProfQuizMainPage> {
+class ProfQuizMainPageState extends State<ProfQuizMainPage> {
+  var _widgetDeleteFlag = false;
+  dynamic listWidget =
+      (int index, BuildContext context, List<String> questions) =>
+          _DefaultListWidget(
+            index: index,
+            context: context,
+            questions: questions,
+          );
+
   @override
   Widget build(BuildContext context) {
     // TODO: dummy data for ui testing. Must remove after.
@@ -30,39 +39,155 @@ class _ProfQuizMainPageState extends State<ProfQuizMainPage> {
               child: ListView.builder(
             // shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
-              return GestureDetector(
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                  child: ColoredBox(
-                    color: const Color(0xffe3e5ee),
-                    child: SizedBox(
-                      height: 80,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
-                        child: Text(
-                          questions[index],
-                          style: const TextStyle(fontSize: 16),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-
-              );
+              return listWidget(index, context, questions);
             },
             itemCount: questions.length,
           )),
-          const ButtonSet(),
+          ButtonSet(setListWidget),
         ],
       ),
     );
   }
+
+  void setListWidget() {
+    if (!_widgetDeleteFlag) {
+      setState(() {
+        listWidget =
+            (int index, BuildContext context, List<String> questions) =>
+                _DeleteListWidget(
+                  index: index,
+                  context: context,
+                  questions: questions,
+                );
+      });
+      _widgetDeleteFlag = true;
+    } else {
+      setState(() {
+        listWidget =
+            (int index, BuildContext context, List<String> questions) =>
+                _DefaultListWidget(
+                  index: index,
+                  context: context,
+                  questions: questions,
+                );
+      });
+      _widgetDeleteFlag = false;
+    }
+  }
+}
+
+class _DeleteListWidget extends StatefulWidget {
+  const _DeleteListWidget(
+      {Key? key,
+      required this.index,
+      required this.context,
+      required this.questions})
+      : super(key: key);
+
+  final int index;
+  final BuildContext context;
+  final List<String> questions;
+
+  @override
+  State<_DeleteListWidget> createState() => _DeleteListWidgetState();
+}
+
+class _DeleteListWidgetState extends State<_DeleteListWidget> {
+  bool checkboxValue = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Checkbox(
+            value: checkboxValue,
+            onChanged: (bool? value) {
+              setState(() {
+                checkboxValue = value!;
+              });
+            }),
+        Expanded(
+          child: GestureDetector(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+              child: ColoredBox(
+                color: const Color(0xffe3e5ee),
+                child: SizedBox(
+                  height: 80,
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    child: Text(
+                      widget.questions[widget.index],
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _DefaultListWidget extends StatefulWidget {
+  const _DefaultListWidget(
+      {Key? key,
+      required this.index,
+      required this.context,
+      required this.questions})
+      : super(key: key);
+  final int index;
+  final BuildContext context;
+  final List<String> questions;
+
+  @override
+  State<_DefaultListWidget> createState() => _DefaultListWidgetState();
+}
+
+class _DefaultListWidgetState extends State<_DefaultListWidget> {
+  int? index;
+  BuildContext? parentContext;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+        child: ColoredBox(
+          color: const Color(0xffe3e5ee),
+          child: SizedBox(
+            height: 80,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              child: Text(
+                widget.questions[index!],
+                style: const TextStyle(fontSize: 16),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    index = widget.index;
+    parentContext = widget.context;
+  }
 }
 
 class ButtonSet extends StatelessWidget {
-  const ButtonSet({Key? key}) : super(key: key);
+  const ButtonSet(
+    this.function, {
+    Key? key,
+  }) : super(key: key);
+
+  final Function() function;
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +202,7 @@ class ButtonSet extends StatelessWidget {
               backgroundColor: const Color(0xff2296AF),
             ),
             onPressed: () {
-              // TODO: 삭제 버튼 누르면 페이지 바꾸기
+              function();
             },
             child: const Text('삭제'),
           ),
