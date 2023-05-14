@@ -6,8 +6,6 @@ class QuizPage extends StatelessWidget {
   //네비게이션바의 질문눌렀을때 퀴즈페이지
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Text('퀴즈'),
-    );;
+    return Text('quiz');
   }
 }
