@@ -3,7 +3,7 @@ import 'package:frame/Provider/prof_feedback_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import '../feedback_dummy.dart';
+import '../dummy_data/feedback_dummy.dart';
 
 class ProfFeedbackPage extends StatefulWidget {
   const ProfFeedbackPage({Key? key}) : super(key: key);
