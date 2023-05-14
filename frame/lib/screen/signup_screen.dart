@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:frame/screen/login_screen.dart';
 import '../tools/horizontal_line.dart';
 
-const Color lightGrey = Color(0xffE3E5EE);
-const Color darkBlue = Color(0xff11307C);
-const Color darkGrey = Color(0xffA2ABCE);
-
 class SingupScreen extends StatelessWidget {
   const SingupScreen({Key? key}) : super(key: key);
 
@@ -45,7 +41,7 @@ class _SingupManual extends StatelessWidget {
     return Container(
       height: 100,
       width: 500,
-      color: lightGrey,
+      color: Colors.lightGrey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -179,7 +175,7 @@ class _BtnChoiceState extends State<_BtnChoice> {
                 },
                 style: ButtonStyle(
                   backgroundColor:
-                  stuIsPressed ? MaterialStateProperty.all(darkBlue) : MaterialStateProperty.all(darkGrey),
+                  stuIsPressed ? MaterialStateProperty.all(Colors.darkBlue) : MaterialStateProperty.all(Colors.darkBlue),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -207,7 +203,7 @@ class _BtnChoiceState extends State<_BtnChoice> {
                   });
                 },
                 style: ButtonStyle(
-                  backgroundColor: proIsPressed ? MaterialStateProperty.all(darkBlue) : MaterialStateProperty.all(darkGrey),
+                  backgroundColor: proIsPressed ? MaterialStateProperty.all(Colors.darkBlue) : MaterialStateProperty.all(Colors.darkBlue),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -237,7 +233,7 @@ class _BtnChoiceState extends State<_BtnChoice> {
               );
             },
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(darkGrey),
+              backgroundColor: MaterialStateProperty.all(Colors.darkGrey),
               shape: MaterialStateProperty.all(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0),
