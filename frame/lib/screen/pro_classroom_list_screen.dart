@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frame/screen/pro_create_classroom_screen.dart';
+import '../tools/need_colors.dart';
 
 String? className = "기초프로젝트랩"; // 나중에 동적 할당 받아서 넣어줄 예정
 
@@ -41,11 +42,11 @@ class ProClassRoomListScreen extends StatelessWidget {
                 decoration: const BoxDecoration(
                   border: Border(
                     top: BorderSide(
-                      color: Colors.darkBlue,
+                      color: NeedColors.darkBlue,
                       width: 3.0,
                     ),
                     bottom: BorderSide(
-                      color: Colors.darkBlue,
+                      color: NeedColors.darkBlue,
                       width: 3.0,
                     ),
                   ),
@@ -88,9 +89,9 @@ class _ClassNameList extends StatelessWidget {
         TextButton(
           onPressed: () {},
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.lightGrey),
+            backgroundColor: MaterialStateProperty.all(NeedColors.lightGrey),
             side: MaterialStateProperty.all(
-                const BorderSide(color: Colors.darkBlue, width: 2.0)),
+                const BorderSide(color: NeedColors.darkBlue, width: 2.0)),
           ),
           child: Text(
             className!,
@@ -105,7 +106,7 @@ class _ClassNameList extends StatelessWidget {
         TextButton(
           onPressed: () {},
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.lightGrey),
+            backgroundColor: MaterialStateProperty.all(NeedColors.lightGrey),
           ),
           child: const Text(
             '자료구조',
@@ -120,7 +121,7 @@ class _ClassNameList extends StatelessWidget {
         TextButton(
           onPressed: () {},
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.lightGrey),
+            backgroundColor: MaterialStateProperty.all(NeedColors.lightGrey),
           ),
           child: const Text(
             '컴프3',
@@ -152,7 +153,7 @@ class _AddIconState extends State<_AddIcon> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
-        color: Colors.lightGrey,
+        color: NeedColors.lightGrey,
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),
@@ -216,7 +217,7 @@ class _CreateIcon extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Colors.lightGrey,
+        color: NeedColors.lightGrey,
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),
@@ -255,7 +256,7 @@ class _ClassList extends StatelessWidget {
         Container(
           height: 80,
           width: MediaQuery.of(context).size.width - 16,
-          color: Colors.lightGrey,
+          color: NeedColors.lightGrey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -291,7 +292,7 @@ class _ClassList extends StatelessWidget {
         Container(
           height: 80,
           width: MediaQuery.of(context).size.width - 16,
-          color: Colors.lightGrey,
+          color: NeedColors.lightGrey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -327,7 +328,7 @@ class _ClassList extends StatelessWidget {
         Container(
           height: 80,
           width: MediaQuery.of(context).size.width - 16,
-          color: Colors.lightGrey,
+          color: NeedColors.lightGrey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -363,7 +364,7 @@ class _ClassList extends StatelessWidget {
         Container(
           height: 80,
           width: MediaQuery.of(context).size.width - 16,
-          color: Colors.lightGrey,
+          color: NeedColors.lightGrey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -399,7 +400,7 @@ class _ClassList extends StatelessWidget {
         Container(
           height: 80,
           width: MediaQuery.of(context).size.width - 16,
-          color: Colors.lightGrey,
+          color: NeedColors.lightGrey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -435,7 +436,7 @@ class _ClassList extends StatelessWidget {
         Container(
           height: 80,
           width: MediaQuery.of(context).size.width - 16,
-          color: Colors.lightGrey,
+          color: NeedColors.lightGrey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,

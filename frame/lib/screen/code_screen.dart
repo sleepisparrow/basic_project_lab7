@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frame/screen/stu_question_screen.dart';
 import 'package:frame/tools/horizontal_line.dart';
 
+
 //코드 입력화면
 class CodeScreen extends StatelessWidget {
   const CodeScreen({super.key});

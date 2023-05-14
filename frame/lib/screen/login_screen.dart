@@ -3,6 +3,7 @@ import 'package:frame/screen/code_screen.dart';
 import 'package:frame/screen/pro_classroom_list_screen.dart';
 import 'package:frame/screen/signup_screen.dart';
 import '../tools/horizontal_line.dart';
+import '../tools/need_colors.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -106,7 +107,7 @@ class _LoginAndSingup extends StatelessWidget {
               );
             },
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.lightGrey),
+              backgroundColor: MaterialStateProperty.all(NeedColors.lightGrey),
               shape: MaterialStateProperty.all(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0),
@@ -131,7 +132,7 @@ class _LoginAndSingup extends StatelessWidget {
               );
             },
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.lightGrey),
+              backgroundColor: MaterialStateProperty.all(NeedColors.lightGrey),
               shape: MaterialStateProperty.all(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0),
@@ -159,7 +160,7 @@ class _LoginAndSingup extends StatelessWidget {
               );
             },
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.lightGrey),
+              backgroundColor: MaterialStateProperty.all(NeedColors.lightGrey),
               shape: MaterialStateProperty.all(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0),
