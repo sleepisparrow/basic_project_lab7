@@ -3,7 +3,11 @@ import 'screen/login_screen.dart';
 
 void main() {
   runApp(
-    const MaterialApp(
+     MaterialApp(
+      theme: ThemeData(
+        primaryColor: Colors.blue[900],
+        cardColor: Colors.grey[100],
+      ),
       home: LoginScreen(),
     ),
   );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frame/Page/document_page.dart';
 import 'package:frame/Page/question_page.dart';
 import 'package:frame/Page/quiz_page.dart';
+import 'package:frame/screen/stu_question_write_screen.dart';
 
 class StuQuestionScreen extends StatefulWidget {
   const StuQuestionScreen({Key? key}) : super(key: key);
@@ -17,6 +18,7 @@ class _StuQuestionScreenState extends State<StuQuestionScreen> {
     QuestionPage(),
     QuizPage(),
     DocumentPage(),
+    StuQuestionWrite(),
   ];
 
   void _onItemTapped(int index) {

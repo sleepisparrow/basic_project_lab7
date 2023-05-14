@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frame/screen/stu_question_screen.dart';
 import 'package:frame/tools/horizontal_line.dart';
+import 'package:frame/tools/textform.dart';
 
 
 //코드 입력화면
@@ -139,35 +140,6 @@ class RecentContainer extends StatelessWidget {
             ],
           ),
         ],
-      ),
-    );
-  }
-}
-
-// 코드입력위젯
-class TextForm extends StatefulWidget {
-  const TextForm({
-    super.key,
-  });
-
-  @override
-  State<TextForm> createState() => _TextFormState();
-}
-
-class _TextFormState extends State<TextForm> {
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      child: TextFormField(
-        decoration: const InputDecoration(
-          hintText: '코드를 입력해주세요',
-        ),
-        validator: (String? value) {
-          if (value == null || value.isEmpty) {
-            return 'Please enter some text';
-          }
-          return null;
-        },
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frame/screen/pro_create_classroom_screen.dart';
+import 'package:frame/screen/pro_question_screen.dart';
 import '../tools/need_colors.dart';
 
 String? className = "기초프로젝트랩"; // 나중에 동적 할당 받아서 넣어줄 예정
@@ -289,37 +290,47 @@ class _ClassList extends StatelessWidget {
         const SizedBox(
           height: 8,
         ),
-        Container(
-          height: 80,
-          width: MediaQuery.of(context).size.width - 16,
-          color: NeedColors.lightGrey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: const [
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    'Day: 23.05.11',
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-                  ),
-                ],
-              ),
-              Row(
-                children: const [
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    '교과명: 기초프로젝트랩',
-                  ),
-                ],
-              ),
-            ],
+        ///클릭시 교수질문페이지로 이동
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const ProQuestionScreen()),
+            );
+          },
+          child: Container(
+            height: 80,
+            width: MediaQuery.of(context).size.width - 16,
+            color: NeedColors.lightGrey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: const [
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      'Day: 23.05.11',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 20.0),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: const [
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      '교과명: 기초프로젝트랩',
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
         const SizedBox(

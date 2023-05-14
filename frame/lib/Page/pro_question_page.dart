@@ -1,28 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:frame/screen/stu_question_write_screen.dart';
 
 class ProQuestionPage extends StatelessWidget {
   const ProQuestionPage({Key? key}) : super(key: key);
 
-  //네비게이션바의 질문눌렀을때 질문페이지
+  ///네비게이션바의 질문눌렀을때 질문페이지
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue[900],
-        child: Icon(
-          Icons.border_color_outlined,
-          color: Colors.white,
-        ),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => StuQuestionWrite(),
-            ),
-          );
-        },
-      ),
       body: Padding(
         padding: const EdgeInsets.all(10),
         ///코드 번호
