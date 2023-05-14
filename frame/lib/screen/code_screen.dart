@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frame/screen/stu_question_screen.dart';
 import 'package:frame/tools/horizontal_line.dart';
+import 'package:frame/tools/need_colors.dart';
 import 'package:frame/tools/textform.dart';
 
 
@@ -29,7 +30,7 @@ class CodeScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         vertical: 20, horizontal: 20),
                     decoration: BoxDecoration(
-                      color: Colors.grey,
+                      color: NeedColors.lightGrey,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Column(
@@ -56,7 +57,7 @@ class CodeScreen extends StatelessWidget {
                                 vertical: 10, horizontal: 20),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
-                              color: Colors.purple,
+                              color: NeedColors.darkBlue,
                             ),
                             child: const Text(
                               '접속',
@@ -78,7 +79,7 @@ class CodeScreen extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(vertical: 3, horizontal: 5),
                     decoration: const BoxDecoration(
-                      color: Colors.blueGrey,
+                      color: NeedColors.lightGrey,
                       border: Border(
                         top: BorderSide(
                           color: Color(0xff11307C),
@@ -104,9 +105,12 @@ class CodeScreen extends StatelessWidget {
                   const RecentContainer(),
                   const RecentContainer(),
                   const HorizontalLine(),
+
                 ],
               ),
             ),
+            const HorizontalLine(),
+
           ],
         ),
       ),
@@ -125,7 +129,7 @@ class RecentContainer extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 5),
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
       decoration: const BoxDecoration(
-        color: Colors.blueGrey,
+        color: NeedColors.lightGrey,
       ),
       child: Column(
         children: [
