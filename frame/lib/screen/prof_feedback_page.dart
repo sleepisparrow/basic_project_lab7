@@ -38,29 +38,30 @@ class ProfFeedbackPageState extends State<ProfFeedbackPage> {
     return Scaffold(
       body: Column(
         children: [
-          SizedBox(height: 100,child: const _PieGraph()),
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-            height: MediaQuery.of(context).size.height * 2/3,
-            decoration: const BoxDecoration(
-              border: Border(
-                left: blueBorder,
-                right: blueBorder,
-                top: blueBorder,
+          const SizedBox(height: 200, child: _PieGraph()),
+          Expanded(
+            child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+              decoration: const BoxDecoration(
+                border: Border(
+                  left: blueBorder,
+                  right: blueBorder,
+                  top: blueBorder,
+                ),
+              ),
+              padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+              child: ListView.builder(
+                itemBuilder: (BuildContext context, int index) {
+                  return _FeedbackList(
+                    context: context,
+                    index: index,
+                    feedback: feedback,
+                  );
+                },
+                itemCount: feedback.length,
               ),
             ),
-            padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-            child: ListView.builder(
-              itemBuilder: (BuildContext context, int index) {
-                return _FeedbackList(
-                  context: context,
-                  index: index,
-                  feedback: feedback,
-                );
-              },
-              itemCount: feedback.length,
-            ),
-          )
+          ),
         ],
       ),
     );
@@ -89,7 +90,8 @@ class _FeedbackList extends StatelessWidget {
           child: SizedBox(
               height: 80,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: Text(
                   feedback[index],
                   style: const TextStyle(
@@ -109,7 +111,7 @@ class _PieGraph extends StatelessWidget {
   List<_ChartData> makeToChartData(List<int> info) {
     List<_ChartData> ret = List.empty(growable: true);
     for (int i = 0; i < info.length; i++) {
-      ret.add(_ChartData('${i + 1}', info[i] as double,
+      ret.add(_ChartData('${i + 1}', info[i].toDouble(),
           _ChartData.defaultColorPalette[4 - i]));
     }
     return ret;
