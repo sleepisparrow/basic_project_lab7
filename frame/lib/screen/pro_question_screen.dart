@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:frame/Page/document_page.dart';
 import 'package:frame/Page/pro_question_page.dart';
 import 'package:frame/Page/quiz_page.dart';
+import 'package:frame/screen/prof_feedback_page.dart';
+import 'package:frame/screen/prof_quiz_main_page.dart';
+import 'package:frame/screen/std_feedback.dart';
 
 
 class ProQuestionScreen extends StatefulWidget {
@@ -16,8 +19,8 @@ class _ProQuestionScreenState extends State<ProQuestionScreen> {
   int _selectedIndex = 0;
   final List<Widget> _widgetOptions = <Widget>[
     ProQuestionPage(),
-    QuizPage(),
-    DocumentPage(),
+    ProfQuizMainPage(),
+    ProfFeedbackPage(),
   ];
 
   ///네베게이견바 현재상태 값

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:frame/Provider/prof_feedback_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-
 import '../dummy_data/feedback_dummy.dart';
 
 class ProfFeedbackPage extends StatefulWidget {
@@ -39,10 +38,10 @@ class ProfFeedbackPageState extends State<ProfFeedbackPage> {
     return Scaffold(
       body: Column(
         children: [
-          const _PieGraph(),
+          SizedBox(height: 100,child: const _PieGraph()),
           Container(
             margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-            height: MediaQuery.of(context).size.height * 2 / 3,
+            height: MediaQuery.of(context).size.height * 2/3,
             decoration: const BoxDecoration(
               border: Border(
                 left: blueBorder,
@@ -82,21 +81,23 @@ class _FeedbackList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 7.5),
-      child: ColoredBox(
-        color: const Color(0xffe3e5ee),
-        child: SizedBox(
-            height: 80,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              child: Text(
-                feedback[index],
-                style: const TextStyle(
-                  fontSize: 16,
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 7.5),
+        child: ColoredBox(
+          color: const Color(0xffe3e5ee),
+          child: SizedBox(
+              height: 80,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: Text(
+                  feedback[index],
+                  style: const TextStyle(
+                    fontSize: 16,
+                  ),
                 ),
-              ),
-            )),
+              )),
+        ),
       ),
     );
   }

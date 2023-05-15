@@ -9,7 +9,6 @@ class StdFeedbackPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('기초프로젝트랩 6주차'),),
       body: SafeArea(
         child: Column(
           children: <Widget>[
@@ -20,11 +19,11 @@ class StdFeedbackPage extends StatelessWidget {
               ),
             ),
             Padding(
-                padding: EdgeInsets.fromLTRB(20, 0, 100, 80),
+                padding: EdgeInsets.fromLTRB(20, 0, 50, 80),
               child: _StudyLevel(),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(20, 0, 20, 250),
+              padding: EdgeInsets.fromLTRB(20, 0, 50, 200),
               child: TextField(
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -51,7 +50,7 @@ class _Submit extends StatelessWidget{
     return Column(
       children: [
         SizedBox(
-          width: 150, 
+          width: 30,
           child: ElevatedButton(
             onPressed: () {},
             style: ButtonStyle(
