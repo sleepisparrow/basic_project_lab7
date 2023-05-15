@@ -31,69 +31,32 @@ class ProfFeedbackPageState extends State<ProfFeedbackPage> {
     ProfFeedbackProvider provider = Provider.of<ProfFeedbackProvider>(context);
 
     final List<String> feedback = provider.feedback;
-
-    final List<_ChartData> data = makeToChartData(provider.choices);
+    const BorderSide blueBorder = BorderSide(
+      width: 2,
+      color: Color(0xff11307c),
+    );
 
     return Scaffold(
       body: Column(
         children: [
-          SfCircularChart(
-            title: ChartTitle(
-              text: '난이도',
-            ),
-            series: <CircularSeries>[
-              PieSeries<_ChartData, String>(
-                dataSource: data,
-                pointColorMapper: (_ChartData d, _) => d.color,
-                xValueMapper: (_ChartData d, _) => d.title,
-                yValueMapper: (_ChartData d, _) => d.weight,
-                dataLabelMapper: (_ChartData d, _) => d.title,
-                dataLabelSettings: const DataLabelSettings(
-                  isVisible: true,
-                ),
-              ),
-            ],
-          ),
+          const _PieGraph(),
           Container(
             margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
             height: MediaQuery.of(context).size.height * 2 / 3,
             decoration: const BoxDecoration(
               border: Border(
-                left: BorderSide(
-                  width: 2,
-                  color: Color(0xff11307c),
-                ),
-                right: BorderSide(
-                  width: 2,
-                  color: Color(0xff11307c),
-                ),
-                top: BorderSide(
-                  width: 2,
-                  color: Color(0xff11307c),
-                ),
+                left: blueBorder,
+                right: blueBorder,
+                top: blueBorder,
               ),
             ),
             padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
             child: ListView.builder(
               itemBuilder: (BuildContext context, int index) {
-                return Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 2, horizontal: 7.5),
-                  child: ColoredBox(
-                    color: const Color(0xffe3e5ee),
-                    child: SizedBox(
-                        height: 80,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 5),
-                          child: Text(
-                            feedback[index],
-                            style: const TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
-                        )),
-                  ),
+                return _FeedbackList(
+                  context: context,
+                  index: index,
+                  feedback: feedback,
                 );
               },
               itemCount: feedback.length,
@@ -103,6 +66,44 @@ class ProfFeedbackPageState extends State<ProfFeedbackPage> {
       ),
     );
   }
+}
+
+class _FeedbackList extends StatelessWidget {
+  const _FeedbackList(
+      {Key? key,
+      required this.context,
+      required this.index,
+      required this.feedback})
+      : super(key: key);
+
+  final BuildContext context;
+  final int index;
+  final List<String> feedback;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 7.5),
+      child: ColoredBox(
+        color: const Color(0xffe3e5ee),
+        child: SizedBox(
+            height: 80,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              child: Text(
+                feedback[index],
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+            )),
+      ),
+    );
+  }
+}
+
+class _PieGraph extends StatelessWidget {
+  const _PieGraph({Key? key}) : super(key: key);
 
   List<_ChartData> makeToChartData(List<int> info) {
     List<_ChartData> ret = List.empty(growable: true);
@@ -111,6 +112,30 @@ class ProfFeedbackPageState extends State<ProfFeedbackPage> {
           _ChartData.defaultColorPalette[4 - i]));
     }
     return ret;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    ProfFeedbackProvider provider = Provider.of<ProfFeedbackProvider>(context);
+    final List<_ChartData> data = makeToChartData(provider.choices);
+
+    return SfCircularChart(
+      title: ChartTitle(
+        text: '난이도',
+      ),
+      series: <CircularSeries>[
+        PieSeries<_ChartData, String>(
+          dataSource: data,
+          pointColorMapper: (_ChartData d, _) => d.color,
+          xValueMapper: (_ChartData d, _) => d.title,
+          yValueMapper: (_ChartData d, _) => d.weight,
+          dataLabelMapper: (_ChartData d, _) => d.title,
+          dataLabelSettings: const DataLabelSettings(
+            isVisible: true,
+          ),
+        ),
+      ],
+    );
   }
 }
 

@@ -4,7 +4,9 @@ import 'package:frame/dummy_data/quiz_dummy.dart';
 import 'package:provider/provider.dart';
 
 class ProfQuizMainPage extends StatefulWidget {
-  const ProfQuizMainPage({Key? key}) : super(key: key);
+  const ProfQuizMainPage({Key? key, this.widgetDeleteFlag = false}) : super(key: key);
+
+  final bool widgetDeleteFlag;
 
   @override
   State<ProfQuizMainPage> createState() => ProfQuizMainPageState();
@@ -196,38 +198,40 @@ class ButtonSet extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              minimumSize: const Size(64, 48),
-              backgroundColor: const Color(0xff2296AF),
-            ),
-            onPressed: () {
-              function();
-            },
+          _BottomButton(
+            onPressed: function,
             child: const Text('삭제'),
           ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              minimumSize: const Size(64, 48),
-              backgroundColor: const Color(0xff2296AF),
-            ),
-            onPressed: () {
-              // TODO:  공개 누르면 페이지 바꾸기
-            },
+          _BottomButton(
+            onPressed: () {},
             child: const Text('공개'),
           ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              minimumSize: const Size(64, 48),
-              backgroundColor: const Color(0xff2296AF),
-            ),
-            onPressed: () {
-              // TODO: 추가 버튼 누르면 페이지 바꾸기
-            },
+          _BottomButton(
+            onPressed: () {},
             child: const Text('추가'),
           ),
         ],
       ),
+    );
+  }
+}
+
+class _BottomButton extends StatelessWidget {
+  /// 메인페이지 가장 밑의 청록색 버튼 3개를 위한 클래스
+  const _BottomButton({Key? key, this.child, this.onPressed}) : super(key: key);
+
+  final dynamic child;
+  final dynamic onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        minimumSize: const Size(64, 48),
+        backgroundColor: const Color(0xff2296AF),
+      ),
+      onPressed: onPressed,
+      child: child,
     );
   }
 }
