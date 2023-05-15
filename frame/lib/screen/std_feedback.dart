@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frame/tools/need_colors.dart';
 
 import 'login_screen.dart';
 
@@ -54,7 +55,7 @@ class _Submit extends StatelessWidget{
           child: ElevatedButton(
             onPressed: () {},
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(lightGrey),
+              backgroundColor: MaterialStateProperty.all(NeedColors.lightGrey),
               shape: MaterialStateProperty.all(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0),
