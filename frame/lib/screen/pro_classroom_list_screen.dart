@@ -4,6 +4,8 @@ import 'package:frame/screen/pro_question_screen.dart';
 import 'package:frame/tools/horizontal_line.dart';
 import '../tools/need_colors.dart';
 
+List<Widget> _classNameList = <Widget>[];
+List<bool> _selectedClassName = <bool>[];
 String? className = "기초프로젝트랩"; // 나중에 동적 할당 받아서 넣어줄 예정
 
 class ProClassRoomListScreen extends StatelessWidget {
@@ -73,8 +75,7 @@ class _ClassName extends StatefulWidget {
 
 class _ClassNameState extends State<_ClassName> {
   bool vertical = false;
-  static List<Widget> _classNameList = <Widget>[];
-  static List<bool> _selectedClassName = <bool>[];
+
 
   TextEditingController inputClassName = TextEditingController();
   String stringInputClassName = '';
@@ -88,6 +89,7 @@ class _ClassNameState extends State<_ClassName> {
       children: [
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             // ToggleButtons with a single selection.
             Row(
