@@ -197,6 +197,7 @@ class ClassNameState extends State<ClassName> {
                   classNameList.add(Text("  ${inputClassName.text}  "));
                   selectedClassName.add(false);
                   Navigator.pop(context);
+                  setState(() {});
                 },
                 child: const Text('완료'),
               )
