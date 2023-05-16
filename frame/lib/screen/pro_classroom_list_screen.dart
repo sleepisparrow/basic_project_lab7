@@ -6,61 +6,59 @@ import 'package:frame/tools/horizontal_line.dart';
 import 'package:provider/provider.dart';
 import '../tools/need_colors.dart';
 
-String? className = "기초프로젝트랩"; // 나중에 동적 할당 받아서 넣어줄 예정
-int classCount = 0;
-
 class ProClassRoomListScreen extends StatelessWidget {
   const ProClassRoomListScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-      bottom: false,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 80,
-                child: ClassName(),
-              ),
-              Container(
-                /// 화면 길이의 7/10크기 만큼 frame 생성. 이 안에 리스트 뷰 들어갈 예정
-                width: MediaQuery.of(context).size.width,
-                height: (MediaQuery.of(context).size.height / 10) * 7,
-                decoration: const BoxDecoration(
-                  border: Border(
-                    top: BorderSide(
-                      color: NeedColors.darkBlue,
-                      width: 3.0,
-                    ),
-                    bottom: BorderSide(
-                      color: NeedColors.darkBlue,
-                      width: 3.0,
+        resizeToAvoidBottomInset : false,
+      body: SafeArea(
+        bottom: false,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 80,
+                  child: ClassName(),
+                ),
+                Container(
+                  /// 화면 길이의 7/10크기 만큼 frame 생성. 이 안에 리스트 뷰 들어갈 예정
+                  width: MediaQuery.of(context).size.width,
+                  height: (MediaQuery.of(context).size.height / 10) * 7,
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      top: BorderSide(
+                        color: NeedColors.darkBlue,
+                        width: 3.0,
+                      ),
+                      bottom: BorderSide(
+                        color: NeedColors.darkBlue,
+                        width: 3.0,
+                      ),
                     ),
                   ),
-                ),
-                child: Stack(
-                  alignment: Alignment.topCenter,
-                  children: const [
-                    ClassListContents(),
-                    Positioned(
-                      bottom: 10,
-                      right: 10,
-                      child: _CreateIcon(),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-          const SizedBox(), // 간격 추가
-        ],
-      ),
-    ));
+                  child: Stack(
+                    alignment: Alignment.topCenter,
+                    children: const [
+                      ClassListContents(),
+                      Positioned(
+                        bottom: 10,
+                        right: 10,
+                        child: _CreateIcon(),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(), // 간격 추가
+          ],
+        ),
+      ));
   }
 }
 
