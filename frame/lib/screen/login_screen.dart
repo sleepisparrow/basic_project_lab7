@@ -11,6 +11,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset : false, // bottom overflowed 방지
       body: SafeArea(
         bottom: false,
         child: Column(
