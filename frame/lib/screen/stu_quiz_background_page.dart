@@ -21,7 +21,10 @@ class StuQuizBackgroundPage extends StatelessWidget {
     return Column(
       children: [
         _QuestionBox(question: currentQuiz.question!),
-        StuSelectionQuizWidget(index: index),
+        Expanded(
+          child: getSelectionBox(currentQuiz),
+        ),
+
       ],
     );
   }
@@ -36,6 +39,10 @@ class StuQuizBackgroundPage extends StatelessWidget {
 
   bool _isQuizSelection(Quiz quiz) {
     return quiz.runtimeType == ChoiceQuiz;
+  }
+
+  StuQuizBackgroundPage getNewPage(int targetIndex) {
+    return StuQuizBackgroundPage(index: targetIndex);
   }
 }
 
