@@ -100,38 +100,43 @@ class _ClassNameState extends State<_ClassName> {
             ),
             HorizontalLine(),
             SizedBox(height: 5,),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 10,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 8,
+                      ),
+                      ToggleButtons(
+                        direction: vertical ? Axis.vertical : Axis.horizontal,
+                        onPressed: (int index) {
+                          setState(() {
+                            // The button that is tapped is set to true, and the others to false.
+                            for (int i = 0; i < _selectedClassName.length; i++) {
+                              _selectedClassName[i] = i == index;
+                            }
+                          });
+                        },
+                        borderRadius: const BorderRadius.all(Radius.circular(8)),
+                        borderColor: NeedColors.darkBlue,
+                        selectedBorderColor: NeedColors.darkBlue,
+                        selectedColor: Colors.white,
+                        fillColor: NeedColors.darkBlue,
+                        color: Colors.black,
+                        constraints: const BoxConstraints(
+                          minHeight: 40.0,
+                          minWidth: 80.0,
+                        ),
+                        isSelected: _selectedClassName,
+                        children: _classNameList,
+                      ),
+                    ],
                   ),
-                  ToggleButtons(
-                    direction: vertical ? Axis.vertical : Axis.horizontal,
-                    onPressed: (int index) {
-                      setState(() {
-                        // The button that is tapped is set to true, and the others to false.
-                        for (int i = 0; i < _selectedClassName.length; i++) {
-                          _selectedClassName[i] = i == index;
-                        }
-                      });
-                    },
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    borderColor: NeedColors.darkBlue,
-                    selectedBorderColor: NeedColors.darkBlue,
-                    selectedColor: Colors.white,
-                    fillColor: NeedColors.darkBlue,
-                    color: Colors.black,
-                    constraints: const BoxConstraints(
-                      minHeight: 40.0,
-                      minWidth: 80.0,
-                    ),
-                    isSelected: _selectedClassName,
-                    children: _classNameList,
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ],
         ),
