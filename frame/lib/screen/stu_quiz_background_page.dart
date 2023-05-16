@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frame/dummy_data/quiz_dummy.dart';
+import 'package:frame/screen/stu_selection_quiz_widget.dart';
+import 'package:frame/screen/stu_tf_quiz_widget.dart';
 import 'package:frame/tools/need_colors.dart';
 import 'package:provider/provider.dart';
 
@@ -14,13 +16,26 @@ class StuQuizBackgroundPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<StudentQuizProvider>(context);
-    List<Quiz> quizList = provider.quizList;
+    Quiz currentQuiz = provider.quizList[index];
+
     return Column(
       children: [
-        _QuestionBox(question: quizList[index].question!),
-
+        _QuestionBox(question: currentQuiz.question!),
+        StuSelectionQuizWidget(index: index),
       ],
     );
+  }
+
+  Widget getSelectionBox(Quiz quiz) {
+    if (_isQuizSelection(quiz)) {
+      return StuSelectionQuizWidget(index: index);
+    } else {
+      return StuTFQuizWidget(index: index);
+    }
+  }
+
+  bool _isQuizSelection(Quiz quiz) {
+    return quiz.runtimeType == ChoiceQuiz;
   }
 }
 
@@ -38,14 +53,11 @@ class _QuestionBox extends StatelessWidget {
       child: Text(
         question,
         textDirection: TextDirection.ltr,
-        style: const TextStyle(
-            fontSize: 16
-        ),
+        style: const TextStyle(fontSize: 16),
       ),
     );
   }
 }
-
 
 /// 이 밑 거는 tdd로 한 게 아님. (잘 굴러가는지도 모름)
 // class StuQuizBackgroundPage extends StatelessWidget {
