@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:frame/Provider/pro_classroom_list_provider.dart';
 import 'package:frame/screen/pro_create_classroom_screen.dart';
 import 'package:frame/screen/pro_question_screen.dart';
 import 'package:frame/tools/horizontal_line.dart';
+import 'package:provider/provider.dart';
 import '../tools/need_colors.dart';
 
 String? className = "기초프로젝트랩"; // 나중에 동적 할당 받아서 넣어줄 예정
+int classCount = 0;
 
 class ProClassRoomListScreen extends StatelessWidget {
   const ProClassRoomListScreen({Key? key}) : super(key: key);
@@ -20,9 +23,9 @@ class ProClassRoomListScreen extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 80,
-                child: _ClassName(),
+                child: ClassName(),
               ),
               Container(
                 /// 화면 길이의 7/10크기 만큼 frame 생성. 이 안에 리스트 뷰 들어갈 예정
@@ -43,7 +46,7 @@ class ProClassRoomListScreen extends StatelessWidget {
                 child: Stack(
                   alignment: Alignment.topCenter,
                   children: const [
-                    _ClassList(),
+                    ClassListContents(),
                     Positioned(
                       bottom: 10,
                       right: 10,
@@ -63,18 +66,17 @@ class ProClassRoomListScreen extends StatelessWidget {
 
 /// classNameList
 /// 오른쪽의 addIcon을 누르고 텍스트 입력 후, '완료'버튼 클릭 시 classNameList에 해당 과목명 추가
-///
-class _ClassName extends StatefulWidget {
-  const _ClassName({Key? key}) : super(key: key);
+class ClassName extends StatefulWidget {
+  const ClassName({Key? key}) : super(key: key);
 
   @override
-  State<_ClassName> createState() => _ClassNameState();
+  State<ClassName> createState() => ClassNameState();
 }
 
-class _ClassNameState extends State<_ClassName> {
+class ClassNameState extends State<ClassName> {
   bool vertical = false;
-  static List<Widget> _classNameList = <Widget>[];
-  static List<bool> _selectedClassName = <bool>[];
+  static List<Widget> classNameList = <Widget>[];
+  static List<bool> selectedClassName = <bool>[];
 
   TextEditingController inputClassName = TextEditingController();
   String stringInputClassName = '';
@@ -88,24 +90,30 @@ class _ClassNameState extends State<_ClassName> {
       children: [
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             // ToggleButtons with a single selection.
             Row(
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
-                Text('교과명을 생성 또는 선택해주세요', style: theme.textTheme.titleSmall),
+                Text(
+                  '교과명을 생성 또는 선택해주세요',
+                  style: theme.textTheme.titleSmall,
+                ),
               ],
             ),
-            HorizontalLine(),
-            SizedBox(height: 5,),
+            const HorizontalLine(),
+            const SizedBox(
+              height: 5,
+            ),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 8,
                   ),
                   ToggleButtons(
@@ -113,8 +121,8 @@ class _ClassNameState extends State<_ClassName> {
                     onPressed: (int index) {
                       setState(() {
                         // The button that is tapped is set to true, and the others to false.
-                        for (int i = 0; i < _selectedClassName.length; i++) {
-                          _selectedClassName[i] = i == index;
+                        for (int i = 0; i < selectedClassName.length; i++) {
+                          selectedClassName[i] = i == index;
                         }
                       });
                     },
@@ -126,10 +134,9 @@ class _ClassNameState extends State<_ClassName> {
                     color: Colors.black,
                     constraints: const BoxConstraints(
                       minHeight: 40.0,
-                      minWidth: 80.0,
                     ),
-                    isSelected: _selectedClassName,
-                    children: _classNameList,
+                    isSelected: selectedClassName,
+                    children: classNameList,
                   ),
                 ],
               ),
@@ -187,8 +194,8 @@ class _ClassNameState extends State<_ClassName> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  _classNameList.add(Text(inputClassName.text));
-                  _selectedClassName.add(false);
+                  classNameList.add(Text("  ${inputClassName.text}  "));
+                  selectedClassName.add(false);
                   Navigator.pop(context);
                 },
                 child: const Text('완료'),
@@ -232,244 +239,89 @@ class _CreateIcon extends StatelessWidget {
   }
 }
 
+class ClassListContents extends StatefulWidget {
+  const ClassListContents({Key? key}) : super(key: key);
+
+  @override
+  State<ClassListContents> createState() => ClassListContentsState();
+}
+
+class ClassListContentsState extends State<ClassListContents> {
+  @override
+  Widget build(BuildContext context) {
+    int selectedClassNameItemNum =
+        Provider.of<ProClassRoomList>(context).itemCount;
+
+    return Builder(builder: (context) {
+      if (selectedClassNameItemNum == 0) {
+        return const Center(
+          child: Text('클래스룸을 생성해주세요'),
+        );
+      } else {
+        return ListView.builder(
+          itemCount: selectedClassNameItemNum,
+          itemBuilder: (BuildContext context, int index) {
+            return Column(
+              children: [
+                const SizedBox(
+                  height: 10,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ProQuestionScreen()),
+                    );
+                  },
+                  child: Container(
+                    height: 80,
+                    width: MediaQuery.of(context).size.width - 16,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.0),
+                      border: Border.all(color: NeedColors.darkGrey, width: 1),
+                      color: NeedColors.lightGrey,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              "생성일 : ${Provider.of<ProClassRoomList>(context).createDate[index]}",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Provider.of<ProClassRoomList>(context)
+                                .dropDownSelectedClassName,
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        );
+      }
+    });
+  }
+}
+
 /// 중앙에 들어갈 List
 /// 리스트 뷰 동적으로 할당 받는 기능 추가할 예정
 /// 현재는 임의로 클래스룸 6개 생성(93~128행까지가 한 묶음)
-class _ClassList extends StatelessWidget {
-  const _ClassList({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(
-          height: 8,
-        ),
-        Container(
-          height: 80,
-          width: MediaQuery.of(context).size.width - 16,
-          color: NeedColors.lightGrey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: const [
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    'Day: 23.05.13',
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-                  ),
-                ],
-              ),
-              Row(
-                children: const [
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    '교과명: 기초프로젝트랩',
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-
-        ///클릭시 교수질문페이지로 이동
-        GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const ProQuestionScreen()),
-            );
-          },
-          child: Container(
-            height: 80,
-            width: MediaQuery.of(context).size.width - 16,
-            color: NeedColors.lightGrey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: const [
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      'Day: 23.05.11',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 20.0),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: const [
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      '교과명: 기초프로젝트랩',
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        Container(
-          height: 80,
-          width: MediaQuery.of(context).size.width - 16,
-          color: NeedColors.lightGrey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: const [
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    'Day: 23.03.25',
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-                  ),
-                ],
-              ),
-              Row(
-                children: const [
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    '교과명: 기초프로젝트랩',
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        Container(
-          height: 80,
-          width: MediaQuery.of(context).size.width - 16,
-          color: NeedColors.lightGrey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: const [
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    'Day: 23.03.21',
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-                  ),
-                ],
-              ),
-              Row(
-                children: const [
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    '교과명: 기초프로젝트랩',
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        Container(
-          height: 80,
-          width: MediaQuery.of(context).size.width - 16,
-          color: NeedColors.lightGrey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: const [
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    'Day: 23.03.14',
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-                  ),
-                ],
-              ),
-              Row(
-                children: const [
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    '교과명: 기초프로젝트랩',
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        Container(
-          height: 80,
-          width: MediaQuery.of(context).size.width - 16,
-          color: NeedColors.lightGrey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: const [
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    'Day: 23.03.13',
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-                  ),
-                ],
-              ),
-              Row(
-                children: const [
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    '교과명: 기초프로젝트랩',
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
