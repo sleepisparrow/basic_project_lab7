@@ -321,7 +321,3 @@ class ClassListContentsState extends State<ClassListContents> {
     });
   }
 }
-
-/// 중앙에 들어갈 List
-/// 리스트 뷰 동적으로 할당 받는 기능 추가할 예정
-/// 현재는 임의로 클래스룸 6개 생성(93~128행까지가 한 묶음)
