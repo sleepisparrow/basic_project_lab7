@@ -24,7 +24,10 @@ class StuQuizBackgroundPage extends StatelessWidget {
         Expanded(
           child: getSelectionBox(currentQuiz),
         ),
-
+        UnderBarButtons(
+          currentIndex: index,
+          totalPageCount: provider.quizList.length,
+        )
       ],
     );
   }
@@ -39,10 +42,6 @@ class StuQuizBackgroundPage extends StatelessWidget {
 
   bool _isQuizSelection(Quiz quiz) {
     return quiz.runtimeType == ChoiceQuiz;
-  }
-
-  StuQuizBackgroundPage getNewPage(int targetIndex) {
-    return StuQuizBackgroundPage(index: targetIndex);
   }
 }
 
@@ -63,6 +62,52 @@ class _QuestionBox extends StatelessWidget {
         style: const TextStyle(fontSize: 16),
       ),
     );
+  }
+}
+
+class UnderBarButtons extends StatelessWidget {
+  const UnderBarButtons({
+    Key? key,
+    required this.currentIndex,
+    required this.totalPageCount,
+  }) : super(key: key);
+
+  /// currentIndex는 0부터 시작함, totalPagecount는 문제 개수(리스트.length)
+  final int currentIndex, totalPageCount;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      textDirection: TextDirection.ltr,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        // TODO: 가능하면 iconButton으로 바꾸기
+        TextButton(
+          key: const Key('prevButton'),
+          onPressed: () {
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (context) => getNewPage(currentIndex - 1)));
+          },
+          child: Image.asset('asset/prevButton.png'),
+        ),
+        Text(
+          '${currentIndex + 1} / $totalPageCount',
+          textDirection: TextDirection.ltr,
+        ),
+        TextButton(
+          key: const Key('nextButton'),
+          onPressed: () {
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (context) => getNewPage(currentIndex + 1)));
+          },
+          child: Image.asset('asset/nextButton.png'),
+        )
+      ],
+    );
+  }
+
+  StuQuizBackgroundPage getNewPage(int targetIndex) {
+    return StuQuizBackgroundPage(index: targetIndex);
   }
 }
 

@@ -8,31 +8,13 @@ import 'package:frame/screen/stu_tf_quiz_widget.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  testWidgets('퀴즈가 없는 경우 lock 페이지로 돌아가는가', (tester) async {
+  testWidgets('퀴즈가 없는 경우 lock 페이지로 돌아가는가(예외처리)', (tester) async {
     // TODO: 테스트 제작하기
   });
 
-
   testWidgets('페이지의 문제를 잘 보여주는가', (tester) async {
     // provider 넣기
-    await tester.pumpWidget(
-      MultiProvider(
-        providers: [
-          ChangeNotifierProvider<StudentQuizProvider>(
-              create: (_) => StudentQuizProvider()),
-        ],
-        child: Builder(
-          builder: (BuildContext context) {
-            var provider = Provider.of<StudentQuizProvider>(context);
-            for (int i = 0; i < QuizDummy.quizes.length; i++) {
-              provider.addQuestion(QuizDummy.quizes[i]);
-            }
-            // The builder function must return a widget.
-            return const StuQuizBackgroundPage(index: 0);
-          },
-        ),
-      ),
-    );
+    await settingForWidgetTesting(tester, const StuQuizBackgroundPage(index: 0));
 
     final questionFinder = find.text(QuizDummy.quizes[0].question!);
     expect(questionFinder, findsOneWidget);
@@ -44,24 +26,7 @@ void main() {
     expect(QuizDummy.quizes[index].runtimeType, ChoiceQuiz);
 
     // provider 넣기
-    await tester.pumpWidget(
-      MultiProvider(
-        providers: [
-          ChangeNotifierProvider<StudentQuizProvider>(
-              create: (_) => StudentQuizProvider()),
-        ],
-        child: Builder(
-          builder: (BuildContext context) {
-            var provider = Provider.of<StudentQuizProvider>(context);
-            for (int i = 0; i < QuizDummy.quizes.length; i++) {
-              provider.addQuestion(QuizDummy.quizes[i]);
-            }
-            // The builder function must return a widget.
-            return const StuQuizBackgroundPage(index: index);
-          },
-        ),
-      ),
-    );
+    await settingForWidgetTesting(tester, const StuQuizBackgroundPage(index: index));
 
     expect(find.byType(StuSelectionQuizWidget), findsOneWidget);
     expect(find.byType(StuTFQuizWidget), findsNothing);
@@ -73,24 +38,7 @@ void main() {
     expect(QuizDummy.quizes[index].runtimeType, TFQuiz);
 
     // provider 넣기
-    await tester.pumpWidget(
-      MultiProvider(
-        providers: [
-          ChangeNotifierProvider<StudentQuizProvider>(
-              create: (_) => StudentQuizProvider()),
-        ],
-        child: Builder(
-          builder: (BuildContext context) {
-            var provider = Provider.of<StudentQuizProvider>(context);
-            for (int i = 0; i < QuizDummy.quizes.length; i++) {
-              provider.addQuestion(QuizDummy.quizes[i]);
-            }
-            // The builder function must return a widget.
-            return const StuQuizBackgroundPage(index: index);
-          },
-        ),
-      ),
-    );
+    await settingForWidgetTesting(tester, const StuQuizBackgroundPage(index: index));
 
     expect(find.byType(StuSelectionQuizWidget), findsNothing);
     expect(find.byType(StuTFQuizWidget), findsOneWidget);
@@ -101,28 +49,11 @@ void main() {
   //
   // });
 
-  testWidgets('다음 버튼을 누르면 다음으로 넘어가는가', (tester) async {
+  testWidgets('if next button has cliked, move to next page', (tester) async {
     const int index = 1;
 
     // provider 넣기
-    await tester.pumpWidget(
-      MultiProvider(
-        providers: [
-          ChangeNotifierProvider<StudentQuizProvider>(
-              create: (_) => StudentQuizProvider()),
-        ],
-        child: Builder(
-          builder: (BuildContext context) {
-            var provider = Provider.of<StudentQuizProvider>(context);
-            for (int i = 0; i < QuizDummy.quizes.length; i++) {
-              provider.addQuestion(QuizDummy.quizes[i]);
-            }
-            // The builder function must return a widget.
-            return const StuQuizBackgroundPage(index: index);
-          },
-        ),
-      ),
-    );
+    await settingForWidgetTesting(tester, const StuQuizBackgroundPage(index: index));
 
     //test code here
     await tester.tap(find.byKey(const Key('nextButton')));
@@ -131,28 +62,11 @@ void main() {
     expect(find.text(QuizDummy.quizes[index+1].question!), findsOneWidget);
   });
 
-  testWidgets('이전 버튼을 누르면 이전으로 돌아가는가', (tester) async {
+  testWidgets('이전 버튼 누르면 이전으로 돌아가는가 ', (tester) async {
     const int index = 1;
 
     // provider 넣기
-    await tester.pumpWidget(
-      MultiProvider(
-        providers: [
-          ChangeNotifierProvider<StudentQuizProvider>(
-              create: (_) => StudentQuizProvider()),
-        ],
-        child: Builder(
-          builder: (BuildContext context) {
-            var provider = Provider.of<StudentQuizProvider>(context);
-            for (int i = 0; i < QuizDummy.quizes.length; i++) {
-              provider.addQuestion(QuizDummy.quizes[i]);
-            }
-            // The builder function must return a widget.
-            return const StuQuizBackgroundPage(index: index);
-          },
-        ),
-      ),
-    );
+    await settingForWidgetTesting(tester, const StuQuizBackgroundPage(index: index));
 
     //test code here
     await tester.tap(find.byKey(const Key('prevButton')));
@@ -163,7 +77,7 @@ void main() {
 
   test('원하는 페이지 위젯을 리턴하는 함수는 잘 작동하는가', () {
     int idx = 1;
-    StuQuizBackgroundPage page = const StuQuizBackgroundPage(index: 0);
+    UnderBarButtons page = const UnderBarButtons(currentIndex: 0, totalPageCount: 4,);
     StuQuizBackgroundPage target = page.getNewPage(idx);
     expect(target.index, idx);
     // 그리고 리펙터링으로 오버로딩하는 함수 만들기(현재에서 +- x만큼)
@@ -172,6 +86,18 @@ void main() {
   test('원하는 페이지 뱉는 함수에서 음수 아니면 indexOut한 경우 예외 처리가 작동하는가', () {
     // TODO 나중에 처리하기
   });
+
+  testWidgets('현재 페이지/총 페이지는 잘 보이는가', (tester) async {
+    const int index = 0;
+
+    // provider 넣기
+    await settingForWidgetTesting(tester, const StuQuizBackgroundPage(index: index));
+    //start testing
+    // ERR: 가능한 논리적 오류: quizes는 quizDummy의 것을 참고함
+    String result = '${index+1} / ${QuizDummy.quizes.length}';
+    expect(find.text(result), findsOneWidget);
+  });
+
   testWidgets('첫 페이지이면, 이전으로 돌아가는 버튼이 사라져있는가', (tester) async {
 
   });
@@ -199,4 +125,27 @@ void setProvider(BuildContext context) {
   for (int i = 0; i < QuizDummy.quizes.length; i++) {
     provider.addQuestion(QuizDummy.quizes[i]);
   }
+}
+
+Future settingForWidgetTesting(var tester, Widget targetWidget) async {
+  await tester.pumpWidget(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<StudentQuizProvider>(
+            create: (_) => StudentQuizProvider()),
+      ],
+      child: Builder(
+        builder: (BuildContext context) {
+          var provider = Provider.of<StudentQuizProvider>(context);
+          for (int i = 0; i < QuizDummy.quizes.length; i++) {
+            provider.addQuestion(QuizDummy.quizes[i]);
+          }
+          // The builder function must return a widget.
+          return MaterialApp(
+            home: targetWidget,
+          );
+        },
+      ),
+    ),
+  );
 }
