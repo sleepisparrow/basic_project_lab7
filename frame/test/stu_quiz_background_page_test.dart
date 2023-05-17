@@ -77,8 +77,7 @@ void main() {
 
   test('원하는 페이지 위젯을 리턴하는 함수는 잘 작동하는가', () {
     int idx = 1;
-    UnderBarButtons page = const UnderBarButtons(currentIndex: 0, totalPageCount: 4,);
-    StuQuizBackgroundPage target = page.getNewPage(idx);
+    StuQuizBackgroundPage target = UnderBarButtons.getNewPage(idx);
     expect(target.index, idx);
     // 그리고 리펙터링으로 오버로딩하는 함수 만들기(현재에서 +- x만큼)
   });
@@ -99,11 +98,25 @@ void main() {
   });
 
   testWidgets('첫 페이지이면, 이전으로 돌아가는 버튼이 사라져있는가', (tester) async {
+    const int index = 0;
 
+    // setting
+    await settingForWidgetTesting(tester, const StuQuizBackgroundPage(index: index));
+
+    // start testing
+    expect(find.byKey(const Key('prevButton')), findsNothing);
   });
 
   testWidgets('마지막 페이지이면, 완료 버튼이 나오는가', (tester) async {
+    const int index = 3;
+    // ERR: index가 const여야 해서 dummydata로 만들어 질수 있는 최종 개수를 그냥 때려박았다
 
+    // provider 넣기
+    await settingForWidgetTesting(tester, const StuQuizBackgroundPage(index: index));
+    //start testing
+
+    expect(find.byKey(const Key('nextButton')), findsNothing);
+    expect(find.byKey(const Key('finishQuizButton')), findsOneWidget);
   });
 
   testWidgets('마지막 페이지에서 완료 버튼을 누르면 결과 페이지가 나오는가?', (tester) async {

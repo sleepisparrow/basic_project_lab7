@@ -7,6 +7,15 @@ import 'package:provider/provider.dart';
 
 import '../Provider/studnet_quiz_provider.dart';
 
+
+//UI TODOS
+// TODO: 질문 container width를 고정시키기
+// TODO: 질문 Text를 위에 중앙에 배치시키기
+// TODO: prevButton, nextButton을 조정하기
+// TODO: 완료 버튼 디자인 변경하기
+// TODO: padding? margin (밑의 버튼들) 부여하기
+
+// 그리고 이제 선택 페이지로 넘어가자
 class StuQuizBackgroundPage extends StatelessWidget {
   const StuQuizBackgroundPage({Key? key, required this.index})
       : super(key: key);
@@ -15,6 +24,12 @@ class StuQuizBackgroundPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //TODO: 이건 더미 데이터니까 UI 테스팅 외에는 사용하지 말 것
+    var dummyProvider = Provider.of<StudentQuizProvider>(context);
+    for (int i = 0; i < QuizDummy.quizes.length; i++) {
+      dummyProvider.addQuestion(QuizDummy.quizes[i]);
+    }
+
     var provider = Provider.of<StudentQuizProvider>(context);
     Quiz currentQuiz = provider.quizList[index];
 
@@ -77,107 +92,100 @@ class UnderBarButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      textDirection: TextDirection.ltr,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        // TODO: 가능하면 iconButton으로 바꾸기
-        TextButton(
-          key: const Key('prevButton'),
-          onPressed: () {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => getNewPage(currentIndex - 1)));
-          },
-          child: Image.asset('asset/prevButton.png'),
-        ),
-        Text(
-          '${currentIndex + 1} / $totalPageCount',
-          textDirection: TextDirection.ltr,
-        ),
-        TextButton(
-          key: const Key('nextButton'),
-          onPressed: () {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => getNewPage(currentIndex + 1)));
-          },
-          child: Image.asset('asset/nextButton.png'),
-        )
-      ],
+    return Container(
+      height: 50,
+      child: Row(
+        textDirection: TextDirection.ltr,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          // TODO: 가능하면 iconButton으로 바꾸기
+          _PrevButton(currentIndex: currentIndex),
+          Text(
+            '${currentIndex + 1} / $totalPageCount',
+            textDirection: TextDirection.ltr,
+          ),
+          _RightButton(currentIndex: currentIndex, totalPageCount: totalPageCount,)
+        ],
+      ),
     );
   }
 
-  StuQuizBackgroundPage getNewPage(int targetIndex) {
+  static StuQuizBackgroundPage getNewPage(int targetIndex) {
     return StuQuizBackgroundPage(index: targetIndex);
   }
 }
 
-/// 이 밑 거는 tdd로 한 게 아님. (잘 굴러가는지도 모름)
-// class StuQuizBackgroundPage extends StatelessWidget {
-//   const StuQuizBackgroundPage({Key? key, required this.index})
-//       : super(key: key);
-//
-//   final int index;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     StudentQuizProvider provider = Provider.of<StudentQuizProvider>(context);
-//     List<Quiz> quizList = provider.quizList;
-//
-//     var questionSelectionWidget = (quizList[index].runtimeType == TFQuiz)
-//         ? StuTFQuizWidget(index: index)
-//         : StuSelectionQuizWidget(index: index);
-//
-//     return Column(
-//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//       children: [
-//         Container(
-//           padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-//           color: const Color(0xffE3E5EE),
-//           child: Text(quizList[index].question!),
-//         ),
-//         Container(
-//             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-//             child: questionSelectionWidget),
-//         Container(
-//           padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-//           child: _QuestionMovingButton(
-//             currentIndex: index,
-//             totalPageCount: quizList.length,
-//           ),
-//         )
-//       ],
-//     );
-//   }
-// }
-//
-// class _QuestionMovingButton extends StatelessWidget {
-//   /// 가장 밑에 있는 다음, 이전 질문으로 이동하는 버튼 2개와 현재 문제를 알려주는 위젯 row
-//   const _QuestionMovingButton(
-//       {Key? key, required this.currentIndex, required this.totalPageCount})
-//       : super(key: key);
-//
-//   final int currentIndex, totalPageCount;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     // TODO: 만약 currentIndex + 1이 == totalPageCount 이면 next가 아니라 완료로 바뀌기
-//     // TODO: 만약 currentIndex == 0 이면 prev가 비활성화되기
-//     return Row(
-//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//       children: [
-//         IconButton(
-//             onPressed: () {
-//               // TODO: 이전 문제로 돌아가는 함수 제작
-//             },
-//             icon: const Icon(Icons.navigate_before)),
-//         Text('$currentIndex/$totalPageCount'),
-//         IconButton(
-//           onPressed: () {
-//             // TODO: 다음 문제로 넘어가는 함수 제작
-//           },
-//           icon: const Icon(Icons.navigate_next),
-//         ),
-//       ],
-//     );
-//   }
-// }
+class _PrevButton extends StatelessWidget {
+  const _PrevButton({Key? key, required this.currentIndex}) : super(key: key);
+
+  final int currentIndex;
+
+  @override
+  Widget build(BuildContext context) {
+    return Visibility(
+      visible: currentIndex != 0,
+      child: TextButton(
+        key: const Key('prevButton'),
+        onPressed: () {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) =>
+                  UnderBarButtons.getNewPage(currentIndex - 1)));
+        },
+        child: Image.asset('asset/prevButton.png'),
+      ),
+    );
+  }
+}
+
+class _RightButton extends StatelessWidget {
+  const _RightButton(
+      {Key? key, required this.currentIndex, required this.totalPageCount})
+      : super(key: key);
+
+  final int currentIndex, totalPageCount;
+
+  @override
+  Widget build(BuildContext context) {
+    if (currentIndex + 1 == totalPageCount) {
+      return const _FinishButton();
+    } else {
+      return _NextButton(currentIndex: currentIndex);
+    }
+  }
+}
+
+class _NextButton extends StatelessWidget {
+  const _NextButton({Key? key, required this.currentIndex}) : super(key: key);
+
+  final int currentIndex;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      key: const Key('nextButton'),
+      onPressed: () {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) =>
+                UnderBarButtons.getNewPage(currentIndex + 1)));
+      },
+      child: Image.asset('asset/nextButton.png'),
+    );
+  }
+}
+
+class _FinishButton extends StatelessWidget {
+  const _FinishButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      // TODO: 디자인 조금 더 수정하기
+        onPressed: () {
+          // TODO 결과 페이지로 이동하도록 만들기
+          // Navigator.of(context).pushReplacement(MaterialPageRoute(
+          //     builder: (context) => );
+        },
+        key: const Key('finishQuizButton'),
+        child: const Text('완료'));
+  }
+}
