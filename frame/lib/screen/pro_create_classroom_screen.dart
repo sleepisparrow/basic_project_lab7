@@ -209,9 +209,10 @@ class _CancelOrCheck extends StatelessWidget {
           width: 80,
           child: ElevatedButton(
             onPressed: () {
-              Provider.of<ProClassRoomList>(context, listen: false).createContentsResource(
-                _InputState.selectedValue,
-                _InputState.createDate,
+              print(_InputState.selectedValue);
+              Provider.of<ProClassRoomList>(context, listen: false).increaseItemCount(
+               _InputState.selectedValue,
+               _InputState.createDate,
               );
               Navigator.push(
                 context,

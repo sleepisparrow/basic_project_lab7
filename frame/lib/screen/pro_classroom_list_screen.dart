@@ -12,53 +12,53 @@ class ProClassRoomListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset : false,
-      body: SafeArea(
-        bottom: false,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 80,
-                  child: ClassName(),
-                ),
-                Container(
-                  /// 화면 길이의 7/10크기 만큼 frame 생성. 이 안에 리스트 뷰 들어갈 예정
-                  width: MediaQuery.of(context).size.width,
-                  height: (MediaQuery.of(context).size.height / 10) * 7,
-                  decoration: const BoxDecoration(
-                    border: Border(
-                      top: BorderSide(
-                        color: NeedColors.darkBlue,
-                        width: 3.0,
-                      ),
-                      bottom: BorderSide(
-                        color: NeedColors.darkBlue,
-                        width: 3.0,
+        resizeToAvoidBottomInset: false,
+        body: SafeArea(
+          bottom: false,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 80,
+                    child: ClassName(),
+                  ),
+                  Container(
+                    /// 화면 길이의 7/10크기 만큼 frame 생성. 이 안에 리스트 뷰 들어갈 예정
+                    width: MediaQuery.of(context).size.width,
+                    height: (MediaQuery.of(context).size.height / 10) * 7,
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        top: BorderSide(
+                          color: NeedColors.darkBlue,
+                          width: 3.0,
+                        ),
+                        bottom: BorderSide(
+                          color: NeedColors.darkBlue,
+                          width: 3.0,
+                        ),
                       ),
                     ),
-                  ),
-                  child: Stack(
-                    alignment: Alignment.topCenter,
-                    children: const [
-                      ClassListContents(),
-                      Positioned(
-                        bottom: 10,
-                        right: 10,
-                        child: _CreateIcon(),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(), // 간격 추가
-          ],
-        ),
-      ));
+                    child: Stack(
+                      alignment: Alignment.topCenter,
+                      children: const [
+                        ClassListContents(),
+                        Positioned(
+                          bottom: 10,
+                          right: 10,
+                          child: _CreateIcon(),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(), // 간격 추가
+            ],
+          ),
+        ));
   }
 }
 
@@ -73,7 +73,7 @@ class ClassName extends StatefulWidget {
 
 class ClassNameState extends State<ClassName> {
   bool vertical = false;
-  static List<Widget> classNameList = <Widget>[];
+  static List<Text> classNameList = <Text>[];
   static List<bool> selectedClassName = <bool>[];
 
   TextEditingController inputClassName = TextEditingController();
@@ -119,9 +119,14 @@ class ClassNameState extends State<ClassName> {
                     onPressed: (int index) {
                       setState(() {
                         // The button that is tapped is set to true, and the others to false.
+                        int idx = 0;
                         for (int i = 0; i < selectedClassName.length; i++) {
                           selectedClassName[i] = i == index;
+                          if (selectedClassName[i]) idx = i;
                         }
+                        Provider.of<ProClassRoomList>(context, listen: false)
+                            .setToggleSelectedItem(classNameList[idx]);
+                        print(classNameList[idx]);
                       });
                     },
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -248,8 +253,16 @@ class ClassListContents extends StatefulWidget {
 class ClassListContentsState extends State<ClassListContents> {
   @override
   Widget build(BuildContext context) {
-    int selectedClassNameItemNum =
-        Provider.of<ProClassRoomList>(context).itemCount;
+    Text toggleSelected = Provider.of<ProClassRoomList>(context)
+        .toggleSelectedItem;
+    int selectedClassNameItemNum = 0;
+    if (Provider.of<ProClassRoomList>(context)
+        .dropItemCountMap
+        .containsKey(toggleSelected)) {
+      selectedClassNameItemNum =
+          Provider.of<ProClassRoomList>(context)
+              .dropItemCountMap[toggleSelected]!;
+    }
 
     return Builder(builder: (context) {
       if (selectedClassNameItemNum == 0) {
@@ -291,7 +304,7 @@ class ClassListContentsState extends State<ClassListContents> {
                               width: 10,
                             ),
                             Text(
-                              "생성일 : ${Provider.of<ProClassRoomList>(context).createDate[index]}",
+                              "생성일 : ${Provider.of<ProClassRoomList>(context).dropCreateDateMap[toggleSelected]![index]}",
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20.0,
@@ -304,8 +317,7 @@ class ClassListContentsState extends State<ClassListContents> {
                             const SizedBox(
                               width: 5,
                             ),
-                            Provider.of<ProClassRoomList>(context)
-                                .dropDownSelectedClassName,
+                            toggleSelected,
                           ],
                         ),
                       ],
