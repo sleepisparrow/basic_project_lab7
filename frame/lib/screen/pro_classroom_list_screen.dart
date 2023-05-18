@@ -6,6 +6,9 @@ import 'package:frame/tools/horizontal_line.dart';
 import 'package:provider/provider.dart';
 import '../tools/need_colors.dart';
 
+String? className = "기초프로젝트랩"; // 나중에 동적 할당 받아서 넣어줄 예정
+int classCount = 0;
+
 class ProClassRoomListScreen extends StatelessWidget {
   const ProClassRoomListScreen({Key? key}) : super(key: key);
 
