@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:frame/Provider/pro_classroom_list_provider.dart';
 import 'package:frame/screen/pro_classroom_list_screen.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import '../tools/need_colors.dart';
 
 class CreateClassroom extends StatelessWidget {
@@ -55,9 +57,11 @@ class _Input extends StatefulWidget {
 /// DropdownButton을 이용하여 선택한 교과명과
 /// 자동으로 할당된 날짜가 pro_classroom_list_screen의 리스트에 나타나게 해야함
 class _InputState extends State<_Input> {
-  final _selectList = ['기초프로젝트랩', '자료구조', '컴프3'];
+  final _selectList = ClassNameState.classNameList;
   // ignore: prefer_typing_uninitialized_variables
-  var _selectedValue;
+  static dynamic selectedValue;
+  static String createDate = DateFormat('yyyy-MM-dd')
+      .format(DateTime.now()).toString();
 
   @override
   Widget build(BuildContext context) {
@@ -137,18 +141,18 @@ class _InputState extends State<_Input> {
                       child: DropdownButton(
                           isExpanded: true,
                           hint: const Text('교과명 선택'),
-                          value: _selectedValue,
+                          value: selectedValue,
                           items: _selectList.map(
                             (value) {
                               return DropdownMenuItem(
                                 value: value,
-                                child: Text(value),
+                                child: value,
                               );
                             },
                           ).toList(),
                           onChanged: (value) {
                             setState(() {
-                              _selectedValue = value;
+                              selectedValue = value;
                             });
                           }),
                     ),
@@ -205,6 +209,11 @@ class _CancelOrCheck extends StatelessWidget {
           width: 80,
           child: ElevatedButton(
             onPressed: () {
+              print(_InputState.selectedValue);
+              Provider.of<ProClassRoomList>(context, listen: false).increaseItemCount(
+               _InputState.selectedValue,
+               _InputState.createDate,
+              );
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const ProClassRoomListScreen()),

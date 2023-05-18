@@ -118,7 +118,7 @@ class _SelectionQuestionState extends State<SelectionQuestion> {
                 color: Color(0xff11307c),
               ),
             )),
-            child: const Center(
+            child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -243,7 +243,7 @@ class __TrueOrFalseQuestionFieldState extends State<_TrueOrFalseQuestionField> {
                     color: Color(0xff11307c),
                   ),
                 )),
-            child: const Center(
+            child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
