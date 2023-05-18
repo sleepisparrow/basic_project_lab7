@@ -202,6 +202,7 @@ class ClassNameState extends State<ClassName> {
                 onPressed: () {
                   classNameList.add(Text("  ${inputClassName.text}  "));
                   selectedClassName.add(false);
+                  inputClassName.text = '';
                   Navigator.pop(context);
                   setState(() {});
                 },
