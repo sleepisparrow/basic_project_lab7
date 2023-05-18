@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:frame/screen/stu_question_write_screen.dart';
+import 'package:frame/screen/student/stu_question_write_screen.dart';
 
-class QuestionPage extends StatelessWidget {
-  const QuestionPage({Key? key}) : super(key: key);
+class StuQuestionScreen extends StatelessWidget {
+  const StuQuestionScreen({Key? key}) : super(key: key);
 
   ///네비게이션바의 질문눌렀을때 질문페이지
   @override

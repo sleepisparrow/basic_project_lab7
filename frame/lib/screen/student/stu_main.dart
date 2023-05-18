@@ -1,41 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:frame/Page/document_page.dart';
-import 'package:frame/Page/pro_question_page.dart';
-import 'package:frame/Page/quiz_page.dart';
-import 'package:frame/screen/prof_feedback_page.dart';
-import 'package:frame/screen/prof_quiz_main_page.dart';
-import 'package:frame/screen/std_feedback.dart';
+import 'package:frame/screen/student/stu_feedback_screen.dart';
+import 'package:frame/screen/student/stu_question_screen.dart';
+import 'package:frame/screen/student/stu_quiz_screen.dart';
+import 'package:frame/screen/student/stu_question_write_screen.dart';
 
-
-class ProQuestionScreen extends StatefulWidget {
-  const ProQuestionScreen({Key? key}) : super(key: key);
+class StuMain extends StatefulWidget {
+  const StuMain({Key? key}) : super(key: key);
 
   @override
-  State<ProQuestionScreen> createState() => _ProQuestionScreenState();
+  State<StuMain> createState() => _StuMainState();
 }
 
-class _ProQuestionScreenState extends State<ProQuestionScreen> {
-  ///네비게이션 바 인덱스값 1.질문 2.퀴즈 3.피드백
+class _StuMainState extends State<StuMain> {
+  //네비게이션 바 인덱스값 1.질문 2.퀴즈 3.피드백
   int _selectedIndex = 0;
   final List<Widget> _widgetOptions = <Widget>[
-    ProQuestionPage(),
-    ProfQuizMainPage(),
-    ProfFeedbackPage(),
+    StuQuestionScreen(),
+    StuQuizScreen(),
+    StuFeedBackScreen(),
+    StuQuestionWrite(),
   ];
 
-  ///네베게이견바 현재상태 값
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
 
-  ///네비게이션바 상태를 위한 초기화 및 삭제
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
   }
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -48,7 +45,7 @@ class _ProQuestionScreenState extends State<ProQuestionScreen> {
       appBar: AppBar(
         backgroundColor: Colors.blue[900],
         title: Text(
-          '기초프로젝트 랩 6주차',
+          '과목명(selectedToggle)',
           style: TextStyle(fontSize: 20),
         ),
         actions: [
@@ -59,11 +56,11 @@ class _ProQuestionScreenState extends State<ProQuestionScreen> {
           ),
         ],
       ),
-      ///네비게이션에 따라 변화된 페이지 모습
+      //네비게이션에 따라 변화된 페이지 모습
       body: SafeArea(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      ///네비게이션바
+
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.blue[900],
         selectedItemColor: Colors.white,

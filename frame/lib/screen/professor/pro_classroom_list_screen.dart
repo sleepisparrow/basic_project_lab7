@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:frame/Provider/pro_classroom_list_provider.dart';
-import 'package:frame/screen/pro_create_classroom_screen.dart';
-import 'package:frame/screen/pro_question_screen.dart';
+import 'package:frame/screen/professor/pro_create_classroom_screen.dart';
+import 'package:frame/screen/professor/pro_main.dart';
 import 'package:frame/tools/horizontal_line.dart';
 import 'package:provider/provider.dart';
-import '../tools/need_colors.dart';
+import '../../tools/need_colors.dart';
 
 String? className = "기초프로젝트랩"; // 나중에 동적 할당 받아서 넣어줄 예정
 int classCount = 0;
@@ -238,7 +238,7 @@ class _CreateIcon extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const CreateClassroom()),
+            MaterialPageRoute(builder: (context) => const CreateClassroomScreen()),
           );
         },
         icon: const Icon(Icons.create),
@@ -287,7 +287,7 @@ class ClassListContentsState extends State<ClassListContents> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const ProQuestionScreen()),
+                          builder: (context) => const ProMain()),
                     );
                   },
                   child: Container(

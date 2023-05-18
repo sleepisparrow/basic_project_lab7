@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:frame/Provider/prof_feedback_provider.dart';
+import 'package:frame/Provider/pro_feedback_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import '../dummy_data/feedback_dummy.dart';
+import '../../dummy_data/feedback_dummy.dart';
 
-class ProfFeedbackPage extends StatefulWidget {
-  const ProfFeedbackPage({Key? key}) : super(key: key);
+class ProfFeedbackScreen extends StatefulWidget {
+  const ProfFeedbackScreen({Key? key}) : super(key: key);
 
   @override
-  State<ProfFeedbackPage> createState() => ProfFeedbackPageState();
+  State<ProfFeedbackScreen> createState() => ProfFeedbackScreenState();
 }
 
-class ProfFeedbackPageState extends State<ProfFeedbackPage> {
+class ProfFeedbackScreenState extends State<ProfFeedbackScreen> {
   @override
   void initState() {
     super.initState();

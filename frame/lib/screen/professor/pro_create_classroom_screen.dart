@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:frame/Provider/pro_classroom_list_provider.dart';
-import 'package:frame/screen/pro_classroom_list_screen.dart';
+import 'package:frame/screen/professor/pro_classroom_list_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import '../tools/need_colors.dart';
+import '../../tools/need_colors.dart';
 
-class CreateClassroom extends StatelessWidget {
-  const CreateClassroom({Key? key}) : super(key: key);
+class CreateClassroomScreen extends StatelessWidget {
+  const CreateClassroomScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
