@@ -127,7 +127,7 @@ class ClassNameState extends State<ClassName> {
                           selectedClassName[i] = i == index;
                           if (selectedClassName[i]) idx = i;
                         }
-                        Provider.of<ProClassRoomList>(context, listen: false)
+                        Provider.of<ProClassRoomListProvider>(context, listen: false)
                             .setToggleSelectedItem(classNameList[idx]);
                         print(classNameList[idx]);
                       });
@@ -257,14 +257,14 @@ class ClassListContents extends StatefulWidget {
 class ClassListContentsState extends State<ClassListContents> {
   @override
   Widget build(BuildContext context) {
-    Text toggleSelected = Provider.of<ProClassRoomList>(context)
+    Text toggleSelected = Provider.of<ProClassRoomListProvider>(context)
         .toggleSelectedItem;
     int selectedClassNameItemNum = 0;
-    if (Provider.of<ProClassRoomList>(context)
+    if (Provider.of<ProClassRoomListProvider>(context)
         .dropItemCountMap
         .containsKey(toggleSelected)) {
       selectedClassNameItemNum =
-          Provider.of<ProClassRoomList>(context)
+          Provider.of<ProClassRoomListProvider>(context)
               .dropItemCountMap[toggleSelected]!;
     }
 
@@ -308,7 +308,7 @@ class ClassListContentsState extends State<ClassListContents> {
                               width: 10,
                             ),
                             Text(
-                              "생성일 : ${Provider.of<ProClassRoomList>(context).dropCreateDateMap[toggleSelected]![index]}",
+                              "생성일 : ${Provider.of<ProClassRoomListProvider>(context).dropCreateDateMap[toggleSelected]![index]}",
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20.0,

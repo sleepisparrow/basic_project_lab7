@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:frame/screen/professor/pro_question_screen.dart';
 import 'package:frame/screen/professor/pro_feedback_screen.dart';
 import 'package:frame/screen/professor/pro_quiz_screen.dart';
+import 'package:provider/provider.dart';
+
+import '../../Provider/pro_classroom_list_provider.dart';
 
 
 class ProMain extends StatefulWidget {
@@ -41,45 +44,47 @@ class _ProMainState extends State<ProMain> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue[900],
-        title: Text(
-          '과목명(selectedToggle)',
-          style: TextStyle(fontSize: 20),
+    return ChangeNotifierProvider(
+      create: (context) {
+        return ProClassRoomListProvider();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.blue[900],
+          title: Provider.of<ProClassRoomListProvider>(context).toggleSelectedItem,
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.account_circle_outlined),
+              iconSize: 25,
+            ),
+          ],
         ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.account_circle_outlined),
-            iconSize: 25,
-          ),
-        ],
-      ),
-      ///네비게이션에 따라 변화된 페이지 모습
-      body: SafeArea(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      ///네비게이션바
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.blue[900],
-        selectedItemColor: Colors.white,
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.contact_support_outlined),
-            label: '질문',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.tips_and_updates_outlined),
-            label: '퀴즈',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.emoji_people_outlined),
-            label: '피드백',
-          ),
-        ],
+        ///네비게이션에 따라 변화된 페이지 모습
+        body: SafeArea(
+          child: _widgetOptions.elementAt(_selectedIndex),
+        ),
+        ///네비게이션바
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.blue[900],
+          selectedItemColor: Colors.white,
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.contact_support_outlined),
+              label: '질문',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.tips_and_updates_outlined),
+              label: '퀴즈',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.emoji_people_outlined),
+              label: '피드백',
+            ),
+          ],
+        ),
       ),
     );
   }

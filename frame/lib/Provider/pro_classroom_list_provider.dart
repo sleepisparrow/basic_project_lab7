@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ProClassRoomList with ChangeNotifier {
+class ProClassRoomListProvider with ChangeNotifier {
 
   Map<Text, int> dropItemCountMap = {};
   Map<Text, List<String>> dropCreateDateMap = {};

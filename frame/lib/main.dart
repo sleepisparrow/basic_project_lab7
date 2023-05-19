@@ -13,8 +13,8 @@ void main() {
             create: (_) => ProfFeedbackProvider()),
         ChangeNotifierProvider<ProfQuizMainProvider>(
             create: (_) => ProfQuizMainProvider()),
-        ChangeNotifierProvider<ProClassRoomList>(
-            create: (_) => ProClassRoomList()),
+        ChangeNotifierProvider<ProClassRoomListProvider>(
+            create: (_) => ProClassRoomListProvider()),
       ],
       child: MaterialApp(
         theme: ThemeData(
