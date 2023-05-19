@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ProQuestionPage extends StatelessWidget {
-  const ProQuestionPage({Key? key}) : super(key: key);
+class ProQuestionScreen extends StatelessWidget {
+  const ProQuestionScreen({Key? key}) : super(key: key);
 
   ///네비게이션바의 질문눌렀을때 질문페이지
   @override

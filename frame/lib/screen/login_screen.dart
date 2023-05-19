@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frame/screen/code_screen.dart';
-import 'package:frame/screen/pro_classroom_list_screen.dart';
+import 'package:frame/screen/student/stu_code_screen.dart';
+import 'package:frame/screen/professor/pro_classroom_list_screen.dart';
 import 'package:frame/screen/signup_screen.dart';
 import '../tools/horizontal_line.dart';
 import '../tools/need_colors.dart';
@@ -104,7 +104,7 @@ class _LoginAndSingup extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const CodeScreen()),
+                MaterialPageRoute(builder: (context) => const StuCodeScreen()),
               );
             },
             style: ButtonStyle(

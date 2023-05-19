@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:frame/screen/stu_question_screen.dart';
+import 'package:frame/screen/student/stu_main.dart';
 import 'package:frame/tools/horizontal_line.dart';
 import 'package:frame/tools/need_colors.dart';
 import 'package:frame/tools/textform.dart';
 
 
 //코드 입력화면
-class CodeScreen extends StatelessWidget {
-  const CodeScreen({super.key});
+class StuCodeScreen extends StatelessWidget {
+  const StuCodeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class CodeScreen extends StatelessWidget {
                           onTap: (){
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => const StuQuestionScreen()),
+                                MaterialPageRoute(builder: (context) => const StuMain()),
                               );
                           },
                           child: Container(

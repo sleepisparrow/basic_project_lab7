@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frame/tools/need_colors.dart';
 
-import 'login_screen.dart';
-
-class StdFeedbackPage extends StatelessWidget {
-  const StdFeedbackPage({Key? key}) : super(key: key);
+class StuFeedBackScreen extends StatelessWidget {
+  const StuFeedBackScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

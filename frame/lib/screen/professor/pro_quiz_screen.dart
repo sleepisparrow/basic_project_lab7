@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:frame/Provider/Prof_quiz_main_provider.dart';
+import 'package:frame/Provider/pro_quiz_main_provider.dart';
 import 'package:frame/dummy_data/quiz_dummy.dart';
 import 'package:provider/provider.dart';
 
-class ProfQuizMainPage extends StatefulWidget {
-  const ProfQuizMainPage({Key? key, this.widgetDeleteFlag = false}) : super(key: key);
+class ProQuizScreen extends StatefulWidget {
+  const ProQuizScreen({Key? key, this.widgetDeleteFlag = false}) : super(key: key);
 
   final bool widgetDeleteFlag;
 
   @override
-  State<ProfQuizMainPage> createState() => ProfQuizMainPageState();
+  State<ProQuizScreen> createState() => ProQuizScreenState();
 }
 
-class ProfQuizMainPageState extends State<ProfQuizMainPage> {
+class ProQuizScreenState extends State<ProQuizScreen> {
   var _widgetDeleteFlag = false;
   dynamic listWidget =
       (int index, BuildContext context, List<String> questions) =>

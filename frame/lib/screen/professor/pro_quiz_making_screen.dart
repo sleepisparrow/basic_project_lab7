@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 
-class ProfQuizMakingPage extends StatelessWidget {
-  const ProfQuizMakingPage({Key? key}) : super(key: key);
+class ProQuizMakingScreen extends StatelessWidget {
+  const ProQuizMakingScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
