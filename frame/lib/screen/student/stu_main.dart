@@ -68,12 +68,17 @@ class _StuMainState extends State<StuMain> {
         onTap: _onItemTapped,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.circle),
+            icon: Icon(Icons.contact_support_outlined),
             label: '질문',
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.task_rounded), label: '퀴즈'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.terminal_sharp), label: '피드백'),
+            icon: Icon(Icons.tips_and_updates_outlined),
+            label: '퀴즈',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.emoji_people_outlined),
+            label: '피드백',
+          ),
         ],
       ),
     );
