@@ -4,7 +4,7 @@ import 'package:frame/Provider/pro_classroom_list_provider.dart';
 import 'package:frame/Provider/pro_feedback_provider.dart';
 import 'package:frame/Provider/quiz_finish_provider.dart';
 import 'package:frame/Provider/quiz_result_provider.dart';
-import 'package:frame/screen/student/stu_result_screen.dart';
+import 'package:frame/screen/login_screen.dart';
 import 'package:frame/Provider/stu_question_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -30,10 +30,7 @@ void main() {
           primaryColor: Colors.blue[900],
           cardColor: Colors.grey[100],
         ),
-        home: Scaffold(
-          appBar: AppBar(),
-          body: StuQuizResultScreen(),
-        )
+        home: LoginScreen(),
       ),
     ),
   );
