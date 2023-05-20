@@ -64,7 +64,7 @@ class _StuQuestionListState extends State<StuQuestionList> {
                   width: MediaQuery.of(context).size.width - 16,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
-                    border: Border.all(color: NeedColors.darkGrey, width: 1),
+                    border: Border.all(color: NeedColors.darkBlue, width: 1),
                     color: NeedColors.lightGrey,
                   ),
                   child: Column(
