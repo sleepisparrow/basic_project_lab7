@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:frame/Provider/studnet_quiz_provider.dart';
+import 'package:frame/dummy_data/studnet_quiz_provider.dart';
 import 'package:frame/dummy_data/quiz_dummy.dart';
-import 'package:frame/screen/stu_quiz_background_page.dart';
+import 'package:frame/dummy_data/stu_quiz_background_page.dart';
 import 'package:frame/screen/stu_selection_quiz_widget.dart';
 import 'package:frame/screen/stu_tf_quiz_widget.dart';
 import 'package:provider/provider.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../dummy_data/quiz_dummy.dart';
+import 'quiz_dummy.dart';
 
 class StudentQuizProvider with ChangeNotifier {
 

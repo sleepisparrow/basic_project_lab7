@@ -5,15 +5,10 @@ import 'package:frame/screen/stu_tf_quiz_widget.dart';
 import 'package:frame/tools/need_colors.dart';
 import 'package:provider/provider.dart';
 
-import '../Provider/studnet_quiz_provider.dart';
+import 'studnet_quiz_provider.dart';
 
 
 //UI TODOS
-// TODO: 질문 container width를 고정시키기
-// TODO: 질문 Text를 위에 중앙에 배치시키기
-// TODO: prevButton, nextButton을 조정하기
-// TODO: 완료 버튼 디자인 변경하기
-// TODO: padding? margin (밑의 버튼들) 부여하기
 
 // 그리고 이제 선택 페이지로 넘어가자
 class StuQuizBackgroundPage extends StatelessWidget {
