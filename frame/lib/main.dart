@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frame/Provider/pro_quiz_main_provider.dart';
 import 'package:frame/Provider/pro_classroom_list_provider.dart';
 import 'package:frame/Provider/pro_feedback_provider.dart';
+import 'package:frame/Provider/stu_question_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:frame/screen/login_screen.dart';
 
@@ -15,6 +16,8 @@ void main() {
             create: (_) => ProfQuizMainProvider()),
         ChangeNotifierProvider<ProClassRoomListProvider>(
             create: (_) => ProClassRoomListProvider()),
+        ChangeNotifierProvider<StuQuestionProvider>(
+          create: (_) => StuQuestionProvider()),
       ],
       child: MaterialApp(
         theme: ThemeData(

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:frame/screen/student/stu_feedback_screen.dart';
 import 'package:frame/screen/student/stu_question_screen.dart';
 import 'package:frame/screen/student/stu_quiz_screen.dart';
-import 'package:frame/screen/student/stu_question_write_screen.dart';
 
 class StuMain extends StatefulWidget {
   const StuMain({Key? key}) : super(key: key);
@@ -18,7 +17,6 @@ class _StuMainState extends State<StuMain> {
     StuQuestionScreen(),
     StuQuizScreen(),
     StuFeedBackScreen(),
-    StuQuestionWrite(),
   ];
 
   void _onItemTapped(int index) {

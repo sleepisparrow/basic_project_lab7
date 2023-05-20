@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:frame/screen/student/stu_question_write_screen.dart';
+import 'package:frame/Provider/stu_question_provider.dart';
+import 'package:frame/screen/student/stu_create_question_screen.dart';
+import 'package:provider/provider.dart';
+
+import '../../tools/need_colors.dart';
 
 class StuQuestionScreen extends StatelessWidget {
   const StuQuestionScreen({Key? key}) : super(key: key);
@@ -7,55 +11,121 @@ class StuQuestionScreen extends StatelessWidget {
   ///네비게이션바의 질문눌렀을때 질문페이지
   @override
   Widget build(BuildContext context) {
+    ChangeNotifierProvider<StuQuestionProvider>(
+        create: (_) => StuQuestionProvider());
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue[900],
-        child: Icon(
-          Icons.border_color_outlined,
-          color: Colors.white,
-        ),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => StuQuestionWrite(),
-            ),
-          );
-        },
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        bottom: false,
+        child: Stack(
+          alignment: Alignment.topCenter,
           children: [
-            RecentContainer(),
-            RecentContainer(),
-            RecentContainer(),
+            StuQuestionList(),
+            Positioned(
+              bottom: 10,
+              right: 10,
+              child: _CreateIcon(),
+            ),
           ],
         ),
       ),
     );
   }
+}
 
-  Container RecentContainer() {
+class StuQuestionList extends StatefulWidget {
+  const StuQuestionList({Key? key}) : super(key: key);
+
+  @override
+  State<StuQuestionList> createState() => _StuQuestionListState();
+}
+
+class _StuQuestionListState extends State<StuQuestionList> {
+  @override
+  Widget build(BuildContext context) {
+    StuQuestionProvider provider = Provider.of<StuQuestionProvider>(context);
+    int questionCount = provider.questionTitle.length;
+    List<String> title = provider.questionTitle;
+    List<String> contents = provider.questionContents;
+
+    return Builder(builder: (context) {
+      if (questionCount == 0) {
+        return Center(
+          child: Text("교수님께 질문해주세요"),
+        );
+      } else {
+        return ListView.builder(
+          itemCount: questionCount,
+          itemBuilder: (BuildContext context, int index) {
+            return Column(
+              children: [
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width - 16,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    border: Border.all(color: NeedColors.darkGrey, width: 1),
+                    color: NeedColors.lightGrey,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 10, 0, 5),
+                        child: Text(
+                          '제목 : ${title[index]}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.0,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 0, 0, 10),
+                        child: Text(
+                          '내용 : ${contents[index]}',
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            );
+          },
+        );
+      }
+    });
+  }
+}
+
+class _CreateIcon extends StatelessWidget {
+  const _CreateIcon({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 5),
-      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
       decoration: BoxDecoration(
-        color: Colors.blueGrey[100],
-      ),
-      child: Column(
-        children: [
-          Row(
-            children: const [
-              Text('Empty'),
-            ],
-          ),
-          Row(
-            children: const [
-              Text('title'),
-            ],
+        borderRadius: BorderRadius.circular(10),
+        color: NeedColors.lightGrey,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 4,
+            blurRadius: 4,
+            offset: const Offset(0, 3), // changes position of shadow
           ),
         ],
+      ),
+      child: IconButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => StuCreateQuestion()),
+          );
+        },
+        icon: const Icon(Icons.create),
       ),
     );
   }
