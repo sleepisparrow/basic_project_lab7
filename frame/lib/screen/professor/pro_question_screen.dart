@@ -38,16 +38,26 @@ class ProQuestionScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.blueGrey[100],
       ),
-      child: Column(
-        children: [
-          Row(
-            children: const [
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children:<Widget> [
+          Column(
+            children: [
               Text('Empty'),
+              Text('title'),
             ],
           ),
           Row(
-            children: const [
-              Text('title'),
+            children: [
+              ButtonBar(
+                children: [
+                  ElevatedButton(
+                      onPressed: () {},
+                      child: Text("답변완료")
+                  ),
+                ],
+              ),
             ],
           ),
         ],
