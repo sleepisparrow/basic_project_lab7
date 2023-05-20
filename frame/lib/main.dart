@@ -3,6 +3,7 @@ import 'package:frame/Provider/pro_quiz_main_provider.dart';
 import 'package:frame/Provider/pro_classroom_list_provider.dart';
 import 'package:frame/Provider/pro_feedback_provider.dart';
 import 'package:frame/Provider/stu_question_provider.dart';
+import 'package:frame/screen/student/stu_quiz_locked_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:frame/screen/login_screen.dart';
 
