@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../tools/need_colors.dart';
+
 class ProQuestionScreen extends StatelessWidget {
   const ProQuestionScreen({Key? key}) : super(key: key);
 
@@ -38,16 +40,29 @@ class ProQuestionScreen extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.blueGrey[100],
       ),
-      child: Column(
-        children: [
-          Row(
-            children: const [
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children:<Widget> [
+          Column(
+            children: [
               Text('Empty'),
+              Text('title'),
             ],
           ),
           Row(
-            children: const [
-              Text('title'),
+            children: [
+              ButtonBar(
+                children: [
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(NeedColors.darkBlue)
+                    ),
+                      onPressed: () {},
+                      child: Text("답변완료")
+                  ),
+                ],
+              ),
             ],
           ),
         ],
