@@ -16,10 +16,8 @@ void main() {
             create: (_) => ProfFeedbackProvider()),
         ChangeNotifierProvider<ProfQuizMainProvider>(
             create: (_) => ProfQuizMainProvider()),
-        ChangeNotifierProvider<ProClassRoomList>(
-            create: (_) => ProClassRoomList()),
         ChangeNotifierProvider<QuizResultProvider>(create:
-        (_) => QuizResultProvider())
+        (_) => QuizResultProvider()),
         ChangeNotifierProvider<ProClassRoomListProvider>(
             create: (_) => ProClassRoomListProvider()),
         ChangeNotifierProvider<StuQuestionProvider>(
