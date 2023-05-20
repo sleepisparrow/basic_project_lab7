@@ -9,7 +9,7 @@ import 'studnet_quiz_provider.dart';
 
 
 //UI TODOS
-
+// 여기 있는 주석들은 ToDO주석이었음
 // 그리고 이제 선택 페이지로 넘어가자
 class StuQuizBackgroundPage extends StatelessWidget {
   const StuQuizBackgroundPage({Key? key, required this.index})
@@ -19,7 +19,7 @@ class StuQuizBackgroundPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO: 이건 더미 데이터니까 UI 테스팅 외에는 사용하지 말 것
+    // 이건 더미 데이터니까 UI 테스팅 외에는 사용하지 말 것
     var dummyProvider = Provider.of<StudentQuizProvider>(context);
     for (int i = 0; i < QuizDummy.quizes.length; i++) {
       dummyProvider.addQuestion(QuizDummy.quizes[i]);
@@ -93,7 +93,7 @@ class UnderBarButtons extends StatelessWidget {
         textDirection: TextDirection.ltr,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // TODO: 가능하면 iconButton으로 바꾸기
+          // 가능하면 iconButton으로 바꾸기
           _PrevButton(currentIndex: currentIndex),
           Text(
             '${currentIndex + 1} / $totalPageCount',
@@ -174,9 +174,7 @@ class _FinishButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      // TODO: 디자인 조금 더 수정하기
         onPressed: () {
-          // TODO 결과 페이지로 이동하도록 만들기
           // Navigator.of(context).pushReplacement(MaterialPageRoute(
           //     builder: (context) => );
         },

@@ -8,8 +8,8 @@ import 'package:frame/screen/stu_tf_quiz_widget.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  /// 비어있는 함수들은 모두 예전에 TODO로 남아있던 함수들이긴 함
   testWidgets('퀴즈가 없는 경우 lock 페이지로 돌아가는가(예외처리)', (tester) async {
-    // TODO: 테스트 제작하기
   });
 
   testWidgets('페이지의 문제를 잘 보여주는가', (tester) async {
@@ -43,11 +43,6 @@ void main() {
     expect(find.byType(StuSelectionQuizWidget), findsNothing);
     expect(find.byType(StuTFQuizWidget), findsOneWidget);
   });
-
-  // TODO: 이건 selection quiz와 tf_quiz의 test에 넣어야 함
-  // testWidgets('선택지 중 다른 선택지를 눌렸을 경우, 기존의 선택지는 삭제되는가?', (tester) async {
-  //
-  // });
 
   testWidgets('if next button has cliked, move to next page', (tester) async {
     const int index = 1;
@@ -83,7 +78,6 @@ void main() {
   });
 
   test('원하는 페이지 뱉는 함수에서 음수 아니면 indexOut한 경우 예외 처리가 작동하는가', () {
-    // TODO 나중에 처리하기
   });
 
   testWidgets('현재 페이지/총 페이지는 잘 보이는가', (tester) async {
