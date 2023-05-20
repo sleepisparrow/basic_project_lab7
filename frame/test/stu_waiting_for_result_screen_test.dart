@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frame/Provider/quiz_finish_provider.dart';
-import 'package:frame/screen/student/stu_result_screen.dart';
+import 'package:frame/screen/student/stu_quiz_result_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {

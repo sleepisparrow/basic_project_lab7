@@ -4,7 +4,9 @@ import 'package:provider/provider.dart';
 
 import '../../Provider/quiz_finish_provider.dart';
 
+/// 작성 완료 후에 교수가 완료할 때까지 대기하는 페이지
 class StuWaitingForResultScreen extends StatelessWidget {
+
   const StuWaitingForResultScreen({Key? key}) : super(key: key);
 
   @override

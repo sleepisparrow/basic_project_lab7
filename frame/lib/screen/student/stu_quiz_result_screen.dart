@@ -4,6 +4,7 @@ import 'package:frame/screen/student/stu_waiting_for_result_screen.dart';
 import 'package:provider/provider.dart';
 
 class StuQuizResultScreen extends StatefulWidget {
+  /// 학생이 답변을 완료하면 나오는 스크린을 결정하는 위젯
   const StuQuizResultScreen({Key? key}) : super(key: key);
 
   @override
