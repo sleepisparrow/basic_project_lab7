@@ -5,6 +5,7 @@ class ProClassRoomListProvider with ChangeNotifier {
   Map<Text, int> dropItemCountMap = {};
   Map<Text, List<String>> dropCreateDateMap = {};
   Text toggleSelectedItem = Text("BeforeSelecting");
+  String selectedDate = "BeforeSelecting";
 
   void increaseItemCount(Text dropSelectedItem, String dropCreateDate){
     if(dropItemCountMap.containsKey(dropSelectedItem)){

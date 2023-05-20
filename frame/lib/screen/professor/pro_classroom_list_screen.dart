@@ -258,6 +258,7 @@ class ClassListContentsState extends State<ClassListContents> {
     Text toggleSelected = Provider.of<ProClassRoomListProvider>(context)
         .toggleSelectedItem;
     int selectedClassNameItemNum = 0;
+
     if (Provider.of<ProClassRoomListProvider>(context)
         .dropItemCountMap
         .containsKey(toggleSelected)) {
@@ -282,6 +283,8 @@ class ClassListContentsState extends State<ClassListContents> {
                 ),
                 GestureDetector(
                   onTap: () {
+                    Provider.of<ProClassRoomListProvider>(context, listen: false).selectedDate =
+                    Provider.of<ProClassRoomListProvider>(context, listen: false).dropCreateDateMap[toggleSelected]![index];
                     Navigator.push(
                       context,
                       MaterialPageRoute(
