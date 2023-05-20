@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../tools/need_colors.dart';
+
 class ProQuestionScreen extends StatelessWidget {
   const ProQuestionScreen({Key? key}) : super(key: key);
 
@@ -53,6 +55,9 @@ class ProQuestionScreen extends StatelessWidget {
               ButtonBar(
                 children: [
                   ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(NeedColors.darkBlue)
+                    ),
                       onPressed: () {},
                       child: Text("답변완료")
                   ),
