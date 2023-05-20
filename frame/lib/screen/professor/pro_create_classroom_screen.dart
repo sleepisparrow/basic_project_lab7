@@ -183,7 +183,9 @@ class _CancelOrCheck extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const ProClassRoomListScreen()),
+                MaterialPageRoute(
+                    builder: (context) => const ProClassRoomListScreen(),
+                ),
               );
             },
             style: ButtonStyle(
@@ -209,7 +211,6 @@ class _CancelOrCheck extends StatelessWidget {
           width: 80,
           child: ElevatedButton(
             onPressed: () {
-              print(_InputState.selectedValue);
               Provider.of<ProClassRoomListProvider>(context, listen: false).increaseItemCount(
                _InputState.selectedValue,
                _InputState.createDate,

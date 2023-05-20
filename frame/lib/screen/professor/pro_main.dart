@@ -51,7 +51,13 @@ class _ProMainState extends State<ProMain> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blue[900],
-          title: Provider.of<ProClassRoomListProvider>(context).toggleSelectedItem,
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('  ${Provider.of<ProClassRoomListProvider>(context).selectedDate}'),
+              Provider.of<ProClassRoomListProvider>(context).toggleSelectedItem,
+            ],
+          ),
           actions: [
             IconButton(
               onPressed: () {},
