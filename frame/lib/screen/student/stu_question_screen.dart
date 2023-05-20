@@ -11,8 +11,6 @@ class StuQuestionScreen extends StatelessWidget {
   ///네비게이션바의 질문눌렀을때 질문페이지
   @override
   Widget build(BuildContext context) {
-    ChangeNotifierProvider<StuQuestionProvider>(
-        create: (_) => StuQuestionProvider());
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -120,9 +118,28 @@ class _CreateIcon extends StatelessWidget {
       ),
       child: IconButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => StuCreateQuestion()),
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Container(
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Text(
+                    "질문 작성",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25
+                    ),
+                  ),
+                ),
+                actions: [
+                  StuCreateQuestion()
+                ],
+              );
+            },
           );
         },
         icon: const Icon(Icons.create),

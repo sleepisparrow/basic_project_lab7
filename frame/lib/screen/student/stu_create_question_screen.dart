@@ -11,32 +11,28 @@ class StuCreateQuestion extends StatelessWidget {
   //학생 질문 작성 페이지
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Center(
-        child: Container(
-          height: MediaQuery.of(context).size.height/2 * 1,
-          width: MediaQuery.of(context).size.width - 16,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.0),
-            color: Colors.white,
-            border: Border.all(
-              width: 3,
-              color: NeedColors.darkBlue,
-            ),
+    return Center(
+      child: Container(
+        width: MediaQuery.of(context).size.width - 10,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          color: Colors.white,
+          border: Border.all(
+            width: 3,
+            color: NeedColors.darkBlue,
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              children: [
-                _TitleTextField(),
-                SizedBox(
-                  height: 10,
-                ),
-                _ContentsTextField(),
-                CompleteButton(),
-              ],
-            ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              _TitleTextField(),
+              SizedBox(
+                height: 10,
+              ),
+              _ContentsTextField(),
+              CompleteButton(),
+            ],
           ),
         ),
       ),
@@ -146,19 +142,38 @@ class CompleteButton extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () {
-            Provider.of<StuQuestionProvider>(context, listen: false)
-                .createQuestion(
+            StuQuestionProvider provider =
+                Provider.of<StuQuestionProvider>(context, listen: false);
+
+/*            int wrongInput = provider.wrongInput[0];
+            String showToastContents = "";*/
+
+/*            if(wrongInput == 0){
+              showToastContents = "내용을 입력하지 않았습니다";
+              flutterToast(showToastContents);
+              provider.initWrongInput();
+              return;
+            }else if(wrongInput == 1){
+              showToastContents = "제목을 입력하지 않았습니다";
+              flutterToast(showToastContents);
+              provider.initWrongInput();
+              return;
+            }else if(wrongInput == 2){
+              showToastContents = "내용과 제목을 입력하지 않았습니다";
+              flutterToast(showToastContents);
+              provider.initWrongInput();
+              return;
+            }else {*/
+
+            provider.createQuestion(
               _TitleTextFieldState.titleController.text,
               _ContentsTextFieldState.contentsController.text,
-            ); // Provider로 값 전달
+            );
+
             _TitleTextFieldState.titleController.text = "";
             _ContentsTextFieldState.contentsController.text = "";
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const StuMain(),
-              ),
-            );
+
+            Navigator.pop(context);
           },
           style: ButtonStyle(
             backgroundColor: MaterialStatePropertyAll(NeedColors.darkBlue),
@@ -168,4 +183,15 @@ class CompleteButton extends StatelessWidget {
       ],
     );
   }
+
+/*  void flutterToast(String contents) {
+    Fluttertoast.showToast(
+        msg: contents, // 메시지 내용
+        toastLength: Toast.LENGTH_LONG, // 메시지 시간 - 안드로이드
+        gravity: ToastGravity.CENTER, // 메시지 위치
+        timeInSecForIosWeb: 2, // 메시지 시간 - iOS 및 웹
+        backgroundColor: NeedColors.lightGrey, // 배경
+        textColor: Colors.blue, // 글자
+        fontSize: 8.0); // 글자 크기
+  }*/
 }
