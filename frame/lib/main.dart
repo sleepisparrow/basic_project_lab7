@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:frame/Provider/pro_quiz_main_provider.dart';
 import 'package:frame/Provider/pro_classroom_list_provider.dart';
 import 'package:frame/Provider/pro_feedback_provider.dart';
+import 'package:frame/Provider/quiz_result_provider.dart';
+import 'package:frame/tools/quiz_result_chart_generator.dart';
 import 'package:frame/Provider/stu_question_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:frame/screen/login_screen.dart';
@@ -14,6 +16,10 @@ void main() {
             create: (_) => ProfFeedbackProvider()),
         ChangeNotifierProvider<ProfQuizMainProvider>(
             create: (_) => ProfQuizMainProvider()),
+        ChangeNotifierProvider<ProClassRoomList>(
+            create: (_) => ProClassRoomList()),
+        ChangeNotifierProvider<QuizResultProvider>(create:
+        (_) => QuizResultProvider())
         ChangeNotifierProvider<ProClassRoomListProvider>(
             create: (_) => ProClassRoomListProvider()),
         ChangeNotifierProvider<StuQuestionProvider>(
