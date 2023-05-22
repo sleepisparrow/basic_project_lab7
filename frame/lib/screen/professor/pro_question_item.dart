@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:frame/Provider/pro_question_provider.dart';
-import 'package:frame/dummy_data/question_dummy.dart';
 import 'package:provider/provider.dart';
 
 import '../../tools/need_colors.dart';
@@ -15,17 +14,15 @@ class ProQuestionItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: dummy data
-    ProQuestionProvider dummyGenerator =
-        Provider.of<ProQuestionProvider>(context);
-    for (int i = 0; i < QuestionDummy.questions.length; i++) {
-      dummyGenerator.questions.add(QuestionDummy.questions[i]);
-    }
 
     QuestionData data = context.read<ProQuestionProvider>().questions[index];
 
     return Container(
-      height: 80,
+      margin: const EdgeInsets.symmetric(vertical: 5),
+      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+      decoration: BoxDecoration(
+        color: Colors.blueGrey[100],
+      ),
       child: Row(
         children: [
           Expanded(child: _TextField(title: data.title, content: data.content)),
@@ -62,6 +59,7 @@ class _Answered extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       key: const Key('answered'),
+      width: 50,
       decoration: const BoxDecoration(
         shape: BoxShape.circle,
         color: Colors.green,
@@ -91,6 +89,7 @@ class _NotAnswered extends StatelessWidget {
       children: [
         Container(
           key: const Key('not answered'),
+          width: 50,
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
             color: Colors.red,
