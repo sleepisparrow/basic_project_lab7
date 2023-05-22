@@ -1,237 +1,166 @@
 import 'package:flutter/material.dart';
-import 'package:frame/Provider/pro_quiz_main_provider.dart';
-import 'package:frame/dummy_data/quiz_dummy.dart';
-import 'package:provider/provider.dart';
+import 'package:frame/tools/need_colors.dart';
 
-class ProQuizScreen extends StatefulWidget {
-  const ProQuizScreen({Key? key, this.widgetDeleteFlag = false}) : super(key: key);
-
-  final bool widgetDeleteFlag;
-
-  @override
-  State<ProQuizScreen> createState() => ProQuizScreenState();
-}
-
-class ProQuizScreenState extends State<ProQuizScreen> {
-  var _widgetDeleteFlag = false;
-  dynamic listWidget =
-      (int index, BuildContext context, List<String> questions) =>
-          _DefaultListWidget(
-            index: index,
-            context: context,
-            questions: questions,
-          );
+class ProQuizScreen extends StatelessWidget {
+  const ProQuizScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // TODO: dummy data for ui testing. Must remove after.
-    ProfQuizMainProvider dummyProvider =
-        Provider.of<ProfQuizMainProvider>(context);
-    for (int i = 0; i < QuizDummy.quizes.length; i++) {
-      dummyProvider.addQuestion(QuizDummy.quizes[i]);
-    }
-
-    ProfQuizMainProvider provider = Provider.of<ProfQuizMainProvider>(context);
-    List<String> questions = provider.question;
-
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-              child: ListView.builder(
-            // shrinkWrap: true,
-            itemBuilder: (BuildContext context, int index) {
-              return listWidget(index, context, questions);
-            },
-            itemCount: questions.length,
-          )),
-          ButtonSet(setListWidget),
-        ],
-      ),
-    );
-  }
-
-  void setListWidget() {
-    if (!_widgetDeleteFlag) {
-      setState(() {
-        listWidget =
-            (int index, BuildContext context, List<String> questions) =>
-                _DeleteListWidget(
-                  index: index,
-                  context: context,
-                  questions: questions,
-                );
-      });
-      _widgetDeleteFlag = true;
-    } else {
-      setState(() {
-        listWidget =
-            (int index, BuildContext context, List<String> questions) =>
-                _DefaultListWidget(
-                  index: index,
-                  context: context,
-                  questions: questions,
-                );
-      });
-      _widgetDeleteFlag = false;
-    }
-  }
-}
-
-class _DeleteListWidget extends StatefulWidget {
-  const _DeleteListWidget(
-      {Key? key,
-      required this.index,
-      required this.context,
-      required this.questions})
-      : super(key: key);
-
-  final int index;
-  final BuildContext context;
-  final List<String> questions;
-
-  @override
-  State<_DeleteListWidget> createState() => _DeleteListWidgetState();
-}
-
-class _DeleteListWidgetState extends State<_DeleteListWidget> {
-  bool checkboxValue = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Checkbox(
-            value: checkboxValue,
-            onChanged: (bool? value) {
-              setState(() {
-                checkboxValue = value!;
-              });
-            }),
-        Expanded(
-          child: GestureDetector(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-              child: ColoredBox(
-                color: const Color(0xffe3e5ee),
-                child: SizedBox(
-                  height: 80,
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    child: Text(
-                      widget.questions[widget.index],
-                      style: const TextStyle(fontSize: 16),
-                    ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            LockIcon(),
+            SizedBox(
+              height: MediaQuery.of(context).size.height/30,
+            ),
+            Column(
+              children: [
+                QuizResult(),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      QuizInitButton(),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      QuizResultButton(),
+                      SizedBox(
+                        width: 20,
+                      ),
+                    ],
                   ),
-                ),
-              ),
+                )
+              ],
             ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _DefaultListWidget extends StatefulWidget {
-  const _DefaultListWidget(
-      {Key? key,
-      required this.index,
-      required this.context,
-      required this.questions})
-      : super(key: key);
-  final int index;
-  final BuildContext context;
-  final List<String> questions;
-
-  @override
-  State<_DefaultListWidget> createState() => _DefaultListWidgetState();
-}
-
-class _DefaultListWidgetState extends State<_DefaultListWidget> {
-  int? index;
-  BuildContext? parentContext;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-        child: ColoredBox(
-          color: const Color(0xffe3e5ee),
-          child: SizedBox(
-            height: 80,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              child: Text(
-                widget.questions[index!],
-                style: const TextStyle(fontSize: 16),
-              ),
-            ),
-          ),
+          ],
         ),
       ),
     );
   }
-
-  @override
-  void initState() {
-    super.initState();
-    index = widget.index;
-    parentContext = widget.context;
-  }
 }
 
-class ButtonSet extends StatelessWidget {
-  const ButtonSet(
-    this.function, {
-    Key? key,
-  }) : super(key: key);
-
-  final Function() function;
+class LockIcon extends StatefulWidget {
+  const LockIcon({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          _BottomButton(
-            onPressed: function,
-            child: const Text('삭제'),
-          ),
-          _BottomButton(
-            onPressed: () {},
-            child: const Text('공개'),
-          ),
-          _BottomButton(
-            onPressed: () {},
-            child: const Text('추가'),
-          ),
-        ],
-      ),
-    );
-  }
+  State<LockIcon> createState() => _LockIconState();
 }
 
-class _BottomButton extends StatelessWidget {
-  /// 메인페이지 가장 밑의 청록색 버튼 3개를 위한 클래스
-  const _BottomButton({Key? key, this.child, this.onPressed}) : super(key: key);
-
-  final dynamic child;
-  final dynamic onPressed;
+class _LockIconState extends State<LockIcon> {
+  IconData currentIcon = Icons.lock;
+  bool btn_lockInfo = false;
+  String text_lockInfo = "상태 열림";
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        minimumSize: const Size(64, 48),
-        backgroundColor: const Color(0xff2296AF),
+      onPressed: () {
+        setState(() {
+          btn_lockInfo = !btn_lockInfo;
+          if (btn_lockInfo) {
+            currentIcon = Icons.lock_open;
+            text_lockInfo = "상태 : 열림";
+          } else {
+            currentIcon = Icons.lock;
+            text_lockInfo = "상태 : 닫힘";
+          }
+        });
+      },
+      style: ButtonStyle(
+        backgroundColor: MaterialStatePropertyAll(NeedColors.blueGreen),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        )),
       ),
-      onPressed: onPressed,
-      child: child,
+      child: Column(
+        children: [
+          Icon(
+            currentIcon,
+            size: MediaQuery.of(context).size.width / 5 * 4,
+            color: Colors.white,
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+            child: Text(
+              text_lockInfo,
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class QuizResult extends StatefulWidget {
+  const QuizResult({Key? key}) : super(key: key);
+
+  @override
+  State<QuizResult> createState() => _QuizResultState();
+}
+
+class _QuizResultState extends State<QuizResult> {
+  Widget data = Text("No data");
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      constraints: BoxConstraints(
+        minHeight: MediaQuery.of(context).size.height / 7,
+        minWidth: MediaQuery.of(context).size.width - 40,
+        maxWidth: MediaQuery.of(context).size.width - 40,
+      ),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          border: Border.all(color: NeedColors.darkBlue, width: 3.0)),
+      child: Center(child: data),
+      /// 결과 확인 버튼 누르면 data를 그래프로 변경
+    );
+  }
+}
+
+/// 버튼 클릭시 데이터 초기화 필요
+class QuizInitButton extends StatelessWidget {
+  const QuizInitButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {},
+      style: ButtonStyle(
+        backgroundColor: MaterialStatePropertyAll(NeedColors.lightBlue),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
+        child: Text("초기화"),
+      ),
+    );
+  }
+}
+
+/// 버튼 클릭시 데이터를 그래프로 변경
+class QuizResultButton extends StatelessWidget {
+  const QuizResultButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {},
+      style: ButtonStyle(
+        backgroundColor: MaterialStatePropertyAll(NeedColors.lightBlue),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
+        child: Text("결과 확인"),
+      ),
     );
   }
 }
