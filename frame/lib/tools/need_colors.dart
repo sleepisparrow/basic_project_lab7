@@ -5,4 +5,5 @@ class NeedColors{
   static const Color lightGrey = Color(0xffE3E5EE);
   static const Color darkGrey = Color(0xffA2ABCE);
   static const Color blueGreen = Color(0xff2296AF);
+  static const Color lightBlue = Color(0xff4863A5);
 }
