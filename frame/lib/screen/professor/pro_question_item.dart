@@ -120,7 +120,6 @@ class _NotAnswered extends StatelessWidget {
 }
 
 /// 교수 페이지의 질문과 그 내용에 해당하는 부분
-///
 /// title: 제목 (더 크다 )
 /// content: 내용
 class _TextField extends StatelessWidget {

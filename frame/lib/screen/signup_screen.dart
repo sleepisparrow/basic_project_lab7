@@ -14,7 +14,7 @@ class SingupScreen extends StatefulWidget {
 class _SingupScreenState extends State<SingupScreen> {
   final _authentication = FirebaseAuth.instance;
 
-  ///파이어베이스를 사용할수 있게 해주는 값
+  /// 파이어베이스를 사용할 수 있게 해주는 값
 
   final _formKey = GlobalKey<FormState>();
   String userId = '';
@@ -244,10 +244,15 @@ class _SingupScreenState extends State<SingupScreen> {
                         color: NeedColors.darkGrey,
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: Text(
-                        '회원가입 완료',
-                        style: TextStyle(
-                          color: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        child: Center(
+                          child: Text(
+                            '회원가입 완료',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -307,73 +312,6 @@ class _SingupManual extends StatelessWidget {
                 '학번이 아이디로 지정됩니다.',
               ),
             ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// 학번, 비밀번호, 이름, 이메일 InputText
-class _Input extends StatelessWidget {
-  const _Input({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      child: Column(
-        children: [
-          TextFormField(
-            key: ValueKey(1),
-            validator: (value) {
-              if (value!.isEmpty || value.length < 4) {
-                return 'Please enter at least 4 characters';
-              }
-              return null;
-            },
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-              labelText: '학번',
-            ),
-            keyboardType: TextInputType.emailAddress,
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-              labelText: '비밀번호',
-            ),
-            obscureText: true,
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-              labelText: '이름',
-            ),
-            obscureText: true,
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-              labelText: '이메일',
-            ),
-            obscureText: true,
           ),
         ],
       ),
