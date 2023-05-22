@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:frame/Provider/pro_classroom_list_provider.dart';
 import 'package:frame/screen/professor/pro_create_classroom_screen.dart';
 import 'package:frame/screen/professor/pro_main.dart';
@@ -124,7 +125,8 @@ class ClassNameState extends State<ClassName> {
                           selectedClassName[i] = i == index;
                           if (selectedClassName[i]) idx = i;
                         }
-                        Provider.of<ProClassRoomListProvider>(context, listen: false)
+                        Provider.of<ProClassRoomListProvider>(context,
+                                listen: false)
                             .setToggleSelectedItem(classNameList[idx]);
                         print(classNameList[idx]);
                       });
@@ -177,37 +179,49 @@ class ClassNameState extends State<ClassName> {
 
   Future<dynamic> createClassNameDialog(BuildContext context) async {
     return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('과목 추가'),
-            content: SingleChildScrollView(
-              child: TextField(
-                controller: inputClassName,
-                decoration: const InputDecoration(hintText: '추가할 과목명 입력'),
-              ),
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('과목 추가'),
+          content: SingleChildScrollView(
+            child: TextField(
+              controller: inputClassName,
+              decoration: const InputDecoration(hintText: '추가할 과목명 입력'),
             ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  inputClassName.text = '';
-                },
-                child: const Text('취소'),
-              ),
-              ElevatedButton(
-                onPressed: () {
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                inputClassName.text = '';
+              },
+              child: const Text('취소'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (inputClassName.text.compareTo('') == 0) {
+                  Fluttertoast.showToast(
+                    msg: "과목명을 입력해주세요",
+                    toastLength: Toast.LENGTH_LONG,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: NeedColors.darkBlue,
+                    textColor: Colors.white,
+                    fontSize: 16.0, //
+                  );
+                } else {
                   classNameList.add(Text("  ${inputClassName.text}  "));
                   selectedClassName.add(false);
                   inputClassName.text = '';
                   Navigator.pop(context);
                   setState(() {});
-                },
-                child: const Text('완료'),
-              )
-            ],
-          );
-        },
+                }
+              },
+              child: const Text('완료'),
+            )
+          ],
+        );
+      },
     );
   }
 }
@@ -236,7 +250,8 @@ class _CreateIcon extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const CreateClassroomScreen()),
+            MaterialPageRoute(
+                builder: (context) => const CreateClassroomScreen()),
           );
         },
         icon: const Icon(Icons.create),
@@ -255,16 +270,15 @@ class ClassListContents extends StatefulWidget {
 class ClassListContentsState extends State<ClassListContents> {
   @override
   Widget build(BuildContext context) {
-    Text toggleSelected = Provider.of<ProClassRoomListProvider>(context)
-        .toggleSelectedItem;
+    Text toggleSelected =
+        Provider.of<ProClassRoomListProvider>(context).toggleSelectedItem;
     int selectedClassNameItemNum = 0;
 
     if (Provider.of<ProClassRoomListProvider>(context)
         .dropItemCountMap
         .containsKey(toggleSelected)) {
-      selectedClassNameItemNum =
-          Provider.of<ProClassRoomListProvider>(context)
-              .dropItemCountMap[toggleSelected]!;
+      selectedClassNameItemNum = Provider.of<ProClassRoomListProvider>(context)
+          .dropItemCountMap[toggleSelected]!;
     }
 
     return Builder(builder: (context) {
@@ -283,12 +297,15 @@ class ClassListContentsState extends State<ClassListContents> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Provider.of<ProClassRoomListProvider>(context, listen: false).selectedDate =
-                    Provider.of<ProClassRoomListProvider>(context, listen: false).dropCreateDateMap[toggleSelected]![index];
+                    Provider.of<ProClassRoomListProvider>(context,
+                            listen: false)
+                        .selectedDate = Provider.of<ProClassRoomListProvider>(
+                            context,
+                            listen: false)
+                        .dropCreateDateMap[toggleSelected]![index];
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => const ProMain()),
+                      MaterialPageRoute(builder: (context) => const ProMain()),
                     );
                   },
                   child: Container(
