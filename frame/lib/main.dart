@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:frame/Provider/pro_question_provider.dart';
 import 'package:frame/Provider/pro_quiz_main_provider.dart';
 import 'package:frame/Provider/pro_classroom_list_provider.dart';
 import 'package:frame/Provider/pro_feedback_provider.dart';
@@ -27,6 +28,8 @@ void main() async{
             create: (_) => ProClassRoomListProvider()),
         ChangeNotifierProvider<StuQuestionProvider>(
             create: (_) => StuQuestionProvider()),
+        ChangeNotifierProvider<ProQuestionProvider>(
+            create: (_) => ProQuestionProvider()),
       ],
       child: MaterialApp(
         theme: ThemeData(
