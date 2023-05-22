@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:frame/screen/login_screen.dart';
 import '../tools/horizontal_line.dart';
@@ -24,6 +25,7 @@ class _SingupScreenState extends State<SingupScreen> {
   bool stuIsPressed = false;
   bool proIsPressed = false;
 
+  ///input 값들이 유효한지 확인후 저장
   void _tryValidation() {
     final isValid = _formKey.currentState!.validate();
     if (isValid) {
@@ -215,13 +217,20 @@ class _SingupScreenState extends State<SingupScreen> {
                   width: 220,
                   child: GestureDetector(
                     onTap: () async{
-                      _tryValidation();
+                      _tryValidation(); ///데이터를 유효한지 검사하고 저장
                       try {
-                        final newUser = await _authentication
+                        final newUser = await _authentication ///authentication에 데이터생성 및 저장
                             .createUserWithEmailAndPassword(
                           email: userEmail,
                           password: userPassword,
                         );
+
+                        await FirebaseFirestore.instance.collection('user').doc(newUser.user!.uid)
+                        .set({ ///파이어베이스에 user doc에 회원정보 저장
+                          'userName' : userName,
+                          'email': userEmail,
+                          'userId': userId,
+                        });
                         if (newUser.user != null) {
                           Navigator.push(
                             context,
