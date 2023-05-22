@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:frame/screen/student/stu_main.dart';
 import 'package:frame/tools/need_colors.dart';
 import 'package:provider/provider.dart';
@@ -142,38 +143,57 @@ class CompleteButton extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () {
+
+            String title = _TitleTextFieldState.titleController.text;
+            String contents = _ContentsTextFieldState.contentsController.text;
+
             StuQuestionProvider provider =
                 Provider.of<StuQuestionProvider>(context, listen: false);
 
-/*            int wrongInput = provider.wrongInput[0];
-            String showToastContents = "";*/
+            if(title.compareTo('') == 0 && contents.compareTo('') == 0){
+              Fluttertoast.showToast(
+                msg: "제목과 질문 내용을 입력해주세요",
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 1,
+                backgroundColor: NeedColors.darkBlue,
+                textColor: Colors.white,
+                fontSize: 16.0, //
+              );
+            }
+            else if(title.compareTo('') == 0){
+              Fluttertoast.showToast(
+                msg: "제목을 입력해주세요",
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 1,
+                backgroundColor: NeedColors.darkBlue,
+                textColor: Colors.white,
+                fontSize: 16.0, //
+              );
+            }
+            else if(contents.compareTo('') == 0){
+              Fluttertoast.showToast(
+                msg: "질문 내용을 입력해주세요",
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 1,
+                backgroundColor: NeedColors.darkBlue,
+                textColor: Colors.white,
+                fontSize: 16.0, //
+              );
+            }
+            else{
+              provider.createQuestion(
+                _TitleTextFieldState.titleController.text,
+                _ContentsTextFieldState.contentsController.text,
+              );
 
-/*            if(wrongInput == 0){
-              showToastContents = "내용을 입력하지 않았습니다";
-              flutterToast(showToastContents);
-              provider.initWrongInput();
-              return;
-            }else if(wrongInput == 1){
-              showToastContents = "제목을 입력하지 않았습니다";
-              flutterToast(showToastContents);
-              provider.initWrongInput();
-              return;
-            }else if(wrongInput == 2){
-              showToastContents = "내용과 제목을 입력하지 않았습니다";
-              flutterToast(showToastContents);
-              provider.initWrongInput();
-              return;
-            }else {*/
+              _TitleTextFieldState.titleController.text = "";
+              _ContentsTextFieldState.contentsController.text = "";
 
-            provider.createQuestion(
-              _TitleTextFieldState.titleController.text,
-              _ContentsTextFieldState.contentsController.text,
-            );
-
-            _TitleTextFieldState.titleController.text = "";
-            _ContentsTextFieldState.contentsController.text = "";
-
-            Navigator.pop(context);
+              Navigator.pop(context);
+            }
           },
           style: ButtonStyle(
             backgroundColor: MaterialStatePropertyAll(NeedColors.darkBlue),
@@ -183,15 +203,4 @@ class CompleteButton extends StatelessWidget {
       ],
     );
   }
-
-/*  void flutterToast(String contents) {
-    Fluttertoast.showToast(
-        msg: contents, // 메시지 내용
-        toastLength: Toast.LENGTH_LONG, // 메시지 시간 - 안드로이드
-        gravity: ToastGravity.CENTER, // 메시지 위치
-        timeInSecForIosWeb: 2, // 메시지 시간 - iOS 및 웹
-        backgroundColor: NeedColors.lightGrey, // 배경
-        textColor: Colors.blue, // 글자
-        fontSize: 8.0); // 글자 크기
-  }*/
 }
