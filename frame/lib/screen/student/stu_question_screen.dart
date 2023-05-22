@@ -131,12 +131,12 @@ class _CreateIcon extends StatelessWidget {
                     "질문 작성",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 25
+                      fontSize: 25,
                     ),
                   ),
                 ),
                 actions: [
-                  StuCreateQuestion()
+                  StuCreateQuestion(),
                 ],
               );
             },
