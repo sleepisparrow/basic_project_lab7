@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:frame/Provider/pro_quiz_main_provider.dart';
 import 'package:frame/Provider/pro_classroom_list_provider.dart';
@@ -8,7 +9,9 @@ import 'package:frame/screen/login_screen.dart';
 import 'package:frame/Provider/stu_question_provider.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(
     MultiProvider(
       providers: [
