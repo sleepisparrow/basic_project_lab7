@@ -36,6 +36,7 @@ class _SingupScreenState extends State<SingupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         bottom: false,
         child: Column(

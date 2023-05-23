@@ -17,17 +17,21 @@ class ProQuestionItem extends StatelessWidget {
 
     QuestionData data = context.read<ProQuestionProvider>().questions[index];
 
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 5),
-      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-      decoration: BoxDecoration(
-        color: Colors.blueGrey[100],
-      ),
-      child: Row(
-        children: [
-          Expanded(child: _TextField(title: data.title, content: data.content)),
-          _Buttons(index: index),
-        ],
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+      child: Container(
+        width: MediaQuery.of(context).size.width - 16,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8.0),
+          border: Border.all(color: NeedColors.darkBlue, width: 1),
+          color: NeedColors.lightGrey,
+        ),
+        child: Row(
+          children: [
+            Expanded(child: _TextField(title: data.title, content: data.content)),
+            _Buttons(index: index),
+          ],
+        ),
       ),
     );
   }
@@ -134,7 +138,7 @@ class _TextField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '제목 : $title',
+          '  제목 : $title',
           style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20.0,
@@ -143,7 +147,7 @@ class _TextField extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(10, 0, 0, 10),
           child: Text(
-            '내용 : $content',
+            ' 내용 : $content',
           ),
         ),
       ],
