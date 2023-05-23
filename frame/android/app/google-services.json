@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "901873632069",
+    "project_id": "cnu-lab-project7",
+    "storage_bucket": "cnu-lab-project7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901873632069:android:9645ad5acfc1499fb8342c",
+        "android_client_info": {
+          "package_name": "com.example.frame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "901873632069-dt6kbtqf5jkd4d7ulamakcvrmojh5jk1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqr1IuBQBDhRjtQUhK0QT2Ul68vuXiFjc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "901873632069-dt6kbtqf5jkd4d7ulamakcvrmojh5jk1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

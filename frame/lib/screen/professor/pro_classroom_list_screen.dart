@@ -207,7 +207,7 @@ class ClassNameState extends State<ClassName> {
                     timeInSecForIosWeb: 1,
                     backgroundColor: NeedColors.darkBlue,
                     textColor: Colors.white,
-                    fontSize: 16.0, //
+                    fontSize: 16.0,
                   );
                 } else {
                   classNameList.add(Text("  ${inputClassName.text}  "));
