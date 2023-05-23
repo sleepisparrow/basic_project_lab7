@@ -16,20 +16,26 @@ class StuFeedBackScreen extends StatelessWidget {
                 '수업의 난이도는 어땠나요?',
               ),
             ),
+            const Center(
+              child: Text(
+                '5: 매우 어려움/4: 어려움/3: 보통/2:쉬움/1: 아주 쉬움',
+                style: TextStyle(fontSize: 12),
+              ),
+            ),
             Padding(
-                padding: EdgeInsets.fromLTRB(20, 0, 50, 80),
+              padding: EdgeInsets.fromLTRB(20, 0, 50, 80),
               child: _StudyLevel(),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(20, 0, 50, 200),
               child: TextField(
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.0),
                     ),
-                    labelText: '건의사항 (선택)'
-                ),
-                keyboardType: TextInputType.text,
+                    labelText: '건의사항 (선택)'),
               ),
             ),
             _Submit(),
@@ -40,7 +46,7 @@ class StuFeedBackScreen extends StatelessWidget {
   }
 }
 
-class _Submit extends StatelessWidget{
+class _Submit extends StatelessWidget {
   const _Submit({Key? key}) : super(key: key);
 
   @override
@@ -48,7 +54,7 @@ class _Submit extends StatelessWidget{
     return Column(
       children: [
         SizedBox(
-          width: 30,
+          width: 80,
           child: ElevatedButton(
             onPressed: () {},
             style: ButtonStyle(
@@ -61,9 +67,7 @@ class _Submit extends StatelessWidget{
             ),
             child: const Text(
               '제출',
-              style: TextStyle(
-                color: Colors.black
-              ),
+              style: TextStyle(color: Colors.black),
             ),
           ),
         )
@@ -72,14 +76,14 @@ class _Submit extends StatelessWidget{
   }
 }
 
-class _StudyLevel extends StatefulWidget{
+class _StudyLevel extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return __StudyLevel();
   }
 }
 
-class __StudyLevel extends State{
+class __StudyLevel extends State {
   final nameController = TextEditingController();
   int? _radioValue = 0;
 
@@ -103,8 +107,8 @@ class __StudyLevel extends State{
     );
   }
 
-  _radioChange(int? value){
-    setState((){
+  _radioChange(int? value) {
+    setState(() {
       _radioValue = value;
     });
   }

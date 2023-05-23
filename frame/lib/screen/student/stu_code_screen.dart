@@ -4,7 +4,6 @@ import 'package:frame/tools/horizontal_line.dart';
 import 'package:frame/tools/need_colors.dart';
 import 'package:frame/tools/textform.dart';
 
-
 //코드 입력화면
 class StuCodeScreen extends StatelessWidget {
   const StuCodeScreen({super.key});
@@ -20,6 +19,11 @@ class StuCodeScreen extends StatelessWidget {
               height: 100,
             ),
             const HorizontalLine(),
+            Image.asset(
+              './asset/celebrate_chacha.png',
+              width: 320,
+              height: 320,
+            ),
             Padding(
               padding: const EdgeInsets.all(20),
               child: Column(
@@ -45,11 +49,12 @@ class StuCodeScreen extends StatelessWidget {
                           height: 20,
                         ),
                         GestureDetector(
-                          onTap: (){
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const StuMain()),
-                              );
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const StuMain()),
+                            );
                           },
                           child: Container(
                             margin: const EdgeInsets.only(left: 200),
@@ -65,8 +70,6 @@ class StuCodeScreen extends StatelessWidget {
                                 color: Colors.white,
                               ),
                             ),
-
-
                           ),
                         )
                       ],
@@ -75,42 +78,10 @@ class StuCodeScreen extends StatelessWidget {
                   const SizedBox(
                     height: 50,
                   ),
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 3, horizontal: 5),
-                    decoration: const BoxDecoration(
-                      color: NeedColors.lightGrey,
-                      border: Border(
-                        top: BorderSide(
-                          color: Color(0xff11307C),
-                          width: 2,
-                        ),
-                        left: BorderSide(
-                          color: Color(0xff11307C),
-                          width: 2,
-                        ),
-                        right: BorderSide(
-                          color: Color(0xff11307C),
-                          width: 2,
-                        ),
-                      ),
-                    ),
-                    child: const Text('과목명'),
-                  ),
-                  const HorizontalLine(),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  const RecentContainer(),
-                  const RecentContainer(),
-                  const RecentContainer(),
-                  const HorizontalLine(),
-
                 ],
               ),
             ),
             const HorizontalLine(),
-
           ],
         ),
       ),
@@ -123,6 +94,7 @@ class RecentContainer extends StatelessWidget {
   const RecentContainer({
     super.key,
   });
+
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -68,6 +68,7 @@ flutter:
   assets:
     - asset/lock-outline.png
     - asset/chacha_basic_uniform.png
+    - asset/celebrate_chacha.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

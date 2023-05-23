@@ -38,7 +38,13 @@ class ProfFeedbackScreenState extends State<ProfFeedbackScreen> {
     return Scaffold(
       body: Column(
         children: [
-          const SizedBox(height: 200, child: _PieGraph()),
+          const SizedBox(height: 300, child: _PieGraph()),
+          const Center(
+            child: Text(
+              '5: 매우 어려움/4: 어려움/3: 보통/2:쉬움/1: 아주 쉬움',
+              style: TextStyle(fontSize: 12),
+            ),
+          ),
           Expanded(
             child: Container(
               margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
