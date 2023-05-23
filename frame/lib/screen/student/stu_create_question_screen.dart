@@ -125,14 +125,7 @@ class CompleteButton extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => StuMain(),
-              ),
-            );
-          },
+          onPressed: (){Navigator.pop(context);}, ///창 닫기
           child: const Text('취소'),
           style: ButtonStyle(
             backgroundColor: MaterialStatePropertyAll(NeedColors.darkBlue),
