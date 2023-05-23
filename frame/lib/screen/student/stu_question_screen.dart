@@ -99,7 +99,7 @@ class _StuQuestionListState extends State<StuQuestionList> {
                 Positioned(
                   right: 5,
                   top: 0,
-                  child: _Answered(),
+                  child: _NotAnswered(),
                 ),
               ],
             );
@@ -110,8 +110,8 @@ class _StuQuestionListState extends State<StuQuestionList> {
   }
 }
 
-class _Answered extends StatelessWidget {
-  const _Answered({Key? key}) : super(key: key);
+class _NotAnswered extends StatelessWidget {
+  const _NotAnswered({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

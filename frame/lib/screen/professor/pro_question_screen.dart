@@ -14,9 +14,7 @@ class ProQuestionScreen extends StatelessWidget {
     // TODO: dummy data
     ProQuestionProvider dummyGenerator =
         Provider.of<ProQuestionProvider>(context);
-    for (int i = 0; i < QuestionDummy.questions.length; i++) {
-      dummyGenerator.questions.add(QuestionDummy.questions[i]);
-    }
+    dummyGenerator.questions.add(QuestionDummy.questions[0]);
 
     ProQuestionProvider provider = context.watch<ProQuestionProvider>();
 
