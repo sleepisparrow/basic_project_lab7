@@ -9,7 +9,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
-
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -17,7 +16,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _authentication = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
-  bool showSpinner = false; /// firebase에서 데이터 가져오는 동안 기다려주는 변수
+  bool showSpinner = false;
+
+  /// firebase에서 데이터 가져오는 동안 기다려주는 변수
   String userName = '';
   String userEmail = '';
   String userPassword = '';
@@ -126,34 +127,54 @@ class _LoginScreenState extends State<LoginScreen> {
                             SizedBox(
                               width: 150,
                               child: ElevatedButton(
-                                onPressed: () async{
+                                onPressed: () async {
                                   setState(() {
                                     showSpinner = true;
                                   });
                                   _tryValidation();
                                   try {
-                                  final newUser = await _authentication
-                                      .signInWithEmailAndPassword(
-                                  email: userEmail,
-                                  password: userPassword,
-                                  );
-                                  if(newUser.user != null){
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => StuCodeScreen()),
+                                    final newUser = await _authentication
+                                        .signInWithEmailAndPassword(
+                                      email: userEmail,
+                                      password: userPassword,
                                     );
+                                    if (newUser.user != null) {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                StuCodeScreen()),
+                                      );
+                                      setState(() {
+                                        showSpinner = false;
+                                      });
+                                    }
+                                  } catch (e) {
+                                    print(e);
                                     setState(() {
                                       showSpinner = false;
                                     });
-                                  }
-                                  }catch(e){
-                                    print(e);
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context){
+                                          return AlertDialog(
+                                            title: Text('회원정보 없음'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: Text('확인'),
+                                              )
+                                            ],
+                                          );
+                                        },
+                                        barrierDismissible: true);
                                   }
                                 },
                                 style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all(NeedColors.lightGrey),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      NeedColors.lightGrey),
                                   shape: MaterialStateProperty.all(
                                     RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(20.0),
@@ -180,8 +201,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   );
                                 },
                                 style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all(NeedColors.lightGrey),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      NeedColors.lightGrey),
                                   shape: MaterialStateProperty.all(
                                     RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(20.0),
@@ -206,12 +227,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => const SingupScreen()),
+                                        builder: (context) =>
+                                            const SingupScreen()),
                                   );
                                 },
                                 style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all(NeedColors.lightGrey),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      NeedColors.lightGrey),
                                   shape: MaterialStateProperty.all(
                                     RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(20.0),
