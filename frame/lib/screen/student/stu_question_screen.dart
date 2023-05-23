@@ -119,12 +119,12 @@ class _Answered extends StatelessWidget {
       key: const Key('answered'),
       decoration: const BoxDecoration(
         shape: BoxShape.circle,
-        color: Colors.green,
+        color: Colors.red,
       ),
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Text(
-          '답변\n완료',
+          '답변\n대기',
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white,
