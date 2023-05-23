@@ -55,39 +55,51 @@ class _StuQuestionListState extends State<StuQuestionList> {
         return ListView.builder(
           itemCount: questionCount,
           itemBuilder: (BuildContext context, int index) {
-            return Column(
+            return Stack(
               children: [
-                SizedBox(
-                  height: 10,
+                Column(
+                  children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Center(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width - 16,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.0),
+                          border:
+                              Border.all(color: NeedColors.darkBlue, width: 1),
+                          color: NeedColors.lightGrey,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(10, 10, 0, 5),
+                              child: Text(
+                                '제목 : ${title[index]}',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20.0,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(10, 0, 0, 10),
+                              child: Text(
+                                '내용 : ${contents[index]}',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width - 16,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    border: Border.all(color: NeedColors.darkBlue, width: 1),
-                    color: NeedColors.lightGrey,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 10, 0, 5),
-                        child: Text(
-                          '제목 : ${title[index]}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20.0,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 0, 0, 10),
-                        child: Text(
-                          '내용 : ${contents[index]}',
-                        ),
-                      ),
-                    ],
-                  ),
+                Positioned(
+                  right: 5,
+                  top: 0,
+                  child: _Answered(),
                 ),
               ],
             );
@@ -95,6 +107,32 @@ class _StuQuestionListState extends State<StuQuestionList> {
         );
       }
     });
+  }
+}
+
+class _Answered extends StatelessWidget {
+  const _Answered({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      key: const Key('answered'),
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.green,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Text(
+          '답변\n완료',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 12,
+          ),
+        ),
+      ),
+    );
   }
 }
 
