@@ -81,6 +81,8 @@ class _StuQuestionListState extends State<StuQuestionList> {
     List<String> title = provider.questionTitle;
     List<String> contents = provider.questionContents;
 
+    CollectionReference product = FirebaseFirestore.instance.collection('room');
+
     return Builder(builder: (context) {
       if (questionCount == 0) {
         return Center(
