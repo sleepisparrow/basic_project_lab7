@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:frame/Provider/quiz_provider.dart';
 import 'package:frame/tools/need_colors.dart';
+import 'package:frame/tools/quiz_result_chart_generator.dart';
+import 'package:provider/provider.dart';
 
 class ProQuizScreen extends StatelessWidget {
   const ProQuizScreen({Key? key}) : super(key: key);
@@ -13,7 +16,7 @@ class ProQuizScreen extends StatelessWidget {
           children: [
             LockIcon(),
             SizedBox(
-              height: MediaQuery.of(context).size.height/30,
+              height: MediaQuery.of(context).size.height / 30,
             ),
             Column(
               children: [
@@ -52,23 +55,27 @@ class LockIcon extends StatefulWidget {
 
 class _LockIconState extends State<LockIcon> {
   IconData currentIcon = Icons.lock;
-  bool btn_lockInfo = false;
   String text_lockInfo = "상태 열림";
 
   @override
+  void initState() {
+    super.initState();
+    QuizProvider provider = context.read<QuizProvider>();
+    provider.initialize();
+  }
+
+  @override
   Widget build(BuildContext context) {
+
+    bool locked = context.select((QuizProvider p) => p.locked);
+    QuizProvider provider = context.read<QuizProvider>();
+
+    currentIcon = locked? Icons.lock_outline : Icons.lock_open;
+    text_lockInfo = locked? "상태 : 닫힘" : "상태 : 열림";
+
     return ElevatedButton(
       onPressed: () {
-        setState(() {
-          btn_lockInfo = !btn_lockInfo;
-          if (btn_lockInfo) {
-            currentIcon = Icons.lock_open;
-            text_lockInfo = "상태 : 열림";
-          } else {
-            currentIcon = Icons.lock;
-            text_lockInfo = "상태 : 닫힘";
-          }
-        });
+        provider.updateLocked(!locked);
       },
       style: ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(NeedColors.blueGreen),
@@ -108,13 +115,13 @@ class QuizResult extends StatefulWidget {
 }
 
 class _QuizResultState extends State<QuizResult> {
-  Widget data = Text("No data");
+  Widget data = const QuizResultChartGenerator();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       constraints: BoxConstraints(
-        minHeight: MediaQuery.of(context).size.height / 7,
+        maxHeight: MediaQuery.of(context).size.height / 7,
         minWidth: MediaQuery.of(context).size.width - 40,
         maxWidth: MediaQuery.of(context).size.width - 40,
       ),
@@ -122,6 +129,7 @@ class _QuizResultState extends State<QuizResult> {
           borderRadius: BorderRadius.circular(10.0),
           border: Border.all(color: NeedColors.darkBlue, width: 3.0)),
       child: Center(child: data),
+
       /// 결과 확인 버튼 누르면 data를 그래프로 변경
     );
   }
@@ -134,7 +142,10 @@ class QuizInitButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        QuizProvider provider = context.read<QuizProvider>();
+        provider.resetData();
+      },
       style: ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(NeedColors.lightBlue),
       ),
@@ -153,7 +164,10 @@ class QuizResultButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        // TODO 아마도 삭제
+        // 새로고침 버튼
+      },
       style: ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(NeedColors.lightBlue),
       ),

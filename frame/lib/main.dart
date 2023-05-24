@@ -5,6 +5,7 @@ import 'package:frame/Provider/pro_quiz_main_provider.dart';
 import 'package:frame/Provider/pro_classroom_list_provider.dart';
 import 'package:frame/Provider/pro_feedback_provider.dart';
 import 'package:frame/Provider/quiz_finish_provider.dart';
+import 'package:frame/Provider/quiz_provider.dart';
 import 'package:frame/Provider/quiz_result_provider.dart';
 import 'package:frame/screen/login_screen.dart';
 import 'package:frame/Provider/stu_question_provider.dart';
@@ -30,6 +31,8 @@ void main() async{
             create: (_) => StuQuestionProvider()),
         ChangeNotifierProvider<ProQuestionProvider>(
             create: (_) => ProQuestionProvider()),
+        ChangeNotifierProvider<QuizProvider>(
+            create: (_) => QuizProvider()),
       ],
       child: MaterialApp(
         theme: ThemeData(
