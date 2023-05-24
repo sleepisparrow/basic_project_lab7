@@ -36,242 +36,259 @@ class _SingupScreenState extends State<SingupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       body: SafeArea(
         bottom: false,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            const HorizontalLine(),
-            const _SingupManual(),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                children: [
-                  Form(
-                    key: _formKey,
+        child: Center(
+          child: Container(
+            height: MediaQuery.of(context).size.height/10 * 8,
+            decoration: BoxDecoration(
+              border: Border(
+                top: BorderSide(
+                  color: NeedColors.darkBlue,
+                  width: 3.0,
+                ),
+                bottom: BorderSide(
+                  color: NeedColors.darkBlue,
+                  width: 3.0,
+                ),
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                const _SingupManual(),
+                SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                     child: Column(
                       children: [
-                        TextFormField(
-                          key: ValueKey(1),
-                          validator: (value) {
-                            if (value!.isEmpty || value.length < 4) {
-                              return 'Please enter at least 4 characters';
-                            }
-                            return null;
-                          },
-                          onSaved: (value) {
-                            userId = value!;
-                          },
-                          onChanged: (value) {
-                            userId = value;
-                          },
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20.0),
-                            ),
-                            labelText: '학번',
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextFormField(
-                          key: ValueKey(2),
-                          validator: (value) {
-                            if (value!.isEmpty || value.length < 6) {
-                              return 'Password must be at least 7 characters long.';
-                            }
-                            return null;
-                          },
-                          onSaved: (value) {
-                            userPassword = value!;
-                          },
-                          onChanged: (value) {
-                            userPassword = value;
-                          },
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20.0),
-                            ),
-                            labelText: '비밀번호',
-                          ),
-                          obscureText: true,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextFormField(
-                          key: ValueKey(3),
-                          onSaved: (value) {
-                            userName = value!;
-                          },
-                          onChanged: (value) {
-                            userName = value;
-                          },
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20.0),
-                            ),
-                            labelText: '이름',
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextFormField(
-                          keyboardType: TextInputType.emailAddress,
-                          key: ValueKey(4),
-                          validator: (value) {
-                            if (value!.isEmpty || !value.contains('@')) {
-                              return 'Please enter a valid email address.';
-                            }
-                            return null;
-                          },
-                          onSaved: (value) {
-                            userEmail = value!;
-                          },
-                          onChanged: (value) {
-                            userEmail = value;
-                          },
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20.0),
-                            ),
-                            labelText: '이메일',
+                        Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              TextFormField(
+                                key: ValueKey(1),
+                                validator: (value) {
+                                  if (value!.isEmpty || value.length < 4) {
+                                    return 'Please enter at least 4 characters';
+                                  }
+                                  return null;
+                                },
+                                onSaved: (value) {
+                                  userId = value!;
+                                },
+                                onChanged: (value) {
+                                  userId = value;
+                                },
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  ),
+                                  labelText: '학번',
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              TextFormField(
+                                key: ValueKey(2),
+                                validator: (value) {
+                                  if (value!.isEmpty || value.length < 6) {
+                                    return 'Password must be at least 7 characters long.';
+                                  }
+                                  return null;
+                                },
+                                onSaved: (value) {
+                                  userPassword = value!;
+                                },
+                                onChanged: (value) {
+                                  userPassword = value;
+                                },
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  ),
+                                  labelText: '비밀번호',
+                                ),
+                                obscureText: true,
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              TextFormField(
+                                key: ValueKey(3),
+                                onSaved: (value) {
+                                  userName = value!;
+                                },
+                                onChanged: (value) {
+                                  userName = value;
+                                },
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  ),
+                                  labelText: '이름',
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              TextFormField(
+                                keyboardType: TextInputType.emailAddress,
+                                key: ValueKey(4),
+                                validator: (value) {
+                                  if (value!.isEmpty || !value.contains('@')) {
+                                    return 'Please enter a valid email address.';
+                                  }
+                                  return null;
+                                },
+                                onSaved: (value) {
+                                  userEmail = value!;
+                                },
+                                onChanged: (value) {
+                                  userEmail = value;
+                                },
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  ),
+                                  labelText: '이메일',
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
                   ),
-                ],
-              ),
-            ),
-            Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                ),
+                Column(
                   children: [
-                    SizedBox(
-                      width: 80,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            stuIsPressed = !stuIsPressed;
-                            proIsPressed = false;
-                          });
-                        },
-                        style: ButtonStyle(
-                          backgroundColor: stuIsPressed
-                              ? MaterialStateProperty.all(NeedColors.darkBlue)
-                              : MaterialStateProperty.all(NeedColors.darkGrey),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 80,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                stuIsPressed = !stuIsPressed;
+                                proIsPressed = false;
+                              });
+                            },
+                            style: ButtonStyle(
+                              backgroundColor: stuIsPressed
+                                  ? MaterialStateProperty.all(NeedColors.darkBlue)
+                                  : MaterialStateProperty.all(NeedColors.darkGrey),
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                            ),
+                            child: const Text(
+                              '학생',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
-                        child: const Text(
-                          '학생',
-                          style: TextStyle(
-                            color: Colors.white,
+                        const SizedBox(
+                          width: 30,
+                        ),
+                        SizedBox(
+                          width: 80,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                proIsPressed = !proIsPressed;
+                                stuIsPressed = false;
+                              });
+                            },
+                            style: ButtonStyle(
+                              backgroundColor: proIsPressed
+                                  ? MaterialStateProperty.all(NeedColors.darkBlue)
+                                  : MaterialStateProperty.all(NeedColors.darkGrey),
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                            ),
+                            child: const Text(
+                              '교수',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
                     const SizedBox(
-                      width: 30,
+                      height: 10,
                     ),
-                    SizedBox(
-                      width: 80,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            proIsPressed = !proIsPressed;
-                            stuIsPressed = false;
-                          });
+                    Container(
+                      width: 220,
+                      child: GestureDetector(
+                        onTap: () async{
+                          _tryValidation(); ///데이터를 유효한지 검사하고 저장
+                          try {
+                            final newUser = await _authentication ///authentication에 데이터생성 및 저장
+                                .createUserWithEmailAndPassword(
+                              email: userEmail,
+                              password: userPassword,
+                            );
+
+                            await FirebaseFirestore.instance.collection('user').doc(newUser.user!.uid)
+                            .set({ ///파이어베이스에 user doc에 회원정보 저장
+                              'userName' : userName,
+                              'email': userEmail,
+                              'userId': userId,
+                            });
+                            if (newUser.user != null) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginScreen()),
+                              );
+                            }
+                          } catch (e) {
+                            print(e);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content:
+                                    Text('Please check your email and password'),
+                              ),
+                            );
+                          }
                         },
-                        style: ButtonStyle(
-                          backgroundColor: proIsPressed
-                              ? MaterialStateProperty.all(NeedColors.darkBlue)
-                              : MaterialStateProperty.all(NeedColors.darkGrey),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: NeedColors.darkGrey,
+                            borderRadius: BorderRadius.circular(20),
                           ),
-                        ),
-                        child: const Text(
-                          '교수',
-                          style: TextStyle(
-                            color: Colors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                            child: Center(
+                              child: Text(
+                                '회원가입 완료',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  width: 220,
-                  child: GestureDetector(
-                    onTap: () async{
-                      _tryValidation(); ///데이터를 유효한지 검사하고 저장
-                      try {
-                        final newUser = await _authentication ///authentication에 데이터생성 및 저장
-                            .createUserWithEmailAndPassword(
-                          email: userEmail,
-                          password: userPassword,
-                        );
-
-                        await FirebaseFirestore.instance.collection('user').doc(newUser.user!.uid)
-                        .set({ ///파이어베이스에 user doc에 회원정보 저장
-                          'userName' : userName,
-                          'email': userEmail,
-                          'userId': userId,
-                        });
-                        if (newUser.user != null) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginScreen()),
-                          );
-                        }
-                      } catch (e) {
-                        print(e);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content:
-                                Text('Please check your email and password'),
-                          ),
-                        );
-                      }
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: NeedColors.darkGrey,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                        child: Center(
-                          child: Text(
-                            '회원가입 완료',
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
               ],
             ),
-            const HorizontalLine(),
-          ],
+          ),
         ),
       ),
     );

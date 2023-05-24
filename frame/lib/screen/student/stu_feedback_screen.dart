@@ -9,60 +9,64 @@ class StuFeedBackScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              width: MediaQuery.of(context).size.width-30,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(width: 2, color: NeedColors.darkBlue)
-              ),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
-                    child: Text(
-                      '수업의 난이도는 어땠나요?',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  width: MediaQuery.of(context).size.width-30,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    border: Border.all(width: 2, color: NeedColors.darkBlue)
                   ),
-                  Text(
-                    '(5: 매우 어려움/4: 어려움/3: 보통/2:쉬움/1: 아주 쉬움)',
-                    style: TextStyle(fontSize: 12),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 40, 20, 40),
-                    child: _StudyLevel(),
-                  ),
-                ],
-              ),
-            ),
-
-            Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextField(
-                    keyboardType: TextInputType.multiline,
-                    minLines: 10,
-                    maxLines: null,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.0),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+                        child: Text(
+                          '수업의 난이도는 어땠나요?',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                        hintText: "건의사항"
-                    ),
+                      ),
+                      Text(
+                        '(5: 매우 어려움/4: 어려움/3: 보통/2:쉬움/1: 아주 쉬움)',
+                        style: TextStyle(fontSize: 12),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 40, 20, 40),
+                        child: _StudyLevel(),
+                      ),
+                    ],
                   ),
                 ),
-                _Submit(),
+
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: TextField(
+                        keyboardType: TextInputType.multiline,
+                        minLines: 10,
+                        maxLines: null,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            hintText: "건의사항"
+                        ),
+                      ),
+                    ),
+                    _Submit(),
+                  ],
+                ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );
