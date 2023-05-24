@@ -32,6 +32,7 @@ class _StuCreateQuestionState extends State<StuCreateQuestion> {
       'content': _userEnterMessage1,
       'time' : Timestamp.now(),
       'userId' : user!.uid,
+      'answer' : false,
     });
   }
 

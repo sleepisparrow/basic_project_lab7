@@ -14,16 +14,19 @@ class StuQuestionScreen extends StatelessWidget {
   ///네비게이션바의 질문눌렀을때 질문페이지
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser; ///firebase 에서 userid 확인을 위한 변수
+    final user = FirebaseAuth.instance.currentUser;
+
+    ///firebase 에서 userid 확인을 위한 변수
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       body: SafeArea(
         bottom: false,
         child: Container(
           child: Column(
             children: [
               Expanded(
-                child: StreamBuilder(       ///firebase 연동 가져올 폴더지정
+                child: StreamBuilder(
+                  ///firebase 연동 가져올 폴더지정
                   stream: FirebaseFirestore.instance
                       .collection('room/gwZyIGV4iDrQVkX7zMTW/question')
                       .orderBy('time')
@@ -36,12 +39,20 @@ class StuQuestionScreen extends StatelessWidget {
                         child: CircularProgressIndicator(),
                       );
                     }
-                    final chatDocs = snapshot.data!.docs;  ///경로 저장
-                    return ListView.builder(        ///firebase에 저장된 데이터 보여주기
+                    final chatDocs = snapshot.data!.docs;
+
+                    ///경로 저장
+                    return ListView.builder(
+                      ///firebase에 저장된 데이터 보여주기
                       padding: EdgeInsets.symmetric(vertical: 10),
                       itemCount: chatDocs.length,
                       itemBuilder: (context, index) {
-                        return QuestionBubble(chatDocs[index]['title'],chatDocs[index]['content'],chatDocs[index]['userId'].toString() ==user!.uid);
+                        return QuestionBubble(
+                          chatDocs[index]['title'],
+                          chatDocs[index]['content'],
+                          chatDocs[index]['userId'].toString() == user!.uid,
+                          chatDocs[index]['answer'],
+                        );
                       },
                     );
                   },

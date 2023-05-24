@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:frame/tools/need_colors.dart';
 
 class QuestionBubble extends StatelessWidget {
-  const QuestionBubble(this.title, this.content, this.isMe, {Key? key})
+  const QuestionBubble(this.title, this.content, this.isMe,this.answer, {Key? key})
       : super(key: key);
 
   final String title;
   final String content;
   final bool isMe;
-
+  final bool answer;
   @override
   Widget build(BuildContext context) {
     ///질문들 감싸는 디자인
@@ -58,13 +58,39 @@ class QuestionBubble extends StatelessWidget {
         Positioned(
           right: 5,
           top: 0,
-          child: _NotAnswered(),
+          child: answer? _Answered() :_NotAnswered(),
         ),
       ],
     );
   }
 }
 
+
+class _Answered extends StatelessWidget {
+  const _Answered({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      key: const Key('answered'),
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.green,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Text(
+          '답변\n완료',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 12,
+          ),
+        ),
+      ),
+    );
+  }
+}
 class _NotAnswered extends StatefulWidget {
   const _NotAnswered({Key? key}) : super(key: key);
 
