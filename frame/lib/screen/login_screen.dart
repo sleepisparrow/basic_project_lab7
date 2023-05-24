@@ -157,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     showDialog(
                                         context: context,
                                         builder: (BuildContext context){
-                                          return AlertDialog(
+                                          return AlertDialog(       ///회원정보없으면 오류창 띄우기
                                             title: Text('회원정보 없음'),
                                             actions: [
                                               TextButton(
@@ -169,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             ],
                                           );
                                         },
-                                        barrierDismissible: true);
+                                        barrierDismissible: true); ///바깥 터치하면 알아서 창 닫히게
                                   }
                                 },
                                 style: ButtonStyle(
@@ -192,13 +192,50 @@ class _LoginScreenState extends State<LoginScreen> {
                             SizedBox(
                               width: 150,
                               child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const ProClassRoomListScreen()),
-                                  );
+                                onPressed: () async{
+                                  setState(() {
+                                    showSpinner = true;
+                                  });
+                                  _tryValidation();
+                                  try {
+                                    final newUser = await _authentication
+                                        .signInWithEmailAndPassword(
+                                      email: userEmail,
+                                      password: userPassword,
+                                    );
+                                    if (newUser.user != null) {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProClassRoomListScreen()),
+                                      );
+                                      setState(() {
+                                        showSpinner = false;
+                                      });
+                                    }
+                                  } catch (e) {
+                                    print(e);
+                                    setState(() {
+                                      showSpinner = false;
+                                    });
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context){
+                                          return AlertDialog(       ///회원정보없으면 오류창 띄우기
+                                            title: Text('회원정보 없음'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: Text('확인'),
+                                              )
+                                            ],
+                                          );
+                                        },
+                                        barrierDismissible: true); ///바깥 터치하면 알아서 창 닫히게
+                                  }
                                 },
                                 style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all(
