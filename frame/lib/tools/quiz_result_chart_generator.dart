@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../Provider/quiz_provider.dart';
 import '../Provider/quiz_result_provider.dart';
 
 class QuizResultChartGenerator extends StatefulWidget {
@@ -17,16 +18,10 @@ class _QuizResultChartGeneratorState extends State<QuizResultChartGenerator> {
 
   @override
   Widget build(BuildContext context) {
-    // // TODO: delete it when widget test or actual building: this is dummy data
-    // var dummyProvider = context.watch<QuizResultProvider>();
-    // dummyProvider.answerList[0] = 60;
-    // dummyProvider.answerList[1] = 40;
 
-    QuizResultProvider provider = context.watch<QuizResultProvider>();
+    QuizProvider provider = context.watch<QuizProvider>();
     final List<QuizResultChartData> data =
-        getChartData(provider.answerList, ['true', 'false']);
-    print(data[0].weight.toString());
-    print(data[1].weight.toString());
+        getChartData([provider.trueCount, provider.falseCount], ['true', 'false']);
 
     return SfCartesianChart(
       primaryXAxis: CategoryAxis(
