@@ -88,24 +88,22 @@ class _FeedbackList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 7.5),
-        child: ColoredBox(
-          color: const Color(0xffe3e5ee),
-          child: SizedBox(
-              height: 80,
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                child: Text(
-                  feedback[index],
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 7.5),
+      child: ColoredBox(
+        color: const Color(0xffe3e5ee),
+        child: SizedBox(
+            height: 80,
+            child: Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              child: Text(
+                feedback[index],
+                style: const TextStyle(
+                  fontSize: 16,
                 ),
-              )),
-        ),
+              ),
+            )),
       ),
     );
   }

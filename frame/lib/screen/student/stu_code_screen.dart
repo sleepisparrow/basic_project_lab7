@@ -11,78 +11,92 @@ class StuCodeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: SafeArea(
         bottom: false,
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 100,
-            ),
-            const HorizontalLine(),
-            Image.asset(
-              './asset/celebrate_chacha.png',
-              width: 320,
-              height: 320,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.all(20),
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 20, horizontal: 20),
-                    decoration: BoxDecoration(
-                      color: NeedColors.lightGrey,
-                      borderRadius: BorderRadius.circular(20),
+        child: Center(
+          child: SingleChildScrollView(
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    color: NeedColors.darkBlue,
+                    width: 3.0,
+                  ),
+                  bottom: BorderSide(
+                    color: NeedColors.darkBlue,
+                    width: 3.0,
+                  ),
+                )
+              ),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+                child: Column(
+                  children: [
+                    Image.asset(
+                      './asset/celebrate_chacha.png',
+                      width: 320,
+                      height: 320,
                     ),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: const [
-                            Text('코드입력'),
-                          ],
-                        ),
-                        const TextForm(),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const StuMain()),
-                            );
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(left: 200),
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.all(20),
                             padding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 20),
+                                vertical: 20, horizontal: 20),
                             decoration: BoxDecoration(
+                              color: NeedColors.lightGrey,
                               borderRadius: BorderRadius.circular(20),
-                              color: NeedColors.darkBlue,
                             ),
-                            child: const Text(
-                              '접속',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: const [
+                                    Text('코드입력'),
+                                  ],
+                                ),
+                                const TextForm(),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => const StuMain()),
+                                    );
+                                  },
+                                  child: Container(
+                                    margin: const EdgeInsets.only(left: 200),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 10, horizontal: 20),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: NeedColors.darkBlue,
+                                    ),
+                                    child: const Text(
+                                      '접속',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
                           ),
-                        )
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-            const HorizontalLine(),
-          ],
+          ),
         ),
       ),
     );

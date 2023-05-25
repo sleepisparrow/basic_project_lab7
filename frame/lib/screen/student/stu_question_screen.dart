@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:frame/Provider/stu_question_provider.dart';
 import 'package:frame/screen/student/stu_create_question_screen.dart';
+import 'package:frame/tools/question_bubble.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../tools/need_colors.dart';
 
@@ -11,20 +14,63 @@ class StuQuestionScreen extends StatelessWidget {
   ///네비게이션바의 질문눌렀을때 질문페이지
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+
+    ///firebase 에서 userid 확인을 위한 변수
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       body: SafeArea(
         bottom: false,
-        child: Stack(
-          alignment: Alignment.topCenter,
-          children: [
-            StuQuestionList(),
-            Positioned(
-              bottom: 10,
-              right: 10,
-              child: _CreateIcon(),
-            ),
-          ],
+        child: Container(
+          child: Column(
+            children: [
+              Expanded(
+                child: StreamBuilder(
+                  ///firebase 연동 가져올 폴더지정
+                  stream: FirebaseFirestore.instance
+                      .collection('room/gwZyIGV4iDrQVkX7zMTW/question')
+                      .orderBy('time')
+                      .snapshots(),
+                  builder: (context,
+                      AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                          snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    final chatDocs = snapshot.data!.docs;
+
+                    ///경로 저장
+                    return ListView.builder(
+                      ///firebase에 저장된 데이터 보여주기
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      itemCount: chatDocs.length,
+                      itemBuilder: (context, index) {
+                        return QuestionBubble(
+                          chatDocs[index]['title'],
+                          chatDocs[index]['content'],
+                          chatDocs[index]['userId'].toString() == user!.uid,
+                          chatDocs[index]['answer'],
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+              Padding(
+                ///글작성 아이콘
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    _CreateIcon(),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -45,6 +91,8 @@ class _StuQuestionListState extends State<StuQuestionList> {
     int questionCount = provider.questionTitle.length;
     List<String> title = provider.questionTitle;
     List<String> contents = provider.questionContents;
+
+    CollectionReference product = FirebaseFirestore.instance.collection('room');
 
     return Builder(builder: (context) {
       if (questionCount == 0) {
