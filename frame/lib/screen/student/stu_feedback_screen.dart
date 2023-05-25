@@ -31,7 +31,7 @@ class _StuFeedBackScreenState extends State<StuFeedBackScreen> {
         .collection('room/gwZyIGV4iDrQVkX7zMTW/feedback')
         .add({
       'level': _radioValue,
-      'text': _userEnterMessage,
+      'text': _userEnterMessage.replaceAll('\n', ''),
       'time': Timestamp.now(),
       'userId': user!.uid,
     });
