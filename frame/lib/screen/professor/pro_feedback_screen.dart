@@ -52,14 +52,13 @@ class ProfFeedbackScreenState extends State<ProfFeedbackScreen> {
           Expanded(
             child: Container(
               margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 border: Border(
                   left: blueBorder,
                   right: blueBorder,
                   top: blueBorder,
                 ),
               ),
-              padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
               child: StreamBuilder(
                 ///firebase 연동 가져올 폴더지정
                 stream: FirebaseFirestore.instance
@@ -82,16 +81,38 @@ class ProfFeedbackScreenState extends State<ProfFeedbackScreen> {
                     padding: EdgeInsets.symmetric(vertical: 2,horizontal: 7.5),
                     itemCount: chatDocs.length,
                     itemBuilder: (context, index) {
-                      return Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                        child: Expanded(
-                          child: Row(
-                            children: [
-                              Text(chatDocs[index]['text']),
-                            ],
+                      return Padding(
+                        padding: const EdgeInsets.fromLTRB(6.0, 12.0, 6.0, 0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                              color: NeedColors.darkBlue,
+                              width: 3.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '익명${index}',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15
+                                  ),
+                                ),
+                                Text(
+                                  chatDocs[index]['text'],
+                                  style: TextStyle(
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                        color: Color(0xffe3e5ee),
                       );
                     },
                   );
