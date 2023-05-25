@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:frame/screen/student/stu_main.dart';
+import 'package:frame/tools/delete_newline_end.dart';
 import 'package:frame/tools/need_colors.dart';
 import 'package:provider/provider.dart';
 
@@ -28,8 +29,8 @@ class _StuCreateQuestionState extends State<StuCreateQuestion> {
     FocusScope.of(context).unfocus(); /// 다른 곳 누르면 키보드 사라지게 하기
     final user = FirebaseAuth.instance.currentUser;
     FirebaseFirestore.instance.collection('room/gwZyIGV4iDrQVkX7zMTW/question').add({
-      'title': _userEnterMessage,
-      'content': _userEnterMessage1,
+      'title': removeTrailingNewline(_userEnterMessage),
+      'content': removeTrailingNewline(_userEnterMessage1),
       'time' : Timestamp.now(),
       'userId' : user!.uid,
       'answer' : false,

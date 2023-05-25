@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:frame/tools/delete_newline_end.dart';
 import 'package:frame/tools/need_colors.dart';
 
 class StuFeedBackScreen extends StatefulWidget {
@@ -31,7 +32,7 @@ class _StuFeedBackScreenState extends State<StuFeedBackScreen> {
         .collection('room/gwZyIGV4iDrQVkX7zMTW/feedback')
         .add({
       'level': _radioValue,
-      'text': _userEnterMessage.replaceAll('\n', ''),
+      'text': removeTrailingNewline(_userEnterMessage),
       'time': Timestamp.now(),
       'userId': user!.uid,
     });
