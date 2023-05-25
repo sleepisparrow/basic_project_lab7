@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frame/Provider/quiz_provider.dart';
+import 'package:frame/Provider/stu_quiz_answered_provider.dart';
 import 'package:frame/tools/need_colors.dart';
 import 'package:frame/tools/quiz_result_chart_generator.dart';
 import 'package:provider/provider.dart';
@@ -145,6 +146,8 @@ class QuizInitButton extends StatelessWidget {
       onPressed: () {
         QuizProvider provider = context.read<QuizProvider>();
         provider.resetData();
+        StuQuizAnsweredProvider answeredProvider = context.read<StuQuizAnsweredProvider>();
+        answeredProvider.resetData();
       },
       style: ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(NeedColors.lightBlue),

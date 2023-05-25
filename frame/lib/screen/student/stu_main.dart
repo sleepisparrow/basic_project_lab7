@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:frame/Provider/quiz_provider.dart';
 import 'package:frame/screen/student/stu_feedback_screen.dart';
 import 'package:frame/screen/student/stu_question_screen.dart';
-import 'package:frame/screen/student/stu_quiz_screen.dart';
+import 'package:frame/screen/student/stu_quiz_main.dart';
+import 'package:provider/provider.dart';
 
 class StuMain extends StatefulWidget {
   const StuMain({Key? key}) : super(key: key);
@@ -15,7 +17,7 @@ class _StuMainState extends State<StuMain> {
   int _selectedIndex = 0;
   final List<Widget> _widgetOptions = <Widget>[
     StuQuestionScreen(),
-    StuQuizScreen(),
+    StuQuizMain(),
     StuFeedBackScreen(),
   ];
 
@@ -27,8 +29,9 @@ class _StuMainState extends State<StuMain> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    QuizProvider provider = context.read<QuizProvider>();
+    provider.initialize();
   }
 
   @override

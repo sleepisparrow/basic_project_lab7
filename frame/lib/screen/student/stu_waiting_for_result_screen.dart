@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frame/tools/need_colors.dart';
-import 'package:provider/provider.dart';
-
-import '../../Provider/quiz_finish_provider.dart';
+import 'package:frame/tools/quiz_result_chart_generator.dart';
 
 /// 작성 완료 후에 교수가 완료할 때까지 대기하는 페이지
 class StuWaitingForResultScreen extends StatelessWidget {
@@ -28,12 +26,6 @@ class StuWaitingForResultScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 20),
             child: Text('테스트가 종료될 때까지 잠시만 기다려주세요'),
           ),
-
-          // TODO: 이건 테스트를 위해서 만들어진 것이므로 나중에 삭제 해야 함
-          ElevatedButton(onPressed: () {
-            var provider = Provider.of<QuizFinishProvider>(context, listen: false);
-            provider.isQuizFinished = true;
-          }, child: Text('다음으로 넘아가기'))
         ],
       ),
     );
@@ -45,8 +37,9 @@ class Nextpage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder(
-      child: Text('결과 페이지'),
+    return const SizedBox(
+      height: 300,
+      child: QuizResultChartGenerator(),
     );
   }
 }
