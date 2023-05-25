@@ -51,7 +51,7 @@ class ProfFeedbackScreenState extends State<ProfFeedbackScreen> {
           ),
           Expanded(
             child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+              margin: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
               decoration: BoxDecoration(
                 border: Border(
                   left: blueBorder,
@@ -82,13 +82,13 @@ class ProfFeedbackScreenState extends State<ProfFeedbackScreen> {
                     itemCount: chatDocs.length,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: const EdgeInsets.fromLTRB(6.0, 12.0, 6.0, 0),
+                        padding: const EdgeInsets.fromLTRB(3.0, 8.0, 3.0, 0),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: NeedColors.lightGrey,
                             border: Border.all(
-                              color: NeedColors.darkBlue,
-                              width: 3.0,
+                              color: NeedColors.darkGrey,
+                              width: 2.0,
                             ),
                             borderRadius: BorderRadius.circular(8.0),
                           ),
@@ -98,7 +98,7 @@ class ProfFeedbackScreenState extends State<ProfFeedbackScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '익명${index}',
+                                  '익명${index+1}',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 15
