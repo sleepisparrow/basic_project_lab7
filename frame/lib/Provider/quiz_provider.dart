@@ -9,8 +9,21 @@ class QuizProvider extends ChangeNotifier {
       .collection('Quiz')
       .doc('default');
 
-  late bool locked = false, reseted;
+  late bool locked, reseted = false;
+  late bool myAnswer;
   late int trueCount = 0, falseCount = 0;
+
+  Future addAnswer() async {
+    String msg = '${myAnswer}Count';
+    var tmp = await _document.get();
+    int count = tmp.get(msg) + 1;
+    _document.update({msg:count});
+    if (myAnswer) {
+      trueCount = count;
+    } else {
+      falseCount = count;
+    }
+  }
 
   Future updateLocked(bool value) async {
     try {
@@ -38,7 +51,7 @@ class QuizProvider extends ChangeNotifier {
     }
   }
 
-  void initialize() async {
+  Future<void> initialize() async {
     _document.snapshots().listen((event) {
       var tmp = event.data();
       if (tmp == null) {
@@ -49,11 +62,13 @@ class QuizProvider extends ChangeNotifier {
         reseted = true;
         trueCount = 0;
         falseCount = 0;
-        return;
+        notifyListeners();
       }
       var data = tmp;
-      trueCount = data['trueCount'];
-      falseCount = data['falseCount'];
+      trueCount = data?['trueCount'];
+      falseCount = data?['falseCount'];
+      reseted = data?['reseted'];
+      locked = data?['locked'];
       notifyListeners();
     },
     onError: (e) {
@@ -61,7 +76,7 @@ class QuizProvider extends ChangeNotifier {
     });
 
     _document.get().then((value) {
-      final data = value as Map<String, dynamic>;
+      final data = value;
       locked = data['locked'];
       reseted = data['reseted'];
       trueCount = data['trueCount'];

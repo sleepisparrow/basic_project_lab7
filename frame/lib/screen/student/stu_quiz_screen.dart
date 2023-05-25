@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:frame/Provider/quiz_provider.dart';
+import 'package:frame/Provider/stu_quiz_answered_provider.dart';
 import 'package:frame/tools/need_colors.dart';
+import 'package:provider/provider.dart';
 
 class StuQuizScreen extends StatelessWidget {
   const StuQuizScreen({Key? key}) : super(key: key);
@@ -132,6 +135,7 @@ class _SelectedOXState extends State<_SelectedOX> {
             }
           });
         }
+        context.read<QuizProvider>().myAnswer = _isSelected[0];
       },
       isSelected: _isSelected,
     );
@@ -144,7 +148,20 @@ class _SubmitButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        try {
+          QuizProvider quizProvider = context.read<QuizProvider>();
+          quizProvider.addAnswer();
+
+          StuQuizAnsweredProvider answeredProvider = context.read<StuQuizAnsweredProvider>();
+          answeredProvider.setIsAnsweredTrue();
+        } catch (e) {
+          // TODO: toast: 에러 발생!
+        }
+        // TODO: 제출 관련 부분 만들어놓기
+        // 1. 답변 완료했다고 document에 업로드
+        // 2. quiz 값 1개 증가
+      },
       style: ButtonStyle(
         minimumSize: MaterialStatePropertyAll(Size(80, 50)),
         backgroundColor: MaterialStatePropertyAll(NeedColors.darkBlue),
