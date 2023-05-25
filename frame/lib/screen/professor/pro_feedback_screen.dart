@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:frame/Provider/pro_feedback_provider.dart';
+import 'package:frame/tools/need_colors.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../dummy_data/feedback_dummy.dart';
@@ -12,6 +14,8 @@ class ProfFeedbackScreen extends StatefulWidget {
 }
 
 class ProfFeedbackScreenState extends State<ProfFeedbackScreen> {
+  final code = 'gwZyIGV4iDrQVkX7zMTW';
+
   @override
   void initState() {
     super.initState();
@@ -56,15 +60,42 @@ class ProfFeedbackScreenState extends State<ProfFeedbackScreen> {
                 ),
               ),
               padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-              child: ListView.builder(
-                itemBuilder: (BuildContext context, int index) {
-                  return _FeedbackList(
-                    context: context,
-                    index: index,
-                    feedback: feedback,
+              child: StreamBuilder(
+                ///firebase 연동 가져올 폴더지정
+                stream: FirebaseFirestore.instance
+                    .collection('room/${code}/feedback')
+                    .orderBy('time')
+                    .snapshots(),
+                builder: (context,
+                    AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                        snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  final chatDocs = snapshot.data!.docs;
+
+                  ///경로 저장
+                  return ListView.builder(
+                    ///firebase에 저장된 데이터 보여주기
+                    padding: EdgeInsets.symmetric(vertical: 2,horizontal: 7.5),
+                    itemCount: chatDocs.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        child: Expanded(
+                          child: Row(
+                            children: [
+                              Text(chatDocs[index]['text']),
+                            ],
+                          ),
+                        ),
+                        color: Color(0xffe3e5ee),
+                      );
+                    },
                   );
                 },
-                itemCount: feedback.length,
               ),
             ),
           ),
@@ -95,8 +126,7 @@ class _FeedbackList extends StatelessWidget {
         child: SizedBox(
             height: 80,
             child: Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               child: Text(
                 feedback[index],
                 style: const TextStyle(

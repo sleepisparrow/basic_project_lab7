@@ -1,8 +1,41 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:frame/tools/need_colors.dart';
 
-class StuFeedBackScreen extends StatelessWidget {
+class StuFeedBackScreen extends StatefulWidget {
   const StuFeedBackScreen({Key? key}) : super(key: key);
+
+  @override
+  State<StuFeedBackScreen> createState() => _StuFeedBackScreenState();
+}
+
+class _StuFeedBackScreenState extends State<StuFeedBackScreen> {
+  final _controller = TextEditingController();
+  var _userEnterMessage = '';
+  int? _radioValue = 0;
+
+  _radioChange(int? value) {
+    setState(() {
+      _radioValue = value;
+    });
+  }
+
+  void _sendMessage() {
+    FocusScope.of(context).unfocus();
+
+    /// 다른 곳 누르면 키보드 사라지게 하기
+    final user = FirebaseAuth.instance.currentUser;
+    FirebaseFirestore.instance
+        .collection('room/gwZyIGV4iDrQVkX7zMTW/feedback')
+        .add({
+      'level': _radioValue,
+      'text': _userEnterMessage,
+      'time': Timestamp.now(),
+      'userId': user!.uid,
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +49,10 @@ class StuFeedBackScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  width: MediaQuery.of(context).size.width-30,
+                  width: MediaQuery.of(context).size.width - 30,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    border: Border.all(width: 2, color: NeedColors.darkBlue)
-                  ),
+                      borderRadius: BorderRadius.circular(8.0),
+                      border: Border.all(width: 2, color: NeedColors.darkBlue)),
                   child: Column(
                     children: [
                       Padding(
@@ -39,29 +71,92 @@ class StuFeedBackScreen extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 40, 20, 40),
-                        child: _StudyLevel(),
+                        child: Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Radio(
+                                  value: 1,
+                                  groupValue: _radioValue,
+                                  onChanged: _radioChange),
+                              Text('1'),
+                              Radio(
+                                  value: 2,
+                                  groupValue: _radioValue,
+                                  onChanged: _radioChange),
+                              Text('2'),
+                              Radio(
+                                  value: 3,
+                                  groupValue: _radioValue,
+                                  onChanged: _radioChange),
+                              Text('3'),
+                              Radio(
+                                  value: 4,
+                                  groupValue: _radioValue,
+                                  onChanged: _radioChange),
+                              Text('4'),
+                              Radio(
+                                  value: 5,
+                                  groupValue: _radioValue,
+                                  onChanged: _radioChange),
+                              Text('5')
+                            ],
+                          ),
+                        ),
                       ),
                     ],
                   ),
                 ),
-
                 Column(
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: TextField(
-                        keyboardType: TextInputType.multiline,
-                        minLines: 10,
-                        maxLines: null,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
+                          controller: _controller,
+                          keyboardType: TextInputType.multiline,
+                          minLines: 10,
+                          maxLines: null,
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              hintText: "건의사항"),
+                          onChanged: (value) {
+                            setState(() {
+                              _userEnterMessage = value;
+                            });
+                          }),
+                    ),
+                    SizedBox(
+                      width: 80,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          _sendMessage();
+                          Fluttertoast.showToast(
+                            msg: "제출이 완료되었습니다!",
+                            toastLength: Toast.LENGTH_LONG,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.grey,
+                            textColor: Colors.black,
+                            fontSize: 16.0,
+                          );
+                        },
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(NeedColors.lightGrey),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20.0),
                             ),
-                            hintText: "건의사항"
+                          ),
+                        ),
+                        child: const Text(
+                          '제출',
+                          style: TextStyle(color: Colors.black),
                         ),
                       ),
                     ),
-                    _Submit(),
                   ],
                 ),
               ],
