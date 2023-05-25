@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../Provider/quiz_provider.dart';
-import '../Provider/quiz_result_provider.dart';
 
 class QuizResultChartGenerator extends StatefulWidget {
   const QuizResultChartGenerator({Key? key}) : super(key: key);
@@ -27,7 +26,7 @@ class _QuizResultChartGeneratorState extends State<QuizResultChartGenerator> {
       primaryXAxis: CategoryAxis(
         majorGridLines: const MajorGridLines(width: 0),
       ),
-      primaryYAxis: CategoryAxis(
+      primaryYAxis: NumericAxis(
         isVisible: false,
       ),
       series: <BarSeries<QuizResultChartData, String>>[
