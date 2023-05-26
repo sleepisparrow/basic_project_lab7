@@ -1,3 +1,5 @@
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:frame/Provider/pro_feedback_provider.dart';
@@ -25,7 +27,7 @@ class ProfFeedbackScreenState extends State<ProfFeedbackScreen> {
   Widget build(BuildContext context) {
     //TODO: 이 부분은 provider를 이용해 더미 데이터를 보여주기 위한 코드이므로 삭제할 것
     ProfFeedbackProvider dummyGenerator =
-        Provider.of<ProfFeedbackProvider>(context);
+    Provider.of<ProfFeedbackProvider>(context);
     dummyGenerator.choices = FeedbackDummy.choices;
     for (int i = 0; i < FeedbackDummy.feedback.length; i++) {
       dummyGenerator.addFeedback(FeedbackDummy.feedback[i]);
@@ -34,6 +36,43 @@ class ProfFeedbackScreenState extends State<ProfFeedbackScreen> {
     ProfFeedbackProvider provider = Provider.of<ProfFeedbackProvider>(context);
 
     final List<String> feedback = provider.feedback;
+    Future<AggregateQuerySnapshot> count1 = FirebaseFirestore.instance
+        .collection('room/gwZyIGV4iDrQVkX7zMTW/feedback')
+        .where('level', isEqualTo: 1)
+        .count()
+        .get();
+    Future<AggregateQuerySnapshot> count2 = FirebaseFirestore.instance
+        .collection('room/gwZyIGV4iDrQVkX7zMTW/feedback')
+        .where('level', isEqualTo: 2)
+        .count()
+        .get();
+    Future<AggregateQuerySnapshot> count3 = FirebaseFirestore.instance
+        .collection('room/gwZyIGV4iDrQVkX7zMTW/feedback')
+        .where('level', isEqualTo: 3)
+        .count()
+        .get();
+    Future<AggregateQuerySnapshot> count4 = FirebaseFirestore.instance
+        .collection('room/gwZyIGV4iDrQVkX7zMTW/feedback')
+        .where('level', isEqualTo: 4)
+        .count()
+        .get();
+    Future<AggregateQuerySnapshot> count5 = FirebaseFirestore.instance
+        .collection('room/gwZyIGV4iDrQVkX7zMTW/feedback')
+        .where('level', isEqualTo: 5)
+        .count()
+        .get();
+
+    List<int> num = [];
+
+    int level1;
+    int level2;
+    int level3;
+    int level4;
+    int level5;
+
+    final def = FirebaseFirestore.instance
+        .collection('room/${code}/feedback')
+        .doc('default');
     const BorderSide blueBorder = BorderSide(
       width: 2,
       color: Color(0xff11307c),
@@ -42,11 +81,101 @@ class ProfFeedbackScreenState extends State<ProfFeedbackScreen> {
     return Scaffold(
       body: Column(
         children: [
-          const SizedBox(height: 300, child: _PieGraph()),
+          Row(
+            children: [
+              FutureBuilder<AggregateQuerySnapshot>(///난이도가 1인 사람의 수
+                  future: count1,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('0');
+                    }
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      int docCount = snapshot.data!.count;
+                      level1 = docCount;
+                      num.add(level1);
+                      return Text(
+                        docCount.toString(),
+                      );
+                    }
+                    return CircularProgressIndicator();
+                  }),
+              FutureBuilder<AggregateQuerySnapshot>(
+                ///난이도가 2인 사람의 수
+                  future: count2,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('0');
+                    }
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      int docCount = snapshot.data!.count;
+                      level2 = docCount;
+                      num.add(level2);
+                      return Text(
+                        docCount.toString(),
+                      );
+                    }
+                    return CircularProgressIndicator();
+                  }),
+              FutureBuilder<AggregateQuerySnapshot>(
+                ///난이도가 3인 사람의 수
+                  future: count3,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('0');
+                    }
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      int docCount = snapshot.data!.count;
+                      level3 = docCount;
+                      num.add(level3);
+                      return Text(
+                        docCount.toString(),
+                      );
+                    }
+                    return CircularProgressIndicator();
+                  }),
+              FutureBuilder<AggregateQuerySnapshot>(
+                ///난이도가 4인 사람의 수
+                  future: count4,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('0');
+                    }
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      int docCount = snapshot.data!.count;
+                      level4 = docCount;
+                      num.add(level4);
+                      return Text(
+                        docCount.toString(),
+                      );
+                    }
+                    return CircularProgressIndicator();
+                  }),
+              FutureBuilder<AggregateQuerySnapshot>(
+                ///난이도가 5인 사람의 수
+                  future: count5,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('0');
+                    }
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      int docCount = snapshot.data!.count;
+                      level5 = docCount;
+                      num.add(level5);
+                      return Text(
+                        docCount.toString(),
+                      );
+                    }
+                    return CircularProgressIndicator();
+                  }),
+            ],
+          ),      ///난이도 수
+
+           SizedBox(height:300,child:_PieGraph()),
           const Center(
             child: Text(
               '5: 매우 어려움/4: 어려움/3: 보통/2:쉬움/1: 아주 쉬움',
               style: TextStyle(fontSize: 12),
+
             ),
           ),
           Expanded(
@@ -75,12 +204,18 @@ class ProfFeedbackScreenState extends State<ProfFeedbackScreen> {
                   }
                   final chatDocs = snapshot.data!.docs;
 
+                  print(num);
                   ///경로 저장
                   return ListView.builder(
                     ///firebase에 저장된 데이터 보여주기
-                    padding: EdgeInsets.symmetric(vertical: 2,horizontal: 7.5),
+                    padding: EdgeInsets.symmetric(vertical: 2, horizontal: 7.5),
                     itemCount: chatDocs.length,
                     itemBuilder: (context, index) {
+                      ///난이도 수 구하기 차후 대비책
+                      // if(chatDocs[index]['level']==1){
+                      //   def.update(
+                      //       {'1':FieldValue.increment(1)});
+                      // }
                       return Padding(
                         padding: const EdgeInsets.fromLTRB(3.0, 8.0, 3.0, 0),
                         child: Container(
@@ -98,16 +233,14 @@ class ProfFeedbackScreenState extends State<ProfFeedbackScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '익명${index+1}',
+                                  '익명${index + 1}',
                                   style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15
-                                  ),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
                                 ),
                                 Text(
                                   chatDocs[index]['text'],
-                                  style: TextStyle(
-                                  ),
+                                  style: TextStyle(),
                                 ),
                               ],
                             ),
@@ -161,7 +294,8 @@ class _FeedbackList extends StatelessWidget {
 }
 
 class _PieGraph extends StatelessWidget {
-  const _PieGraph({Key? key}) : super(key: key);
+  const _PieGraph( {Key? key}) : super(key: key);
+
 
   List<_ChartData> makeToChartData(List<int> info) {
     List<_ChartData> ret = List.empty(growable: true);
@@ -175,6 +309,7 @@ class _PieGraph extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ProfFeedbackProvider provider = Provider.of<ProfFeedbackProvider>(context);
+
     final List<_ChartData> data = makeToChartData(provider.choices);
 
     return SfCircularChart(
