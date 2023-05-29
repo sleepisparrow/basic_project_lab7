@@ -6,7 +6,6 @@ import 'package:frame/Provider/pro_feedback_provider.dart';
 import 'package:frame/tools/need_colors.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import '../../dummy_data/feedback_dummy.dart';
 
 class ProfFeedbackScreen extends StatefulWidget {
   const ProfFeedbackScreen({Key? key}) : super(key: key);
@@ -25,17 +24,8 @@ class ProfFeedbackScreenState extends State<ProfFeedbackScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //TODO: 이 부분은 provider를 이용해 더미 데이터를 보여주기 위한 코드이므로 삭제할 것
-    ProfFeedbackProvider dummyGenerator =
-    Provider.of<ProfFeedbackProvider>(context);
-    dummyGenerator.choices = FeedbackDummy.choices;
-    for (int i = 0; i < FeedbackDummy.feedback.length; i++) {
-      dummyGenerator.addFeedback(FeedbackDummy.feedback[i]);
-    }
+    ProfFeedbackProvider provider = context.read<ProfFeedbackProvider>();
 
-    ProfFeedbackProvider provider = Provider.of<ProfFeedbackProvider>(context);
-
-    final List<String> feedback = provider.feedback;
     Future<AggregateQuerySnapshot> count1 = FirebaseFirestore.instance
         .collection('room/gwZyIGV4iDrQVkX7zMTW/feedback')
         .where('level', isEqualTo: 1)
@@ -93,6 +83,7 @@ class ProfFeedbackScreenState extends State<ProfFeedbackScreen> {
                       int docCount = snapshot.data!.count;
                       level1 = docCount;
                       num.add(level1);
+                      provider.setChoice(0, level1);
                       return Text(
                         docCount.toString(),
                       );
@@ -110,6 +101,7 @@ class ProfFeedbackScreenState extends State<ProfFeedbackScreen> {
                       int docCount = snapshot.data!.count;
                       level2 = docCount;
                       num.add(level2);
+                      provider.setChoice(1, level2);
                       return Text(
                         docCount.toString(),
                       );
@@ -127,6 +119,7 @@ class ProfFeedbackScreenState extends State<ProfFeedbackScreen> {
                       int docCount = snapshot.data!.count;
                       level3 = docCount;
                       num.add(level3);
+                      provider.setChoice(2, level3);
                       return Text(
                         docCount.toString(),
                       );
@@ -144,6 +137,7 @@ class ProfFeedbackScreenState extends State<ProfFeedbackScreen> {
                       int docCount = snapshot.data!.count;
                       level4 = docCount;
                       num.add(level4);
+                      provider.setChoice(3, level4);
                       return Text(
                         docCount.toString(),
                       );
@@ -161,6 +155,7 @@ class ProfFeedbackScreenState extends State<ProfFeedbackScreen> {
                       int docCount = snapshot.data!.count;
                       level5 = docCount;
                       num.add(level5);
+                      provider.setChoice(4, level5);
                       return Text(
                         docCount.toString(),
                       );

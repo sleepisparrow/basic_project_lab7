@@ -11,6 +11,11 @@ class ProfFeedbackProvider with ChangeNotifier {
     _feedback.add(value);
   }
 
+  void setChoice(int index, int value) {
+    _choices[index] = value;
+    WidgetsBinding.instance.addPostFrameCallback((_) { notifyListeners(); });
+  }
+
   set choices(List<int> value) {
     _choices = value;
   }
