@@ -83,12 +83,10 @@ class ProfFeedbackScreenState extends State<ProfFeedbackScreen> {
                       int docCount = snapshot.data!.count;
                       level1 = docCount;
                       num.add(level1);
-                      provider.setChoice(0, level1);
-                      return Text(
-                        docCount.toString(),
-                      );
+                      provider.setChoice(0, docCount);
                     }
-                    return CircularProgressIndicator();
+
+                    return Text('');
                   }),
               FutureBuilder<AggregateQuerySnapshot>(
                 ///난이도가 2인 사람의 수
@@ -101,12 +99,10 @@ class ProfFeedbackScreenState extends State<ProfFeedbackScreen> {
                       int docCount = snapshot.data!.count;
                       level2 = docCount;
                       num.add(level2);
-                      provider.setChoice(1, level2);
-                      return Text(
-                        docCount.toString(),
-                      );
+                      provider.setChoice(1, docCount);
                     }
-                    return CircularProgressIndicator();
+
+                    return Text('');
                   }),
               FutureBuilder<AggregateQuerySnapshot>(
                 ///난이도가 3인 사람의 수
@@ -119,12 +115,11 @@ class ProfFeedbackScreenState extends State<ProfFeedbackScreen> {
                       int docCount = snapshot.data!.count;
                       level3 = docCount;
                       num.add(level3);
-                      provider.setChoice(2, level3);
-                      return Text(
-                        docCount.toString(),
-                      );
+                      provider.setChoice(2, docCount);
+
                     }
-                    return CircularProgressIndicator();
+
+                    return Text('');
                   }),
               FutureBuilder<AggregateQuerySnapshot>(
                 ///난이도가 4인 사람의 수
@@ -137,12 +132,9 @@ class ProfFeedbackScreenState extends State<ProfFeedbackScreen> {
                       int docCount = snapshot.data!.count;
                       level4 = docCount;
                       num.add(level4);
-                      provider.setChoice(3, level4);
-                      return Text(
-                        docCount.toString(),
-                      );
+                      provider.setChoice(3, docCount);
                     }
-                    return CircularProgressIndicator();
+                    return Text('');
                   }),
               FutureBuilder<AggregateQuerySnapshot>(
                 ///난이도가 5인 사람의 수
@@ -155,12 +147,9 @@ class ProfFeedbackScreenState extends State<ProfFeedbackScreen> {
                       int docCount = snapshot.data!.count;
                       level5 = docCount;
                       num.add(level5);
-                      provider.setChoice(4, level5);
-                      return Text(
-                        docCount.toString(),
-                      );
+                      provider.setChoice(4, docCount);
                     }
-                    return CircularProgressIndicator();
+                    return Text('');
                   }),
             ],
           ),      ///난이도 수
