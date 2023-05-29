@@ -9,7 +9,7 @@ class QuizProvider extends ChangeNotifier {
       .collection('Quiz')
       .doc('default');
 
-  late bool locked, reseted = false;
+  late bool locked = false, reseted = false;
   late bool myAnswer;
   late int trueCount = 0, falseCount = 0;
 
