@@ -46,7 +46,7 @@ class _StuMainState extends State<StuMain> {
       appBar: AppBar(
         backgroundColor: Colors.blue[900],
         title: Text(
-          '과목명(selectedToggle)',
+          'Project fair',
           style: TextStyle(fontSize: 20),
         ),
         actions: [
